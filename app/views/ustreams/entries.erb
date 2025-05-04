@@ -1,0 +1,52 @@
+<div class="container">
+
+  <div id="bottom-editarea">
+    <p id="pageTop"><a href="#"><i class="fa fa-chevron-up"></i></a></p>
+  </div>
+
+  <div class="ui raised segment">
+    <h1 class="title"><%= raw(@title) %></h1>
+
+    <div class="ui six stackable cards column grid" id="masonry">
+      <% @data.each do |entry| %>
+        <div class="ui card item" style="min-height: 250px; min-width: 150px;">
+          <a class="image" href="/ustreams/<%= entry['id'] %>">
+            <img src=<%= entry['thumbnail'] %> alt=<%= entry['title'] %> />
+          </a>
+          <div class="content">
+            <a class="header" href="/ustreams/<%= entry['id'] %>"><%= entry['title'] %></a>
+          </div>
+          <div class="extra content">
+            <%= "再生回数 #{entry['view_counts'].to_j}回" %> <br />
+            <%= "公開日 #{DateTime.parse(entry['published']).strftime( '%Y/%m/%d' )}" %>
+          </div>
+        </div>
+      <% end %>
+
+      <nav id="page-nav">
+        <%# link_to_next_pageの引数に 'params: params' が必要 %>
+        <%# See https://github.com/amatsuda/kaminari/issues/513#issuecomment-35795809 %>
+        <% if not request.path_info == '/youtubes/new_arrival' %>
+          <% if not @headers['x-next-page'].empty? %>
+            <%= link_to_next_page @data, "", params: params %>
+          <% end %>
+        <% end %>
+      </nav>
+
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="page-load-status">
+      <p class="infinite-scroll-request loader-ellips">
+          <span class="loader-ellips__dot"></span>
+          <span class="loader-ellips__dot"></span>
+          <span class="loader-ellips__dot"></span>
+          <span class="loader-ellips__dot"></span>
+      </p>
+      <p class="infinite-scroll-last"></p>
+      <p class="infinite-scroll-error"></p>
+    </div>
+
+  </div>
+</div>
+

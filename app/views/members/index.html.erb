@@ -1,0 +1,123 @@
+<script type="text/javascript" language="javascript">
+
+    // ブラウザの戻るボタンのみ localStorage の selected_member_idsをクリアしない
+    if (performance.navigation.type == 1) {
+      // ブラウザのreloadボタン
+      console.log( document.referrer );
+      localStorage.removeItem("selected_member_ids");
+    } else {
+      // リンクからのアクセス
+      // ブラウザの戻るボタン
+      console.log( document.referrer );
+      console.info( "This page is not reloaded");
+    }
+
+  var search_member = function () {
+    var data = JSON.parse(localStorage.getItem("selected_member_ids"));
+    console.log(data);
+    data_str = data.join(',');
+    window.location.href = '/members/' + data_str
+  }
+
+  $(function() {
+    $(':checkbox').radiocheck();
+
+    $(':checkbox').on("change.radiocheck", function () {
+      var $this = $(this);
+
+      if ($this[0].checked == true) {
+        // localStorageへpushする
+        if (localStorage.getItem("selected_member_ids")) {
+          var data = JSON.parse(localStorage.getItem("selected_member_ids"));
+          data.push($this[0].value);
+          localStorage.setItem("selected_member_ids", JSON.stringify(data));
+        } else {
+          var data = [$this[0].value];
+          localStorage.setItem("selected_member_ids",JSON.stringify(data));
+        };
+      } else {
+        // localStorageからpopする
+        var data = JSON.parse(localStorage.getItem("selected_member_ids"));
+        var index = data.indexOf($this[0].value);
+        data.splice(index, 1);
+        localStorage.setItem("selected_member_ids",JSON.stringify(data));
+      }
+    });
+
+    // tabs of semantic-ui
+    // https://stackoverflow.com/questions/23195009/semantic-ui-tab-and-javascript
+    $('.menu .item').tab();
+    $(".item").click(function(){
+        $(".active").removeClass("active");
+        $(this).addClass("active");
+        var tab = $(this).attr("data-tab");
+        $(".tab.segment").removeClass("active");
+        $(".tab.segment[data-tab=\"" + tab + "\"]").addClass("active");
+    });
+  });
+
+  $('.ui.basic.modal').modal('show');
+</script>
+
+<div class="container">
+  <div class="ui raised segment">
+    <h1 class="title">メンバー検索</h1>
+
+    <!-- ###################### -->
+    <!-- メンバー絞り込み検索   -->
+    <!-- ###################### -->
+    <div class="container ui segment top">
+      <h2 class="ui large header">
+        <i class="fa fa-tags fa-xs"></i> メンバー絞り込み検索
+        <div class="ui divider"></div>
+      </h2>
+
+      <%# form_tag '/members/', :method => 'get' do %>
+      <form action="/members/refine" class="ui form" method="GET">
+        <div class="ui stackable two column grid field">
+          <% @data['refine_members'].each do |member| %>
+
+            <div class="ui form column">
+              <label class="checkbox">
+                <%# check_box_tag :'refine_members[]', :value => member['id'] %>
+                <input type="checkbox" name="refine_members[]" value=<%= member['id'].to_s %> >
+                <%= member['name'] %>
+              </label>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="field actions">
+          <%# submit_tag "このメンバーの組み合わせで検索", :class => 'ui button refine_members_link' %>
+          <input type='submit' value='このメンバーの組み合わせで検索' class="ui button refine_members_link">
+        </div>
+      <%# end %>
+      </form>
+
+    </div>
+
+    <!-- ###################### -->
+    <!-- 出演メンバー検索       -->
+    <!-- ###################### -->
+    <div class="container ui segment">
+      <h2 class="ui large header">
+        <i class="fa fa-tags fa-xs"></i> 出演メンバー検索
+        <div class="ui divider"></div>
+      </h2>
+
+      <div class="entry_item_link_wrapper">
+        <table class="ui celled striped table appear_member">
+          <tbody>
+            <% @data['refine_members'].each do |member| %>
+              <tr>
+                <td style="width: 100%; height: 100%; border-top: 0; border-bottom: 1px solid #ddd;" class="member_name">
+                  <a href="/members/<%= member['id'].to_s %>"><%= member['name'] %></a>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+
+  </div>
+</div>

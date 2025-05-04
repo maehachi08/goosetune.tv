@@ -1,0 +1,39 @@
+<div class="container">
+  <!-- ###################### -->
+  <!-- ジャンル検索               -->
+  <!-- ###################### -->
+  <div class="ui raised segment">
+    <h1 class="title">
+      ジャンル検索<br />
+      <small><%= @data['genre']['name'] %></small>
+    </h1>
+
+    <div class="ui six stackable cards column grid" id="masonry">
+      <% @data['youtubes'].each do |entry| %>
+          <%= render :partial => 'shared/entry', :locals => {:entry => entry} %>
+      <% end %>
+
+      <nav id="page-nav">
+        <%# link_to_next_pageの引数に 'params: params' が必要 %>
+        <%# See https://github.com/amatsuda/kaminari/issues/513#issuecomment-35795809 %>
+        <% if not @headers['x-next-page'].empty? %>
+          <%= link_to_next_page @data['youtubes'], "", params: params %>
+        <% end %>
+      </nav>
+
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="page-load-status">
+      <p class="infinite-scroll-request loader-ellips">
+          <span class="loader-ellips__dot"></span>
+          <span class="loader-ellips__dot"></span>
+          <span class="loader-ellips__dot"></span>
+          <span class="loader-ellips__dot"></span>
+      </p>
+      <p class="infinite-scroll-last"></p>
+      <p class="infinite-scroll-error"></p>
+    </div>
+
+  </div>
+</div>

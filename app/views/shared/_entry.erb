@@ -1,0 +1,30 @@
+<div class="ui card item" style="min-height: 250px; min-width: 150px;">
+  <% if defined? cover %>
+    <% if cover == 'true' %>
+
+      <%# 年間カバー達 %>
+      <a class="image" href="/youtubes/cover/<%= entry['year'].to_s %>">
+        <img src=<%= entry['thumbnail'] %> alt=<%= entry['title'] %> />
+      </a>
+      <div class="content">
+        <a class="header" href="/youtubes/cover/<%= entry['year'].to_s %>"><%= entry['title'] %></a>
+      </div>
+      <div class="extra content">
+      </div>
+    <% end %>
+
+  <% else %>
+
+    <a class="magnific-popup image" href="https://www.youtube.com/watch?v=<%= entry['id'] %>" >
+      <img src=<%= entry['thumbnail'] %> alt=<%= entry['title'] %> />
+    </a>
+    <div class="content">
+      <a class="header" href="/youtubes/<%= entry['id'] %>"><%= raw(entry['title']) %></a>
+    </div>
+    <div class="extra content">
+      <%= "再生回数 #{entry['view_counts'].to_j}回" %> <br />
+      <%= "公開日 #{DateTime.parse(entry['published']).strftime( '%Y/%m/%d' )}" %>
+    </div>
+
+  <% end %>
+</div>

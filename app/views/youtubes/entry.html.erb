@@ -1,0 +1,278 @@
+<div class="container">
+
+  <!-- ########################### -->
+  <!-- 動画詳細情報を表示          -->
+  <!-- ########################### -->
+  <div class="ui raised segment">
+    <h1 class="title"><%= raw(@title) %></h1>
+
+    <!-- ####################### -->
+    <!-- ### Thumbnail image ### -->
+    <div class="container">
+      <a class="magnific-popup" href="https://www.youtube.com/watch?v=<%= @data['youtube']['id'] %>" >
+
+        <!--
+             ####### YouTube Thumbnail size #######
+               default.jpg　  120x90
+               mqdefault.jpg　320x180
+               hqdefault.jpg　480x360
+               sddefault.jpg　640x480
+               maxresdefault.jpg　1280x720 ~ 1048x576
+        -->
+        <% if url_exist?("https://img.youtube.com/vi/#{@data['youtube']['id']}/maxresdefault.jpg") %>
+          <img class="ui fluid image"
+               src="https://img.youtube.com/vi/<%= @data['youtube']['id'] %>/maxresdefault.jpg"
+               alt="<%= @data['youtube']['thumbnail'] %>" />
+        <% else %>
+          <img class="ui fluid image"
+               src="<%= @data['youtube']['thumbnail'] %>"
+               alt="<%= @data['youtube']['thumbnail'] %>" />
+        <% end %>
+      </a>
+    </div>
+
+
+    <!-- ####################### -->
+    <!-- ### Media link      ### -->
+    <div class="container">
+      <%# ustream もしくは youtube live のアーカイブがある場合 %>
+      <% if @data['ustream'].present? %>
+        <div class="media_link_wrapper_00">
+          <div class="media_link_wrapper_01">
+              <!-- ####################### -->
+              <!-- ### Ustream Link    ### -->
+              <a href="/ustreams/<%= @data['youtube']['ustream_id'] %>">
+                  <div class="media_link_ustream">
+                      <%= @data['ustream']['title'] %> の情報
+                  </div>
+              </a>
+
+              <!-- ### YouTubeを共有 と YuTubeでみる の間のパイプ -->
+              <div class="media_link_half_pipe"></div>
+
+              <!-- ####################### -->
+              <!-- ### YouTube Link    ### -->
+              <a href="<%= @data['youtube']['url'] %>" target="_blank">
+                  <div class="media_link_youtube">YouTubeでみる</div>
+              </a>
+          </div>
+
+          <!-- ### YouTubeを共有 と YuTubeでみる のアンダーバー -->
+          <div class="media_link_border_bottom"></div>
+        </div>
+
+      <% else %>
+
+
+        <div class="media_link_wrapper_00">
+          <div class="media_link_wrapper_01">
+            <!-- ####################### -->
+            <!-- ### YouTube Link    ### -->
+            <a href="<%= @data['youtube']['url'] %>" target="_blank">
+              <div class="media_link_youtube" style="width: 100%;">YouTubeでみる</div>
+            </a>
+          </div>
+          <!-- ### YouTubeを共有 と YuTubeでみる のアンダーバー -->
+          <div class="media_link_border_bottom"></div>
+        </div>
+
+      <% end %>
+
+        <!-- ####################### -->
+        <!-- ### Social Share    ### -->
+        <div class="media_link_wrapper_02">
+          <div class="media_link_share">
+            <div class="ui two buttons stackable">
+                <!-- ####################### -->
+                <!-- ### Facebook        ### -->
+                <a title="facebookでシェアする"
+                   class="ui facebook button large"
+                   href="http://www.facebook.com/share.php?u=http://goosetune.tv<%= request.path_info %>"
+                   onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;">
+                     <i class="facebook icon"></i>
+                     Facebook
+                </a>
+
+                <!-- ####################### -->
+                <!-- ### Twitter         ### -->
+                <a title="twitterでツイートする" class="ui twitter button large"
+                   href="https://twitter.com/share?url=http://goosetune.tv<%= request.path_info %>&amp;text=Goosehouse%e5%8b%95%e7%94%bb%e3%82%92%e6%a4%9c%e7%b4%a2%e3%81%a7%e3%81%8d%e3%82%8b%e3%81%be%e3%81%a8%e3%82%81%20GoosetuneTV<%= "%0d%0a#{raw(@data['youtube']['title'])}" %>%0d"
+                   onclick="window.open(this.href, 'tweetwindow', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;">
+                     <i class="twitter icon"></i>
+                     Twitter
+                </a>
+            </div>
+          </div>
+        </div>
+
+    </div><!-- end of Media link -->
+
+
+    <!-- ####################### -->
+    <!-- ### YouTube info    ### -->
+    <div class="container">
+      <div class="media_info_wrapper_01">
+          <!-- ####################### -->
+          <!-- ### title / memo    ### -->
+          <div class="media_info_title"><%= raw(@data['youtube']['title']) %></div>
+          <% if not @data['youtube']['memo'].blank? %>
+              <div class="media_info_memo">
+                <i class="fas fa-sticky-note"></i> <%= simple_format(@data['youtube']['memo']) %>
+              </div>
+          <% end %>
+
+          <!-- ####################### -->
+          <!-- ### Original Artist ### -->
+          <ul class="entry_item clearfix">
+              <div class="media_info_member_title">オリジナルのアーティスト</div>
+              <% @data['artist'].each do |key, artist| %>
+                  <a href="/artists/<%= artist['id'].to_s %>">
+                    <li class="entry_item">
+                        <div class="entry_item_name"><%= artist['name'] %></div>
+                    </li>
+                  </a>
+              <% end %>
+          </ul>
+        </div>
+      </div><!-- end of YouTube info -->
+
+
+    <!-- ####################### -->
+    <!-- ### Member info    ### -->
+    <% if not @data['member'].empty? %>
+      <div class="container">
+          <div class="entry_item_link_wrapper clearfix" ng-controller="MemberTopController">
+              <ul class="entry_item clearfix">
+                  <div class="media_info_member_title">演奏メンバー</div>
+                  <% @data['member'].each do |name, member| %>
+                    <a href="/members/<%= member['id'].to_s %>">
+                      <li class="entry_item">
+                          <div class="entry_item_name"><%= name %></div>
+                      </li>
+                    </a>
+                  <% end %>
+              </ul>
+
+              <a href="/members/refine/<%= @member_ids %>">
+                <div class="these_members_link clearfix">
+                  このメンバーの組み合わせで検索
+                </div>
+              </a>
+          </div>
+      </div><!-- end of Member info -->
+    <% end %>
+
+
+    <!-- ################################## -->
+    <!-- ### Musical Instrument info    ### -->
+    <% if not @data['musical_instruments'].empty? %>
+        <div class="container">
+            <div class="entry_item_link_wrapper clearfix">
+                <ul class="entry_item clearfix">
+                    <div class="media_info_member_title">楽器</div>
+                    <% @data['musical_instruments'].each do |musical_instrument| %>
+                      <a href="/musical_instruments/<%= musical_instrument['id'].to_s %>">
+                        <li class="entry_item">
+                            <div class="entry_item_name">
+                                <%= musical_instrument['name'] %>
+                            </div>
+                        </li>
+                      </a>
+                    <% end %>
+                </ul>
+            </div>
+        </div><!-- end of Musical Instrument info -->
+    <% end %>
+
+
+    <!-- ################################## -->
+    <!-- ### Genres info                ### -->
+    <% if not @data['genres'].empty? %>
+        <div class="container">
+            <div class="entry_item_link_wrapper clearfix">
+                <ul class="entry_item clearfix">
+                    <div class="media_info_member_title">ジャンル</div>
+                    <% @data['genres'].each do |genres| %>
+                      <a href="/genres/<%= genres['id'].to_s %>">
+                        <li class="entry_item">
+                            <div class="entry_item_name">
+                                <%= genres['name'] %>
+                            </div>
+                        </li>
+                      </a>
+                    <% end %>
+                </ul>
+            </div>
+        </div><!-- end of genres info -->
+    <% end %>
+
+
+    <!-- ####################### -->
+    <!-- ### Entry info    ### -->
+    <div class="container">
+        <div class="entry_item_link_wrapper clearfix">
+            <ul class="entry_item clearfix">
+                <div class="media_info_member_title">動画情報</div>
+                <div class="alt-table-responsive" style="">
+                    <table class="table ui">
+                        <tbody>
+                            <tr>
+                                <td class="name">タイトル</td>
+                                <td class="value aligned left"><%= raw(@data['youtube']['title']) %></td>
+                            </tr>
+                            <tr>
+                                <td class="name">公開日</td>
+                                <td class="value aligned left"><%= DateTime.parse(@data['youtube']['published']).strftime( '%Y/%m/%d' ) %></td>
+                            </tr>
+                            <% if not @data['youtube']['release_at'].nil? %>
+                                <tr>
+                                    <td class="name">原曲のリリース日</td>
+                                    <td class="value aligned left"><%= DateTime.parse(@data['youtube']['release_at']).strftime( '%Y/%m/%d' ) %></td>
+                                </tr>
+                            <% end %>
+                            <% if not @data['youtube']['memo'].blank? %>
+                                <tr>
+                                    <td class="name">メモ</td>
+                                    <td class="value aligned left"><%= simple_format(@data['youtube']['memo']) %></td>
+                                </tr>
+                            <% end %>
+                            <tr>
+                                <td class="name">再生回数</td>
+                                <td class="value aligned left"><%= @data['youtube']['view_counts'].to_j %>回</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ul>
+        </div>
+    </div><!-- end of Entry info -->
+
+
+    <!-- ####################### -->
+    <!-- ### Entry info      ### -->
+    <% if not @data['relation'].empty? %>
+      <div class="container">
+        <div class="entry_item_link_wrapper clearfix" style="border-top: none; padding-top: 50px;">
+          <div class="media_info_member_title"
+               style="margin-bottom: 2rem; border-bottom: 1px solid #dee2e6;">
+            関連するYouTube動画
+          </div>
+          <div class="ui six stackable cards column grid" id="masonry">
+            <% @data['relation'].each do |entry| %>
+              <div class="ui card item" style="min-height: 250px; min-width: 150px;">
+                  <a class="image" href="/youtubes/<%= entry['id'] %>">
+                      <img src=<%= entry['thumbnail'] %> alt=<%= entry['title'] %> />
+                  </a>
+                  <div class="content">
+                      <a class="header" href="/youtubes/<%= entry['id'] %>"><%= entry['title'] %></a>
+                  </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div><!-- end of Entry info -->
+    <% end %>
+
+  </div>
+</div>
+

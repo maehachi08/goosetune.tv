@@ -1,0 +1,290 @@
+div.entry_item_link_wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  margin-bottom: 20px;
+  border-top: solid 1px #e8e5e5;
+}
+
+ul.entry_item {
+    padding: 0px 20px 0px 20px;
+    margin: 0 auto;
+}
+
+li.entry_item {
+  position: relative;
+  margin: 2px;
+  margin-bottom: 10px;
+  float: left;
+  max-width: 100%;
+  min-width: 48%;
+  height: 30px;
+}
+
+div.entry_item_name {
+    position: relative;
+    padding: 0 5px;
+    height: 30px;
+    font-size: 10px;
+    line-height: 30px;
+    text-decoration:none;
+    display:block;
+    text-align:center;
+    color: #333;
+    background-color:#E1E3D8;
+    border-radius: 25px;
+}
+
+div.these_members_link {
+    margin: 0 auto;
+    width: 80%;
+    height: 30px;
+    font-size: 10px;
+    line-height: 30px;
+    text-decoration:none;
+    display:block;
+    text-align:center;
+    /*color: #333;*/
+    color: #FF4500;
+    /*background-color:#49a9d4;*/
+    background-color:#E1E3D8;
+    border-radius: 25px;
+}
+
+div.media_info_member_title {
+  position: relative;
+  text-align: left;
+  padding: 10px 0px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+table th {
+  line-height: -40px;
+  height: 40px;
+  width: 100%;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+table td {
+  height: 30px;
+  width: 100%;
+  font-size: 10px;
+}
+
+table td.name {
+  width: 45% !important;
+  text-align: left;
+}
+
+table td.member_name {
+  width: 48% !important;
+  height: 50px;
+  text-align: left;
+  vertical-align: middle !important;
+  font-size: medium;
+}
+
+table td.member_name a:link,
+table td.member_name a:visited,
+table td.member_name a:hover,
+table td.member_name a:active {
+  color: #212529;
+}
+
+/* アーティスト検索のインデックス */
+table td.index_item {
+  width: 100% !important;
+  height: 50px;
+  text-align: left;
+  vertical-align: middle !important;
+}
+
+table td.index_item:after {
+  font-family: FontAwesome;
+  content: "\f105";
+  text-align: right;
+  font-size: 2em;
+  width: 200%;
+  right: 10px;
+  line-height: 90%;
+  position: absolute;
+}
+
+table td.value {
+  width: 55% !important;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.entry_youtube_view_counts {
+  position: relative;
+  text-align: left;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  color: #D7C4BB !important;
+}
+
+div.media_info_wrapper {
+  position: relative;
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+  width: 100%;
+  height: 100%;
+  border-bottom: solid 1px #e8e5e5;
+}
+
+div.media_info_title {
+  position: relative;
+  text-align: left;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  color: #333;
+}
+
+div.media_info_memo {
+  position: relative;
+  text-align: left;
+  padding: 10px 20px;
+  font-size: 1.0rem;
+  color: #333;
+}
+
+div.media_info_view_counts,
+div.media_info_published {
+  position: relative;
+  text-align: left;
+  padding: 10px 20px;
+  font-size: 1.1rem;
+  /*color: #D7C4BB !important;*/
+}
+
+div.media_link_wrapper_00 {
+  text-align: center;
+  width: 100%;
+  height: 100px;
+  background-color: #F5F5F5;
+  color: #333 !important;
+}
+
+div.media_link_wrapper_01 {
+  position: relative;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  background-color: #F5F5F5;
+  color: #333 !important;
+}
+
+div.media_link_wrapper_01 a {
+  color: #333;
+}
+
+div.media_link_wrapper_02 {
+  position: relative;
+  text-align: -webkit-center;
+  margin: 0 auto;
+  padding-bottom: 10px;
+  width: 100%;
+  height: 100%;
+  border-bottom: solid 1px #e8e5e5;
+  background-color: #F5F5F5;
+  color: #333 !important;
+}
+
+div.media_link_border_bottom {
+  position: relative;
+  width: 95%;
+  margin: 0 auto;
+  border-bottom: solid 3px #e8e5e5;
+  z-index: 100;
+}
+
+div.media_link_share {
+  position: relative;
+  padding-top: 10px;
+  text-align: center;
+  width: 80%;
+  height: 100%;
+  /* float: left; */
+  color: #333 !important;
+
+  /*
+  background-image: url("../images/share_logo.png");
+  background-repeat: no-repeat;
+  background-position: 50% 30%; /* 水平方向: 50%, 垂直方向: 30% */
+}
+
+div.media_link_youtube {
+  position: relative;
+  padding-top: 60px;
+  text-align: center;
+  line-height:2px;
+  color: #333;
+  width: 47%;
+  height: 100%;
+  float: right;
+  background-image: url("../images/youtube_red_logo.png");
+  background-repeat: no-repeat;
+  background-position: 50% 30%; /* 水平方向: 50%, 垂直方向: 30% */
+}
+
+div.media_link_ustream_02 {
+  position: relative;
+  text-align: center;
+  line-height:100px;
+  width: 47%;
+  height: 100%;
+  float: right;
+  color: #333 !important;
+  background-image: url("../images/ustream_blue_log.png");
+  background-repeat: no-repeat;
+  background-position: 50% 30%; /* 水平方向: 50%, 垂直方向: 30% */
+}
+
+div.media_link_half_pipe {
+  position: relative;
+  margin-top: 10px;
+  bottom: 5px;
+  text-align: center;
+  line-height:100px;
+  border-right: solid 3px #e8e5e5;
+  width: 3%;
+  height: 85%;
+  float: left;
+}
+
+div.media_link_ustream {
+  word-wrap: break-word;
+  word-break: normal;
+  position: relative;
+  text-align: center;
+  line-height: 20px;
+  padding-top: 60px;
+  width: 47%;
+  height: 100%;
+  float: left;
+  background-image: url("../images/ustream_blue_log.png");
+  background-repeat: no-repeat;
+  background-position: 50% 30%; /* 水平方向: 50%, 垂直方向: 30% */
+}
+
+div.media_link_ustream_description {
+  position: relative;
+  padding-left: 10%;
+  padding-right: 5%;
+  text-align: center;
+  line-height: 10px;
+  width: 100%;
+  height: 100%;
+}
+
+div.media_link_ustream p {
+  position: relative;
+  top: 30px;
+  width: 100%;
+  height: 100%;
+  font-size: 0.2rem;
+  color: #FF4500;
+}

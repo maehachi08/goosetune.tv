@@ -1,0 +1,127 @@
+<div class="container">
+
+  <!-- ########################### -->
+  <!-- 動画詳細情報を表示          -->
+  <!-- ########################### -->
+  <div class="ui raised segment">
+
+    <!-- ####################### -->
+    <!-- ### Thumbnail image ### -->
+    <div class="container">
+      <a class="magnific-popup" href="<%= @data['ustream']['url'] %>" >
+
+        <!--
+             ####### YouTube Thumbnail size #######
+               default.jpg　  120x90
+               mqdefault.jpg　320x180
+               hqdefault.jpg　480x360
+               sddefault.jpg　640x480
+               maxresdefault.jpg　1280x720 ~ 1048x576
+        -->
+        <img class="ui fluid image"
+             src="<%= @data['ustream']['thumbnail'] %>"
+             alt="<%= @data['ustream']['thumbnail'] %>" />
+      </a>
+    </div>
+
+
+    <!-- ####################### -->
+    <!-- ### Media link      ### -->
+    <div class="container">
+
+      <div class="media_link_wrapper_00">
+        <div class="media_link_wrapper_02">
+          <!-- ####################### -->
+          <!-- ### Ustream Link    ### -->
+          <a href="<%= @data['ustream']['url'] %>" target="_blank">
+            <div class="media_link_ustream" style="width: 100%; padding-top: 50px;">Ustreamでみる</div>
+          </a>
+        </div>
+      </div>
+
+        <!-- ####################### -->
+        <!-- ### Social Share    ### -->
+        <div class="media_link_wrapper_02">
+          <div class="media_link_share">
+            <div class="ui two buttons stackable">
+                <!-- ####################### -->
+                <!-- ### Facebook        ### -->
+                <a title="facebookでシェアする"
+                   class="ui facebook button large"
+                   href="http://www.facebook.com/share.php?u=http://goosetune.tv<%= request.path_info %>"
+                   onclick="window.open(this.href, 'FBwindow', 'width=650, height=450, menubar=no, toolbar=no, scrollbars=yes'); return false;">
+                     <i class="facebook icon"></i>
+                     Facebook
+                </a>
+
+                <!-- ####################### -->
+                <!-- ### Twitter         ### -->
+                <a title="twitterでツイートする" class="ui twitter button large"
+                                                 href="https://twitter.com/share?url=http://goosetune.tv<%= request.path_info %>&amp;text=Goosehouse%e5%8b%95%e7%94%bb%e3%82%92%e6%a4%9c%e7%b4%a2%e3%81%a7%e3%81%8d%e3%82%8b%e3%81%be%e3%81%a8%e3%82%81%20GoosetuneTV<%= "%0d%0a#{@data['ustream']['title'].gsub(/#/,'＃')}" %>%0d"
+                   onclick="window.open(this.href, 'tweetwindow', 'width=550, height=450,personalbar=0,toolbar=0,scrollbars=1,resizable=1'); return false;">
+                     <i class="twitter icon"></i>
+                     Twitter
+                </a>
+            </div>
+          </div>
+        </div>
+
+    </div>
+
+
+    <!-- ####################### -->
+    <!-- ### Entry info    ### -->
+    <div class="container">
+        <div class="entry_item_link_wrapper clearfix" style="border-top: none; padding-top: 50px;">
+            <ul class="entry_item clearfix">
+                <div class="media_info_member_title">動画情報</div>
+                <div class="alt-table-responsive" style="">
+                    <table class="table">
+                        <tbody>
+                            <tr>
+                                <td class="name">タイトル</td>
+                                <td class="value aligned left"><%= @data['ustream']['title'] %></td>
+                            </tr>
+                            <tr>
+                                <td class="name">公開日</td>
+                                <td class="value aligned left"><%= DateTime.parse(@data['ustream']['published']).strftime( '%Y/%m/%d' ) %></td>
+                            </tr>
+                            <tr>
+                                <td class="name">再生回数</td>
+                                <td class="value aligned left"><%= @data['ustream']['view_counts'] %></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </ul>
+        </div>
+    </div><!-- end of Entry info -->
+
+
+    <!-- ####################### -->
+    <!-- ### Entry info      ### -->
+    <% if not @data['youtubes'].empty? %>
+        <div class="container">
+          <div class="entry_item_link_wrapper clearfix" style="border-top: none; padding-top: 50px;">
+            <div class="media_info_member_title"
+                 style="margin-bottom: 2rem; border-bottom: 1px solid #dee2e6;">
+              関連するYouTube動画
+            </div>
+            <div class="ui six stackable cards column grid clearfix" id="masonry">
+                <% @data['youtubes'].each do |entry| %>
+                    <div class="ui card item" style="min-height: 250px; min-width: 150px;">
+                        <a class="image" href="/youtubes/<%= entry['id'] %>">
+                            <img src=<%= entry['thumbnail'] %> alt=<%= entry['title'] %> />
+                        </a>
+                        <div class="content">
+                            <a class="header" href="/youtubes/<%= entry['id'] %>"><%= entry['title'] %></a>
+                        </div>
+                    </div>
+                <% end %>
+            </div>
+          </div>
+        </div><!-- end of Entry info -->
+    <% end %>
+
+  </div>
+</div>

@@ -1,0 +1,23 @@
+<div class="container">
+
+  <!-- ###################### -->
+  <!-- 楽器検索               -->
+  <!-- ###################### -->
+  <div class="ui raised segment">
+    <h1 class="title">楽器検索</h1>
+
+    <div class="ui six stackable cards column grid" id="masonry">
+      <% @data['musical_instruments']['entry'].each do |entry| %>
+        <div class="ui card item" style="min-height: 250px; min-width: 150px;">
+          <a class="image" href="/musical_instruments/<%= entry['id'].to_s %>">
+            <img src=<%= entry['thumbnail'] %> alt=<%= entry['name'] %> />
+          </a>
+          <div class="content">
+            <a class="header" href="/musical_instruments/<%= entry['id'].to_s %>"><%= entry['name'] %></a>
+          </div>
+        </div>
+      <% end %>
+    </div>
+
+  </div>
+</div>

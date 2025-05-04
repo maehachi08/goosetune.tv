@@ -1,0 +1,38 @@
+<div class="container">
+
+  <!-- ###################### -->
+  <!-- 楽器検索               -->
+  <!-- ###################### -->
+  <div class="ui raised segment">
+    <h1 class="title">演奏者検索
+      <br />
+      <small>
+        <%= @data['musical_instrument']['name'] %>
+      </small>
+    </h1>
+
+    <div class="ui six stackable cards column grid" id="masonry">
+
+      <% @data['players_info'].each do |player_info| %>
+        <% player = player_info['player'] %>
+        <% entry = player_info['youtube'] %>
+
+        <div class="ui card item" style="min-height: 250px; min-width: 150px;">
+
+          <a class="image" href="/musical_instruments/<%= @data['musical_instrument']['id'].to_s %>/player/<%= player['id'].to_s %>">
+            <%= image_tag entry['thumbnail'], :alt => entry['title'] %>
+          </a>
+
+          <div class="content">
+            <a class="header" href="/musical_instruments/<%= @data['musical_instrument']['id'].to_s %>/player/<%= player['id'].to_s %>">
+              <%= "#{@data['musical_instrument']['name']}(#{player['name']})" %>
+            </a>
+          </div>
+        </div>
+
+      <% end %>
+
+    </div>
+
+  </div>
+</div>

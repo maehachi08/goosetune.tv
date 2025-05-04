@@ -1,0 +1,43 @@
+<% @data.keys.each do |key| %>
+
+  <div class="container ui segment top">
+    <h2 class="ui large header">
+      <i class="fa fa-tags fa-xs"></i>
+      <a href="<%= @data[key]['route'] %>"> <%= key %></a>
+      <div class="ui divider"></div>
+    </h2>
+
+    <div class="ui six stackable cards column grid" id="masonry">
+      <% if @data[key]['title'] == 'hoy_ustream' %>
+
+        <%# HOYエントリは yearキーが入る %>
+        <% @data[key]['entry'].keys.each do |year| %>
+          <% entry = @data[key]['entry'][year] %>
+          <div class="ui card item" style="min-height: 250px; min-width: 150px;">
+            <a class="image" href=/ustreams/<%= entry['id'] %>>
+              <img src=<%= entry['thumbnail'] %> alt=<%= entry['title'] %> />
+            </a>
+            <div class="content">
+              <a class="header" href="/ustreams/<%= entry['id'] %>"><%= entry['title'] %></a>
+            </div>
+          </div>
+        <% end %>
+
+      <% else %>
+
+        <% @data[key]['entry'].each do |entry| %>
+          <div class="ui card item" style="min-height: 250px; min-width: 150px;">
+            <a class="image" href=/ustreams/<%= entry['id'] %>>
+              <img src=<%= entry['thumbnail'] %> alt=<%= entry['title'] %> />
+            </a>
+            <div class="content">
+              <a class="header" href="/ustreams/<%= entry['id'] %>"><%= entry['title'] %></a>
+            </div>
+          </div>
+        <% end %>
+
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
