@@ -1,0 +1,64 @@
+<%= render :partial => 'refine_modal', :locals => {:data => @data} %>
+
+<div class="container">
+  <div class="ui raised segment">
+    <h1 class="title">
+      メンバー絞り込み検索
+
+      <br>
+      <% @data['refine_members'].each do |member| %>
+        <small><%= member['name'] %></small>
+      <% end %>
+
+      <!--
+      <button type="button"
+              id="refine_members_research"
+              data-toggle="modal"
+              data-target="#refine_search_modal"
+              class="btn btn-sm refine_members_link">
+      -->
+      <button type="button"
+              id="refine_members_research"
+              class="btn btn-sm refine_members_link">
+        絞り込むメンバーを変更する
+      </button>
+
+    </h1>
+
+    <% if @data['youtubes'].empty? %>
+      <div class="ui message warning">
+        <div class="header">
+          検索した組み合わせのメンバーで演奏した動画は見つかりませんでした
+        </div>
+      </div>
+    <% end %>
+
+    <div class="ui six stackable cards column grid" id="masonry">
+      <% @data['youtubes'].each do |entry| %>
+        <%= render :partial => 'shared/entry', :locals => {:entry => entry} %>
+      <% end %>
+
+      <nav id="page-nav">
+        <%# link_to_next_pageの引数に 'params: params' が必要 %>
+        <%# See https://github.com/amatsuda/kaminari/issues/513#issuecomment-35795809 %>
+        <% if not @headers['x-next-page'].empty? %>
+          <%= link_to_next_page @data['youtubes'], "", params: params %>
+        <% end %>
+      </nav>
+
+      <div class="clearfix"></div>
+    </div>
+
+    <div class="page-load-status">
+      <p class="infinite-scroll-request loader-ellips">
+          <span class="loader-ellips__dot"></span>
+          <span class="loader-ellips__dot"></span>
+          <span class="loader-ellips__dot"></span>
+          <span class="loader-ellips__dot"></span>
+      </p>
+      <p class="infinite-scroll-last"></p>
+      <p class="infinite-scroll-error"></p>
+    </div>
+
+  </div>
+</div>

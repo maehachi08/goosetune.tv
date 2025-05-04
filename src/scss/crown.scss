@@ -1,0 +1,49 @@
+ol.ranking {
+  padding: initial;
+  list-style-type: decimal;
+
+  li {
+    position: relative;
+    margin: 35px 0;
+    float: left;
+    width: 100%;
+    counter-increment: ranking-counter 1;
+
+    h3 {
+      display: table-cell;
+      vertical-align: middle;
+      color: #563F2E !important;
+    }
+
+    h3::before {
+      font-size: 65%;
+      content: "第" counter( ranking-counter ) "位";
+      margin-right: 1em;
+    }
+
+    div.crown {
+      position: relative;
+      display: block;
+      float: left;
+      width: 0px;
+      height: 0px;
+      margin-right: 20px;
+      border-bottom: 35px solid #BFA930;
+      border-left: 20px solid transparent;
+      border-right: 20px solid transparent;
+    }
+
+    div.crown:after {
+      position: absolute;
+      width: 0px;
+      height: 0px;
+      border-top: 15px solid transparent;
+      border-bottom: 20px solid #FFE973;
+      border-left: 20px solid #FFE973;
+      border-right: 20px solid #FFD700;
+      content: "";
+      top: 0px;
+      left: -20px;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+@media only screen and (max-width: 767px) {
+  div.media_link_wrapper_02 {
+    margin-bottom: 50px;
+  }
+
+  .ui.stackable.buttons{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .ui.stackable.buttons > .button{
+    width: 100%;
+  }
+}
+

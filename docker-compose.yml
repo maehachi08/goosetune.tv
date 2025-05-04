@@ -1,0 +1,41 @@
+version: "3.9"
+services:
+  app:
+    build:
+      context: .
+      target: build
+    container_name: goosetunetv
+    restart: always
+    volumes:
+      - .:/app:cached
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      - DATABASE_HOST="db"
+    env_file:
+      - .env
+    command: bash -c "sleep 60 && bundle exec puma -C config/puma.rb -b tcp://0.0.0.0 -p 3000"
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 500M
+  db:
+    image: "mysql:latest"
+    container_name: goosetunetv-mysql
+    restart: always
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_GOOSETUNETV_PASSWORD: ${MYSQL_GOOSETUNETV_PASSWORD}
+      MYSQL_DATABASE: goosetunetv_development
+    volumes:
+      - ./initdb.d/:/docker-entrypoint-initdb.d
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 500M

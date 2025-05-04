@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>GoosetuneTV</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= display_meta_tags({
+    # title and site are attached, and it's indicated as a title tag.
+    #   - site + separator + title
+    :separator   => "",
+    # title and site are attached reversely.
+    #   - title + separator + site
+    #   - true/false
+    :reverse     => "",
+    # page title
+    :title       =>  ('GoosetuneTV'),
+    :site        => "",
+    # called meta tags as they are not displayed by the browsers as that of titles.
+    #   - Important for SEO
+    :description => 'Goosehouse動画を検索できるまとめ - GoosetuneTV -',
+    # not important for seo, because search engine have not referances keyword meta tags
+    :keyword     => 'goosehouse Goosehouse',
+    # CSS Device Adaptation
+    :viewport    => "width=device-width,
+                     maximum-scale=1.0,
+                     minimum-scale=0.5,
+                     user-scalable=yes,
+                     initial-scale=1.0"
+  }) %>
+
+  <!-- oepn graph protocol -->
+  <!-- refs http://html-five.jp/84/ -->
+  <meta property="og:title"       content="Goosehouse動画を検索できるまとめ - GoosetuneTV -"/>
+  <meta property="og:description" content="色んな方法でGoosehouse動画を検索できるまとめサイトです"/>
+  <meta property="og:image"       content="http://goosetune.tv/images/goosehouse_goods.jpg"/>
+  <meta property="og:url"         content="http://goosetune.tv/"/>
+  <meta property="og:type"        content="song"/>
+  <meta property="og:site_name"   content="Goosehouse動画を検索できるまとめ - GoosetuneTV -"/>
+
+  <script src="/jquery.min.js"></script>
+
+  <script src="/bundle.js" async></script>
+  <script src="/stuff.js" async></script>
+
+
+  <!-- font-awesome -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css"
+                         integrity="sha384-+d0P83n9kaQMCwj8F4RJB66tzIwOKmrdb46+porD/OvrJ+37WqIM7UoBtwHO6Nlg" crossorigin="anonymous">
+
+
+  <!-- flat-ui 2.2.2 -->
+  <!-- I want to use checkbox however removed it 2.2.3 or later. -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.2.2/css/flat-ui.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.2.2/js/flat-ui.min.js"></script>
+
+
+  <!-- semanbtic-ui-css -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js" integrity="sha512-Xo0Jh8MsOn72LGV8kU5LsclG7SUzJsWGhXbWcYs2MAmChkQzwiW/yTQwdJ8w6UA9C6EVG18GHb/TrYpYCjyAQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css" integrity="sha512-KXol4x3sVoO+8ZsWPFI/r5KBVB/ssCGB5tsv2nVOKwLg33wTFP3fmnXa47FdSVIshVTgsYk/1734xSk9aFIa4A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <script>
+      // webpackでbundleすると正常動作しないので外出ししている
+      $(document).ready(function() {
+          $('select.dropdown').dropdown();
+          $('#refine_members_research').on('click', function() {
+              $('#refine_search_modal').modal('show');
+          });
+          $('#js-sidebar').click(function() {
+            $('.ui.sidebar').sidebar('toggle');
+          });
+        $('.ui.dropdown').dropdown();
+
+    $('.ui.sidebar').sidebar({
+      context: $('body'),
+      transition: 'overlay',
+      dimPage: true
+    });
+
+          $('.ui.accordion').accordion();
+      });
+  </script>
+  <link rel="stylesheet" href="/index.css" />
+
+</head>
+<body>
+
+  <!-- Navigation -->
+  <div class="ui sidebar inverted vertical menu" style="width: 400px !important;">
+
+    <div class="item"><a href="/">トップ</a></div>
+    <div class="item">
+      <div class="ui search">
+        <div class="ui icon input">
+          <form action="/youtubes/keyword" accept-charset="UTF-8" method="get">
+            <input name="utf8" type="hidden" value="✓">
+            <input name="search[keyword]" placeholder="Keyword..." type="search" autocomplete="off" class="prompt">
+            <i class="search icon"></i>
+          </form>
+        </div>
+        <div class="results"></div>
+      </div>
+    </div>
+
+
+    <div class="item">
+      <div class="ui accordion inverted">
+        <div class="title">
+          YouTubeアップロード月検索
+          <i class="dropdown icon"></i>
+        </div>
+        <div class="content">
+          <div class="menu">
+            <form class="ui form" action="/youtubes/_upload_month" accept-charset="UTF-8" method="get">
+              <input name="utf8" type="hidden" value="✓">
+
+              <div class="ui raised segments">
+
+                <div class="ui horizontal segment segments">
+                  <select id="youtube_published_1i" name="youtube[published][year]" class="ui dropdown fluid">
+                    <% (@common['select_form_of_upload_month']['first_entry_year']..
+                        @common['select_form_of_upload_month']['latest_entry_year']).each do |year| %>
+                      <option value="<%= year %>"><%= year %> 年</option>
+                    <% end %>
+                  </select>
+                  <select id="youtube_puAblished_2i" name="youtube[published][month]" class="ui dropdown fluid">
+                    <option value="1">1 月</option>
+                    <option value="2">2 月</option>
+                    <option value="3">3 月</option>
+                    <option value="4">4 月</option>
+                    <option value="5">5 月</option>
+                    <option value="6">6 月</option>
+                    <option value="7" selected="selected" >7 月</option>
+                    <option value="8">8 月</option>
+                    <option value="9">9 月</option>
+                    <option value="10">10 月</option>
+                    <option value="11">11 月</option>
+                    <option value="12">12 月</option>
+                  </select>
+                </div>
+
+                <div class="ui segment field" style="background-color: unset; border: none;">
+                  <input type="hidden" id="youtube_published_3i" name="youtube[published(3i)]" value="1">
+                  <button type="submit" class="ui button refine_members_link" tabindex="0">検索</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="ui accordion inverted">
+        <div class="title">
+          Ustream放送検索
+          <i class="dropdown icon"></i>
+        </div>
+        <div class="content">
+          <div class="menu">
+            <form class="ui form" action="/ustreams/_published" accept-charset="UTF-8" method="get">
+              <input name="utf8" type="hidden" value="✓">
+
+              <div class="ui raised segments">
+                <div class="ui horizontal segment segments">
+                  <div class="ui segment field" style="padding: 0;">
+                    <select name="ustreams[id]" id="ustream_id" class="ui dropdown field">
+                      <% @common['select_form_of_ustream'].each do |entry| %>
+                        <option value="<%= entry['id'] %>"><%= entry['title'] %></option>
+                      <% end %>
+                    </select>
+                  </div>
+                </div>
+                <div class="ui segment field" style="background-color: unset;">
+                  <button type="submit" class="ui button refine_members_link" tabindex="0">検索</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="ui accordion inverted">
+        <div class="title">
+          YouTubeLive検索
+          <i class="dropdown icon"></i>
+        </div>
+        <div class="content">
+          <div class="menu">
+            <form class="ui form" action="/youtubes/_live" accept-charset="UTF-8" method="get">
+              <input name="utf8" type="hidden" value="✓">
+
+              <div class="ui raised segments">
+                <div class="ui horizontal segment segments">
+                  <select name="youtube[id]" id="youtube_id" class="ui dropdown fluid">
+                    <% @common['select_form_of_youtube_live'].each do |entry| %>
+                      <option value="<%= entry['id'] %>"><%= entry['title'] %></option>
+                    <% end %>
+                  </select>
+                </div>
+                <div class="ui segment field" style="background-color: unset;">
+                  <button type="submit" class="ui button refine_members_link" tabindex="0">検索</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="ui accordion inverted">
+        <div class="title">
+          YouTube検索
+          <i class="dropdown icon"></i>
+        </div>
+        <div class="content">
+          <div class="menu">
+            <a class="item" href="/youtubes">YouTube検索トップ</a>
+            <a class="item" href="/youtubes/new_arrival">新着動画</a>
+            <a class="item" href="/youtubes/view_counts">再生回数の多い順</a>
+            <a class="item" href="/youtubes/desc">すべての動画(新しい順)</a>
+            <a class="item" href="/youtubes/asc">すべての動画(古い順)</a>
+            <a class="item" href="/youtubes/sing">Singを集めてみました</a>
+            <a class="item" href="/youtubes/playyouhouse">タイトルが曲名ではなく'Play You. House'</a>
+            <a class="item" href="/youtubes/release_at/year">原曲のリリース年から検索</a>
+            <a class="item" href="/youtubes/release_at/years">原曲のリリース年代から検索</a>
+            <a class="item" href="/youtubes/today/<%= Date.today.strftime("%Y/%m/%d") %>">今日のGoosehouse</a>
+            <a class="item" href="/youtubes/hoy">HOY (House Of the Year)</a>
+            <div class="item">
+              <div class="content">
+                <div class="menu">
+                  <a class="item" href="/youtubes/hoy/2011">2011年のHOY</a>
+                  <a class="item" href="/youtubes/hoy/2012">2012年のHOY</a>
+                  <a class="item" href="/youtubes/hoy/2013">2013年のHOY</a>
+                  <a class="item" href="/youtubes/hoy/2014">2014年のHOY</a>
+                  <a class="item" href="/youtubes/hoy/2015">2015年のHOY</a>
+                  <a class="item" href="/youtubes/hoy/2016">2016年のHOY</a>
+                </div>
+              </div>
+            </div>
+            <a class="item" href="/youtubes/cover">年間のカバー達</a>
+            <div class="item">
+              <div class="content">
+                <div class="menu">
+                  <a class="item" href="/youtubes/cover/2010">2010年のカバー達</a>
+                  <a class="item" href="/youtubes/cover/2011">2011年のカバー達</a>
+                  <a class="item" href="/youtubes/cover/2012">2012年のカバー達</a>
+                  <a class="item" href="/youtubes/cover/2013">2013年のカバー達</a>
+                  <a class="item" href="/youtubes/cover/2014">2014年のカバー達</a>
+                  <a class="item" href="/youtubes/cover/2015">2015年のカバー達</a>
+                  <a class="item" href="/youtubes/cover/2016">2016年のカバー達</a>
+                  <a class="item" href="/youtubes/cover/2017">2017年のカバー達</a>
+                  <a class="item" href="/youtubes/cover/2018">2018年のカバー達</a>
+                  <a class="item" href="/youtubes/cover/2019">2019年のカバー達</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div class="item">
+      <div class="ui accordion inverted">
+        <div class="title">
+          メンバー検索
+          <i class="dropdown icon"></i>
+        </div>
+        <div class="content">
+          <div class="menu">
+            <a class="item" href="/members">メンバー絞り込み検索</a>
+            <div class="item">その時代の全員曲</div>
+            <div class="item">
+              <div class="content">
+                <div class="menu">
+                  <a class="item" href="/members/pyhouse/phase1">その時代の全員曲(Play You. House 1期)</a>
+                  <a class="item" href="/members/pyhouse/phase2">その時代の全員曲(Play You. House 2期)</a>
+                  <a class="item" href="/members/goosehouse/phase1">その時代の全員曲(Goosehouse 1期)</a>
+                  <a class="item" href="/members/goosehouse/phase2">その時代の全員曲(Goosehouse 2期)</a>
+                  <a class="item" href="/members/goosehouse/phase3">その時代の全員曲(Goosehouse 3期)</a>
+                  <a class="item" href="/members/goosehouse/phase4">その時代の全員曲(Goosehouse 4期)</a>
+                  <a class="item" href="/members/goosehouse/phase5">その時代の全員曲(Goosehouse 5期)</a>
+                  <a class="item" href="/members/goosehouse/phase6">その時代の全員曲(Goosehouse 6期)</a>
+                  <a class="item" href="/members/goosehouse/phase7">その時代の全員曲(Goosehouse 7期)</a>
+                  <a class="item" href="/members/goosehouse/phase8">その時代の全員曲(Goosehouse 8期)</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="item">
+      <a class="item" href="/unit_groups">ユニットグループ検索</a>
+    </div>
+
+    <div class="item">
+      <a class="item" href="/artists">アーティスト検索</a>
+    </div>
+
+    <div class="item">
+      <a class="item" href="/musical_instruments">楽器検索</a>
+    </div>
+
+    <div class="item">
+      <a class="item" href="/musical_instruments/player">演奏者検索</a>
+    </div>
+
+    <div class="item">
+      <a class="item" href="/genres">ジャンル検索</a>
+    </div>
+
+    <div class="item">
+      <div class="ui accordion inverted">
+        <div class="title">
+          Ustreamn検索
+          <i class="dropdown icon"></i>
+        </div>
+        <div class="content">
+          <div class="menu">
+            <a class="item" href="/ustreams/hoy">HOY</a>
+            <a class="item" href="/ustreams/view_counts">再生回数の多い順</a>
+            <a class="item" href="/ustreams/desc">すべての動画(新しい順)</a>
+            <a class="item" href="/ustreams/asc">すべての動画(古い順)</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Heder Menu -->
+    <div class="ui fixed borderless menu">
+      <div class="menu">
+        <div id="js-sidebar" class="item"><i class="icon large grey content"></i></div>
+        <a class="header item" href="/">GoosetuneTV</a>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div class="pusher" style="position: relative; padding-top: 100px;">
+      <div id="bottom-editarea">
+        <p id="pageTop"><a href="#"><i class="fa fa-chevron-up"></i></a></p>
+      </div>
+
+      <!-- <div class="jumbotron"></div> -->
+      <%= yield %>
+
+      <!-- Footer -->
+      <footer style="position: relative; top: 100px;">
+        <div class="jumbotron"></div>
+        <div id="title">
+          <p class="text-muted">
+            <small>
+              <%= "#{Date.today.year} GoosetuneTV" %>
+              <br>
+              <%= "Goosehouse動画を検索できるまとめ" %>
+            </small>
+          </p>
+        </div>
+      </footer>
+    </div>
+
+
+</body>
+</html>

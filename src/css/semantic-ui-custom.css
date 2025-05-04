@@ -1,0 +1,19 @@
+.ui.sidebar .ui.accordion .title {
+  font-size: 1rem !important;
+  font-weight: 400 !important; /* normal */
+  padding-left: 1em !important;
+  display: flex;
+  align-items: center;
+  line-height: 1.5;
+}
+
+.ui.sidebar .ui.accordion .title .dropdown.icon {
+  margin-right: 0.5em;
+}
+
+.ui.sidebar .item,
+.ui.sidebar .item a {
+  font-size: 1rem;
+  font-weight: 400;
+  color: white;
+}

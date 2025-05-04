@@ -1,0 +1,38 @@
+<div class="ui modal" id="refine_search_modal">
+
+  <div class="header">
+    絞り込むメンバーを変更する
+  </div>
+
+  <div class="content">
+    <%# form_tag '/members/refine', :method => 'get' do %>
+    <form action="/members/refine" class="ui form" method="GET">
+      <div class="ui stackable two column grid field">
+
+        <% refined_members = @data['refine_members'].map { |member| member['id'] } %>
+        <% @data['members'].each do |member| %>
+          <div class="ui form column">
+            <label class="checkbox">
+              <% if refined_members.include?(member['id']) %>
+                <%# check_box_tag :'refine_members[]', :value => member['id'], :checked => true, :'data-toggle' => "checkbox" %>
+                <input type="checkbox" name="refine_members[]" value=<%= member['id'].to_s %> checked="checked" data-toggle="checkbox">
+              <% else %>
+                <%# check_box_tag :'refine_members[]', :value => member['id'], :'data-toggle' => "checkbox" %>
+                <input type="checkbox" name="refine_members[]" value=<%= member['id'].to_s %> data-toggle="checkbox">
+              <% end %>
+              <%= member['name'] %>
+            </label>
+          </div>
+        <% end %>
+      </div>
+
+      <div class="field actions">
+        <%# submit_tag 'メンバーを絞り込んで検索する', :class => 'ui approve button' %>
+        <input type='submit' value='メンバーを絞り込んで検索する' class="ui approve button">
+        <div class="ui cancel button">Cancel</div>
+      </div>
+    </form>
+    <%# end %>
+  </div>
+
+</div>

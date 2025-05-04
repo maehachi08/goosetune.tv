@@ -1,0 +1,67 @@
+/*
+  semantic-ui custom
+*/
+.ui.divider { margin-bottom: 2rem; }
+
+body {
+    /* min-height: 500px; */
+}
+
+
+#masonry {
+  /* min-height: 300px; */
+  height: auto max-content !important;
+}
+
+a:link, a:visited, a:hover, a:active {
+  text-decoration: none;
+}
+
+li {
+  list-style: none;
+}
+
+.jumbotron {
+  height: 300px;
+  text-align: center;
+  border-radius: 0;
+  margin-bottom: 50px;
+  background-image: url("images/goosehouse_goods.jpg");
+  background-position: 0% 25%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #FFF;
+}
+
+.top a {
+  text-decoration: none;
+  color: #563F2E;
+}
+.top a:hover {
+  color: #B19693;
+}
+
+.navbar {
+    border-radius: 0;
+    margin-bottom: 0;
+    /* flat-ui navbar default color: #ecf0f1 */
+    background-color: rgba(236, 240, 241, 0.8);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+    backdrop-filter: saturate(180%) blur(20px);
+}
+
+/* .navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus { */
+.navbar-default .navbar-toggle {
+    background-color: transparent;
+}
+
+body .mh-head {
+  background: #696969;
+  color: #fff;
+  position: sticky !important;
+  top: 0 !important;
+}
+
+.mm-searchfield {
+  height: auto;
+}

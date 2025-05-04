@@ -1,0 +1,42 @@
+.artist_search {
+
+  ul.anchorLink {
+    top: 20px;
+    left: 20px;
+    margin-bottom: 15px;
+    height: 70px;
+
+    p {
+      position: relative;
+    }
+
+    li {
+      position: relative;
+      zoom: 1;
+      float: left;
+      white-space: nowrap;
+      display: block;
+      padding: 0 45px 0 15px;
+      background: url(anchorLink_ico_01.gif) no-repeat 0 10px;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+    ul.anchorLink {
+      height: 100px;
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    ul.anchorLink {
+      height: 150px;
+
+      li { margin-bottom: 10px; }
+    }
+  }
+
+  @media screen and (min-device-width:320px) and (max-device-width:480px) and (orientation:portrait) {
+    ul.anchorLink { height: 170px; }
+  }
+
+}

@@ -1,0 +1,62 @@
+<div class="ui stackable container">
+
+  <div id="bottom-editarea">
+    <p id="pageTop"><a href="#"><i class="fa fa-chevron-up"></i></a></p>
+  </div>
+
+  <div class="ui raised segment">
+    <h1 class="title"><%= raw(@title) %></h1>
+
+    <ol class="ranking">
+      <% @data['entries'].each do |entry| %>
+        <li>
+          <div class="crown"></div><!-- 王冠 -->
+          <h3></h3>
+        </li>
+
+        <%# render :partial => 'shared/entry', :locals => { :entry => entry } %>
+        <div class="ui card item" style="min-height: 250px; min-width: 150px; margin: 0 auto;">
+          <a class="magnific-popup image" href="https://www.youtube.com/watch?v=<%= entry['id'] %>" >
+            <img src=<%= entry['thumbnail'] %> alt=<%= entry['title'] %> />
+          </a>
+          <div class="content">
+            <a class="header" href="/youtubes/<%= entry['id'] %>"><%= entry['title'] %></a>
+          </div>
+          <div class="extra content">
+            <%= "再生回数 #{entry['view_counts'].to_j}回" %> <br />
+            <%= "公開日 #{DateTime.parse(entry['published']).strftime( '%Y/%m/%d' )}" %>
+          </div>
+        </div>
+
+      <% end %>
+    </ol>
+
+    <div class="container">
+      <div class="entry_item_link_wrapper clearfix" style="border-top: none; padding-top: 50px;">
+        <div class="media_info_member_title" style="margin-bottom: 2rem; border-bottom: 1px solid #dee2e6;">
+          HOYのStream放送
+        </div>
+
+        <div class="ui card item" style="min-height: 250px; min-width: 150px; margin: 0 auto;">
+          <a class="image" href="<%= @data['ustream']['url'] %>" target="_blank">
+            <img src=<%= @data['ustream']['thumbnail'] %> alt=<%=  @data['ustream']['title'] %> />
+          </a>
+
+          <div class="content">
+            <a class="header" ref="<%= @data['ustream']['url'] %>" target="_blank">
+              <%= @data['ustream']['title'] %>
+            </a>
+          </div>
+
+          <div class="extra content">
+             <%= "再生回数 #{@data['ustream']['view_counts'].to_j}回" %><br />
+             <%= "公開日 #{DateTime.parse(@data['ustream']['published']).strftime( '%Y/%m/%d' )}" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+  </div>
+</div>

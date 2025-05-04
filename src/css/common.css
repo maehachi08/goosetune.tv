@@ -1,0 +1,17 @@
+h1.title {
+    text-align: center;
+    color: #627997;
+    margin: 0 0 20px;
+    padding: 13px 20px;
+    border-color: #A2BCD5;
+    border-bottom-width: 3px;
+    border-bottom-style: solid;
+}
+
+h1.title small {
+    font-weight: normal;
+    font-size: 65%;
+    line-height: 1;
+    color: #777777;
+}
+

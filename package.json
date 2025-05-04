@@ -1,0 +1,50 @@
+{
+  "name": "goosetunetv",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "maehachi08 <maehachi08@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "imagesloaded": "^4.1.4",
+    "infinite-scroll": "^3.0.4",
+    "jquery": "^3.5.1",
+    "jquery-bridget": "^2.0.1",
+    "jquery-ui": "^1.12.1",
+    "magnific-popup": "^1.1.0",
+    "masonry-layout": "^4.2.1",
+    "node": "^21.7.1",
+    "npm-check-updates": "^16.14.17",
+    "popper.js": "^1.14.3",
+    "react": "^16.3.1",
+    "react-dom": "^16.13.1",
+    "react-sinatra-ujs": "^1.0.1",
+    "semantic-ui-css": "^2.5.0"
+  },
+  "devDependencies": {
+    "@webpack-cli/serve": "^2.0.5",
+    "babel-core": "^4.7.16",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^0.0.0",
+    "babel-preset-react": "^6.24.1",
+    "bootstrap": "^4.3.1",
+    "copy-webpack-plugin": "^6.4.1",
+    "css-loader": "^5.2.6",
+    "file-loader": "^6.2.0",
+    "less": "^4.2.0",
+    "less-loader": "^4.1.0",
+    "mini-css-extract-plugin": "^2.9.0",
+    "node-sass": "^9.0.0",
+    "sass-loader": "^10.1.1",
+    "style-loader": "^0.20.3",
+    "url-loader": "^1.0.1",
+    "webpack": "^5.91.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^5.0.4"
+  },
+  "scripts": {
+    "build": "webpack",
+    "postinstall": "yarn run webpack --config ./webpack.config.js --mode development",
+    "heroku-prebuild": "echo This runs before Heroku installs your dependencies.",
+    "heroku-postbuild": "yarn run webpack --config ./webpack.config.js --mode production"
+  }
+}

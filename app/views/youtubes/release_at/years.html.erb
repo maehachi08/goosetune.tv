@@ -1,0 +1,26 @@
+<div class="container">
+
+  <div class="ui raised segment">
+    <h1 class="title">リリース検索(年代別)</h1>
+
+    <div class="ui six stackable cards column grid" id="masonry">
+
+      <% @data['youtubes'].keys.each do |key| %>
+
+        <% entry = @data['youtubes'][key] %>
+
+        <div class="ui card item" style="min-height: 250px; min-width: 150px;">
+          <a class="image" href="/youtubes/release_at/years/<%= key %>">
+            <img src=<%= entry['thumbnail'] %> alt=<%= entry['title'] %> />
+          </a>
+          <div class="content">
+            <a class="header" href="/youtubes/release_at/years/<%= key %>"><%= "#{key}年代にリリースした曲" %></a>
+          </div>
+        </div>
+
+      <% end %>
+    </div>
+
+
+  </div>
+</div>
