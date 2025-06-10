@@ -54,10 +54,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.2.2/css/flat-ui.min.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/flat-ui/2.2.2/js/flat-ui.min.js"></script>
 
+  <link rel="stylesheet" href="/index.css" />
 
   <!-- semanbtic-ui-css -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js" integrity="sha512-Xo0Jh8MsOn72LGV8kU5LsclG7SUzJsWGhXbWcYs2MAmChkQzwiW/yTQwdJ8w6UA9C6EVG18GHb/TrYpYCjyAQw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css" integrity="sha512-KXol4x3sVoO+8ZsWPFI/r5KBVB/ssCGB5tsv2nVOKwLg33wTFP3fmnXa47FdSVIshVTgsYk/1734xSk9aFIa4A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/components/visibility.min.css">
 
   <script>
       // webpackでbundleすると正常動作しないので外出ししている
@@ -71,301 +73,202 @@
           });
         $('.ui.dropdown').dropdown();
 
-    $('.ui.sidebar').sidebar({
-      context: $('body'),
+        // $('.ui.sidebar').sidebar({
+        //   context: $('body'),
+        //   transition: 'overlay',
+        //   dimPage: true
+        // });
+
+        $('.ui.accordion').accordion();
+
+
+
+    console.log("Document ready");
+
+    // モバイル用のみ初期化（context 修正）
+    $('.ui.sidebar.mobile-sidebar').sidebar({
+      context: $('.ui.pushable'),
       transition: 'overlay',
       dimPage: true
     });
 
-          $('.ui.accordion').accordion();
+    $('#mobile-menu-toggle').on('click', function () {
+      console.log("Mobile menu toggle clicked");
+      $('.ui.sidebar.mobile-sidebar').sidebar('toggle');
+    });
+
+
       });
   </script>
-  <link rel="stylesheet" href="/index.css" />
+
+<style>
+  @media only screen and (max-width: 991px) {
+    .ui.left.fixed.menu.computer.only {
+      display: none !important;
+    }
+    .computer.only {
+      display: none !important;
+    }
+  }
+
+  @media only screen and (min-width: 992px) {
+    .computer.only { display: block !important; }
+    .tablet.only, .mobile.only { display: none !important; }
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+    }
+
+    .ui.pushable {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    .pusher {
+      flex-grow: 1;
+      overflow: auto;
+      padding: 1rem;
+    }
+
+    .ui.pushable > .pusher {
+      position: static;         /* fixed や absolute になっていないか確認 */
+      overflow: visible;        /* overflow が hidden になっていないか確認 */
+    }
+
+    .ui.left.vertical.menu.computer.only {
+      position: sticky;
+      top: 0; /* 画面上部からの距離 */
+      align-self: flex-start;
+      height: fit-content;
+      z-index: 1000; /* メニューが他の要素の後ろに行かないように */
+      height: fit-content;
+      width: 220px;
+      flex-shrink: 0;
+    }
+
+    .sidebar-fixed {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      flex-shrink: 0;
+      align-self: flex-start;
+      width: 220px; /* 必要に応じて調整 */
+    }
+
+  }
+  @media only screen and (min-width: 768px) and (max-width: 991px) {
+    .tablet.only { display: block !important; }
+    .computer.only, .mobile.only { display: none !important; }
+    .ui.top.fixed.menu.tablet.only {
+      display: flex !important;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    .ui.top.fixed.menu.tablet.only .item {
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+  }
+  @media only screen and (max-width: 767px) {
+    .mobile.only {
+      display: block !important;
+    }
+    .computer.only,
+    .tablet.only {
+      display: none !important;
+    }
+    .ui.top.fixed.menu.mobile.only .item {
+      flex: 0 0 auto;
+      white-space: nowrap;
+    }
+    .ui.top.fixed.menu.mobile.only {
+      width: 100vw;
+    }
+    .ui.left.fixed.menu.computer.only {
+      display: none !important;
+    }
+  }
+
+</style>
 
 </head>
 <body>
 
-  <!-- Navigation -->
-  <div class="ui sidebar inverted vertical menu" style="width: 400px !important;">
 
-    <div class="item"><a href="/">トップ</a></div>
-    <div class="item">
-      <div class="ui search">
-        <div class="ui icon input">
-          <form action="/youtubes/keyword" accept-charset="UTF-8" method="get">
-            <input name="utf8" type="hidden" value="✓">
-            <input name="search[keyword]" placeholder="Keyword..." type="search" autocomplete="off" class="prompt">
-            <i class="search icon"></i>
-          </form>
-        </div>
-        <div class="results"></div>
-      </div>
-    </div>
+<div class="ui pushable">
 
+<!-- Navigation for computer only -->
+<%= render :partial => 'shared/navgation/computer' %>
 
-    <div class="item">
-      <div class="ui accordion inverted">
-        <div class="title">
-          YouTubeアップロード月検索
-          <i class="dropdown icon"></i>
-        </div>
-        <div class="content">
-          <div class="menu">
-            <form class="ui form" action="/youtubes/_upload_month" accept-charset="UTF-8" method="get">
-              <input name="utf8" type="hidden" value="✓">
+<!-- 💡 ② 上部水平メニュー（タブレット用） -->
+<div class="ui top fixed menu tablet only" style="z-index: 1000; display: flex; flex-wrap: nowrap; overflow-x: auto; white-space: nowrap;">
+  <a class="item" href="/">トップ</a>
+  <a class="item" href="/members">メンバー</a>
+  <a class="item" href="/youtubes">YouTube</a>
+  <a class="item" href="/ustreams">Ustream</a>
+  <a class="item" href="/artists">アーティスト</a>
+</div>
 
-              <div class="ui raised segments">
-
-                <div class="ui horizontal segment segments">
-                  <select id="youtube_published_1i" name="youtube[published][year]" class="ui dropdown fluid">
-                    <% (@common['select_form_of_upload_month']['first_entry_year']..
-                        @common['select_form_of_upload_month']['latest_entry_year']).each do |year| %>
-                      <option value="<%= year %>"><%= year %> 年</option>
-                    <% end %>
-                  </select>
-                  <select id="youtube_puAblished_2i" name="youtube[published][month]" class="ui dropdown fluid">
-                    <option value="1">1 月</option>
-                    <option value="2">2 月</option>
-                    <option value="3">3 月</option>
-                    <option value="4">4 月</option>
-                    <option value="5">5 月</option>
-                    <option value="6">6 月</option>
-                    <option value="7" selected="selected" >7 月</option>
-                    <option value="8">8 月</option>
-                    <option value="9">9 月</option>
-                    <option value="10">10 月</option>
-                    <option value="11">11 月</option>
-                    <option value="12">12 月</option>
-                  </select>
-                </div>
-
-                <div class="ui segment field" style="background-color: unset; border: none;">
-                  <input type="hidden" id="youtube_published_3i" name="youtube[published(3i)]" value="1">
-                  <button type="submit" class="ui button refine_members_link" tabindex="0">検索</button>
-                </div>
-
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="item">
-      <div class="ui accordion inverted">
-        <div class="title">
-          Ustream放送検索
-          <i class="dropdown icon"></i>
-        </div>
-        <div class="content">
-          <div class="menu">
-            <form class="ui form" action="/ustreams/_published" accept-charset="UTF-8" method="get">
-              <input name="utf8" type="hidden" value="✓">
-
-              <div class="ui raised segments">
-                <div class="ui horizontal segment segments">
-                  <div class="ui segment field" style="padding: 0;">
-                    <select name="ustreams[id]" id="ustream_id" class="ui dropdown field">
-                      <% @common['select_form_of_ustream'].each do |entry| %>
-                        <option value="<%= entry['id'] %>"><%= entry['title'] %></option>
-                      <% end %>
-                    </select>
-                  </div>
-                </div>
-                <div class="ui segment field" style="background-color: unset;">
-                  <button type="submit" class="ui button refine_members_link" tabindex="0">検索</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="item">
-      <div class="ui accordion inverted">
-        <div class="title">
-          YouTubeLive検索
-          <i class="dropdown icon"></i>
-        </div>
-        <div class="content">
-          <div class="menu">
-            <form class="ui form" action="/youtubes/_live" accept-charset="UTF-8" method="get">
-              <input name="utf8" type="hidden" value="✓">
-
-              <div class="ui raised segments">
-                <div class="ui horizontal segment segments">
-                  <select name="youtube[id]" id="youtube_id" class="ui dropdown fluid">
-                    <% @common['select_form_of_youtube_live'].each do |entry| %>
-                      <option value="<%= entry['id'] %>"><%= entry['title'] %></option>
-                    <% end %>
-                  </select>
-                </div>
-                <div class="ui segment field" style="background-color: unset;">
-                  <button type="submit" class="ui button refine_members_link" tabindex="0">検索</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="item">
-      <div class="ui accordion inverted">
-        <div class="title">
-          YouTube検索
-          <i class="dropdown icon"></i>
-        </div>
-        <div class="content">
-          <div class="menu">
-            <a class="item" href="/youtubes">YouTube検索トップ</a>
-            <a class="item" href="/youtubes/new_arrival">新着動画</a>
-            <a class="item" href="/youtubes/view_counts">再生回数の多い順</a>
-            <a class="item" href="/youtubes/desc">すべての動画(新しい順)</a>
-            <a class="item" href="/youtubes/asc">すべての動画(古い順)</a>
-            <a class="item" href="/youtubes/sing">Singを集めてみました</a>
-            <a class="item" href="/youtubes/playyouhouse">タイトルが曲名ではなく'Play You. House'</a>
-            <a class="item" href="/youtubes/release_at/year">原曲のリリース年から検索</a>
-            <a class="item" href="/youtubes/release_at/years">原曲のリリース年代から検索</a>
-            <a class="item" href="/youtubes/today/<%= Date.today.strftime("%Y/%m/%d") %>">今日のGoosehouse</a>
-            <a class="item" href="/youtubes/hoy">HOY (House Of the Year)</a>
-            <div class="item">
-              <div class="content">
-                <div class="menu">
-                  <a class="item" href="/youtubes/hoy/2011">2011年のHOY</a>
-                  <a class="item" href="/youtubes/hoy/2012">2012年のHOY</a>
-                  <a class="item" href="/youtubes/hoy/2013">2013年のHOY</a>
-                  <a class="item" href="/youtubes/hoy/2014">2014年のHOY</a>
-                  <a class="item" href="/youtubes/hoy/2015">2015年のHOY</a>
-                  <a class="item" href="/youtubes/hoy/2016">2016年のHOY</a>
-                </div>
-              </div>
-            </div>
-            <a class="item" href="/youtubes/cover">年間のカバー達</a>
-            <div class="item">
-              <div class="content">
-                <div class="menu">
-                  <a class="item" href="/youtubes/cover/2010">2010年のカバー達</a>
-                  <a class="item" href="/youtubes/cover/2011">2011年のカバー達</a>
-                  <a class="item" href="/youtubes/cover/2012">2012年のカバー達</a>
-                  <a class="item" href="/youtubes/cover/2013">2013年のカバー達</a>
-                  <a class="item" href="/youtubes/cover/2014">2014年のカバー達</a>
-                  <a class="item" href="/youtubes/cover/2015">2015年のカバー達</a>
-                  <a class="item" href="/youtubes/cover/2016">2016年のカバー達</a>
-                  <a class="item" href="/youtubes/cover/2017">2017年のカバー達</a>
-                  <a class="item" href="/youtubes/cover/2018">2018年のカバー達</a>
-                  <a class="item" href="/youtubes/cover/2019">2019年のカバー達</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="item">
-      <div class="ui accordion inverted">
-        <div class="title">
-          メンバー検索
-          <i class="dropdown icon"></i>
-        </div>
-        <div class="content">
-          <div class="menu">
-            <a class="item" href="/members">メンバー絞り込み検索</a>
-            <div class="item">その時代の全員曲</div>
-            <div class="item">
-              <div class="content">
-                <div class="menu">
-                  <a class="item" href="/members/pyhouse/phase1">その時代の全員曲(Play You. House 1期)</a>
-                  <a class="item" href="/members/pyhouse/phase2">その時代の全員曲(Play You. House 2期)</a>
-                  <a class="item" href="/members/goosehouse/phase1">その時代の全員曲(Goosehouse 1期)</a>
-                  <a class="item" href="/members/goosehouse/phase2">その時代の全員曲(Goosehouse 2期)</a>
-                  <a class="item" href="/members/goosehouse/phase3">その時代の全員曲(Goosehouse 3期)</a>
-                  <a class="item" href="/members/goosehouse/phase4">その時代の全員曲(Goosehouse 4期)</a>
-                  <a class="item" href="/members/goosehouse/phase5">その時代の全員曲(Goosehouse 5期)</a>
-                  <a class="item" href="/members/goosehouse/phase6">その時代の全員曲(Goosehouse 6期)</a>
-                  <a class="item" href="/members/goosehouse/phase7">その時代の全員曲(Goosehouse 7期)</a>
-                  <a class="item" href="/members/goosehouse/phase8">その時代の全員曲(Goosehouse 8期)</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="item">
-      <a class="item" href="/unit_groups">ユニットグループ検索</a>
-    </div>
-
-    <div class="item">
-      <a class="item" href="/artists">アーティスト検索</a>
-    </div>
-
-    <div class="item">
-      <a class="item" href="/musical_instruments">楽器検索</a>
-    </div>
-
-    <div class="item">
-      <a class="item" href="/musical_instruments/player">演奏者検索</a>
-    </div>
-
-    <div class="item">
-      <a class="item" href="/genres">ジャンル検索</a>
-    </div>
-
-    <div class="item">
-      <div class="ui accordion inverted">
-        <div class="title">
-          Ustreamn検索
-          <i class="dropdown icon"></i>
-        </div>
-        <div class="content">
-          <div class="menu">
-            <a class="item" href="/ustreams/hoy">HOY</a>
-            <a class="item" href="/ustreams/view_counts">再生回数の多い順</a>
-            <a class="item" href="/ustreams/desc">すべての動画(新しい順)</a>
-            <a class="item" href="/ustreams/asc">すべての動画(古い順)</a>
-          </div>
-        </div>
-      </div>
-    </div>
+<!-- 💡 ③ ハンバーガー＋サイドバー（モバイル用） -->
+<!-- トップバー（アイコン表示） -->
+<div class="ui top fixed menu mobile only" style="z-index: 1000; display: flex; align-items: center; justify-content: space-between;">
+  <div class="menu">
+    <a class="item" id="mobile-menu-toggle" style="flex: 0 0 auto;"><i class="bars icon"></i></a>
+    <div class="header item" style="flex: 1 1 auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">GoosetuneTV</div>
   </div>
+</div>
+
+
+<!-- サイドバー本体（モバイル用） -->
+<div class="ui sidebar vertical menu mobile-sidebar mobile only">
+  <!-- Navigation -->
+</div>
+
+
+
+
+
 
     <!-- Heder Menu -->
+
+<!--
     <div class="ui fixed borderless menu">
       <div class="menu">
         <div id="js-sidebar" class="item"><i class="icon large grey content"></i></div>
         <a class="header item" href="/">GoosetuneTV</a>
       </div>
     </div>
+-->
+
 
     <!-- Main -->
-    <div class="pusher" style="position: relative; padding-top: 100px;">
-      <div id="bottom-editarea">
-        <p id="pageTop"><a href="#"><i class="fa fa-chevron-up"></i></a></p>
-      </div>
+    <div class="pusher" style="padding-top: 50px;">
+          <div id="bottom-editarea">
+            <p id="pageTop"><a href="#"><i class="fa fa-chevron-up"></i></a></p>
+          </div>
 
-      <!-- <div class="jumbotron"></div> -->
-      <%= yield %>
+          <!-- <div class="jumbotron"></div> -->
+          <%= yield %>
 
-      <!-- Footer -->
-      <footer style="position: relative; top: 100px;">
-        <div class="jumbotron"></div>
-        <div id="title">
-          <p class="text-muted">
-            <small>
-              <%= "#{Date.today.year} GoosetuneTV" %>
-              <br>
-              <%= "Goosehouse動画を検索できるまとめ" %>
-            </small>
-          </p>
-        </div>
-      </footer>
+          <!-- Footer -->
+          <footer style="position: relative; top: 100px;">
+            <div class="jumbotron"></div>
+            <div id="title">
+              <p class="text-muted">
+                <small>
+                  <%= "#{Date.today.year} GoosetuneTV" %>
+                  <br>
+                  <%= "Goosehouse動画を検索できるまとめ" %>
+                </small>
+              </p>
+            </div>
+          </footer>
     </div>
 
+</div>
 
 </body>
 </html>

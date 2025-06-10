@@ -5,6 +5,7 @@ import '../node_modules/bootstrap/dist/js/bootstrap.min.js';
 // semantic-ui-css
 import '../node_modules/semantic-ui-css/semantic.min';
 import '../node_modules/semantic-ui-css/semantic.min.css';
+import './css/semantic-ui-custom.css';
 
 import '../node_modules/imagesloaded/imagesloaded.pkgd.js';
 import '../node_modules/infinite-scroll/dist/infinite-scroll.pkgd.js';
@@ -24,7 +25,6 @@ import './css/bootstrap.css';
 import './app.css';
 import './css/common.css';
 import './css/entry.css';
-import './css/semantic-ui-custom.css';
 import './css/infinitescroll_loading.css';
 import './css/page_to_top.css';
 import './css/members.css';
@@ -64,7 +64,7 @@ $(function() {
     InfiniteScroll.imagesLoaded = imagesLoaded;
 
     var msnry = new Masonry( '#masonry', {
-        itemSelector : '.ui.item.item',
+        itemSelector : '.ui.card.item',
         columnWidth  : 5,
         isFitWidth   : false,
         isAnimated   : true,
