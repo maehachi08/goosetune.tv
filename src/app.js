@@ -63,56 +63,60 @@ $(function() {
     jQueryBridget( 'infinitescroll', InfiniteScroll, $ );
     InfiniteScroll.imagesLoaded = imagesLoaded;
 
-    var msnry = new Masonry( '#masonry', {
-        itemSelector : '.ui.card.item',
-        columnWidth  : 5,
-        isFitWidth   : false,
-        isAnimated   : true,
-        animationOptions: {
-            duration : 750,
-            easing   : 'linear',
-            queue    : false
-        }
-    });
-
-    var infScroll = new InfiniteScroll( '#masonry', {
-
-        // onInit
-        //   2ページ目以降を infinite-scrollで追加する際にmagnefic-popupの初期化を行う
-        //
-        //   refs
-        //     https://infinite-scroll.com/options.html#oninit
-        //     https://stackoverflow.com/questions/46348603/infinite-scroll-with-magnific-popup-callback
-        onInit: function() {
-            this.on( 'append', function() {
-                console.log('Infinite Scroll appended.')
-                console.log('magnefic-popup initialization.')
-                $('.magnific-popup').magnificPopup({
-                    type: 'iframe',
-                    mainClass: 'mfp-fade',
-                    removalDelay: 200,
-                    preloader: false
-                });
+    const grid = document.querySelector('.masonry');
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll('.masonry').forEach(container => {
+            const msnry = new Masonry(container, {
+                itemSelector : '.masonry-item',
+                columnWidth  : '.masonry-item',
+                percentPosition: true,
+                gutter: 20
             });
-        },
+            // 画像読み込み後にレイアウト再計算
+            imagesLoaded(grid, () => {
+              msnry.layout();
+            });
 
-        // history: false
-        //   disable changing the URL by setting.
-        //   refs
-        //     https://github.com/metafizzy/infinite-scroll/issues/701#issuecomment-321832327
-        //     https://infinite-scroll.com/options.html#history
-        history         : false,
-        appendCallback  : true,
-        scrollThreshold : 10,
-        append          : '.ui.card.item',
-        outlayer        : msnry,
-        navSelector     : '#page-nav',
-        nextSelector    : '#page-nav a',
-        path            : '#page-nav a',
-        itemSelector    : '.item',
-        status          : '.page-load-status'
+            var infScroll = new InfiniteScroll( '.masonry', {
+
+                // onInit
+                //   2ページ目以降を infinite-scrollで追加する際にmagnefic-popupの初期化を行う
+                //
+                //   refs
+                //     https://infinite-scroll.com/options.html#oninit
+                //     https://stackoverflow.com/questions/46348603/infinite-scroll-with-magnific-popup-callback
+                onInit: function() {
+                    this.on( 'append', function() {
+                        console.log('Infinite Scroll appended.')
+                        console.log('magnefic-popup initialization.')
+                        $('.magnific-popup').magnificPopup({
+                            type: 'iframe',
+                            mainClass: 'mfp-fade',
+                            removalDelay: 200,
+                            preloader: false
+                        });
+                    });
+                },
+
+                // history: false
+                //   disable changing the URL by setting.
+                //   refs
+                //     https://github.com/metafizzy/infinite-scroll/issues/701#issuecomment-321832327
+                //     https://infinite-scroll.com/options.html#history
+                history         : false,
+                appendCallback  : true,
+                scrollThreshold : 10,
+                append          : '.ui.card.item',
+                outlayer        : msnry,
+                navSelector     : '#page-nav',
+                nextSelector    : '#page-nav a',
+                path            : '#page-nav a',
+                itemSelector    : '.item',
+                status          : '.page-load-status'
+            });
+
+            $('.page-load-status').hide();
+        });
     });
-
-    $('.page-load-status').hide();
 });
 

@@ -8,11 +8,6 @@ body {
 }
 
 
-#masonry {
-  /* min-height: 300px; */
-  height: auto max-content !important;
-}
-
 a:link, a:visited, a:hover, a:active {
   text-decoration: none;
 }
