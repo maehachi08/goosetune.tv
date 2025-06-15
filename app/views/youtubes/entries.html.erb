@@ -7,7 +7,7 @@
   <div class="ui raised segment" style="padding-bottom: 5em;">
     <h1 class="title"><%= raw(@title) %></h1>
 
-    <div class="ui six stackable cards column grid" id="masonry">
+    <div class="ui six stackable cards column grid masonry" id="masonry">
       <% @data['youtubes'].each do |entry| %>
           <%= render :partial => 'shared/entry', :locals => { :entry => entry } %>
       <% end %>
