@@ -107,7 +107,8 @@ class Api::V2::YoutubesController < ApplicationController
   # /api/v2/youtubes/keyword
   #==========================
   def keyword
-    youtubes = Youtube.where("title like '%" + params[:keyword] + "%'").order('published DESC').page(params[:page])
+    keyword = params[:search] && params[:search][:keyword] ? params[:search][:keyword] : params[:keyword]
+    youtubes = Youtube.where("title like '%" + keyword + "%'").order('published DESC').page(params[:page])
     resources_with_pagination(youtubes)
     @response_data = {
       'contents': {

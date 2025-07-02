@@ -1,0 +1,245 @@
+  <div class="au-nav-search">
+    <form action="/youtubes/keyword" accept-charset="UTF-8" method="get" class="au-search-form">
+      <input name="utf8" type="hidden" value="✓">
+      <div class="au-search-input-wrapper">
+        <input name="search[keyword]" placeholder="動画を検索..." type="search" autocomplete="off" class="au-search-input">
+        <button type="submit" class="au-search-button">
+          <i class="search icon"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="au-nav-section">
+    <div class="au-nav-category">
+      <div class="au-nav-category-header">
+        <i class="calendar icon au-nav-icon"></i>
+        <span class="au-nav-category-title">YouTubeアップロード月検索</span>
+        <i class="chevron down icon au-nav-chevron"></i>
+      </div>
+      <div class="au-nav-category-content">
+        <form class="au-form" action="/youtubes/_upload_month" accept-charset="UTF-8" method="get">
+          <input name="utf8" type="hidden" value="✓">
+          <div class="au-form-group">
+            <div class="au-select-group">
+              <select id="youtube_published_1i" name="youtube[published][year]" class="au-select">
+                <% (@common['select_form_of_upload_month']['first_entry_year']..
+                    @common['select_form_of_upload_month']['latest_entry_year']).each do |year| %>
+                  <option value="<%= year %>"><%= year %> 年</option>
+                <% end %>
+              </select>
+              <select id="youtube_puAblished_2i" name="youtube[published][month]" class="au-select">
+                <option value="1">1 月</option>
+                <option value="2">2 月</option>
+                <option value="3">3 月</option>
+                <option value="4">4 月</option>
+                <option value="5">5 月</option>
+                <option value="6">6 月</option>
+                <option value="7" selected="selected" >7 月</option>
+                <option value="8">8 月</option>
+                <option value="9">9 月</option>
+                <option value="10">10 月</option>
+                <option value="11">11 月</option>
+                <option value="12">12 月</option>
+              </select>
+            </div>
+            <input type="hidden" id="youtube_published_3i" name="youtube[published(3i)]" value="1">
+            <button type="submit" class="au-button au-button-primary">検索</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="au-nav-section">
+    <div class="au-nav-category">
+      <div class="au-nav-category-header">
+        <i class="video icon au-nav-icon"></i>
+        <span class="au-nav-category-title">Ustream放送検索</span>
+        <i class="chevron down icon au-nav-chevron"></i>
+      </div>
+      <div class="au-nav-category-content">
+        <form class="au-form" action="/ustreams/_published" accept-charset="UTF-8" method="get">
+          <input name="utf8" type="hidden" value="✓">
+          <div class="au-form-group">
+            <select name="ustreams[id]" id="ustream_id" class="au-select">
+              <% @common['select_form_of_ustream'].each do |entry| %>
+                <option value="<%= entry['id'] %>"><%= entry['title'] %></option>
+              <% end %>
+            </select>
+            <button type="submit" class="au-button au-button-primary">検索</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="au-nav-section">
+    <div class="au-nav-category">
+      <div class="au-nav-category-header">
+        <i class="play circle icon au-nav-icon"></i>
+        <span class="au-nav-category-title">YouTubeLive検索</span>
+        <i class="chevron down icon au-nav-chevron"></i>
+      </div>
+      <div class="au-nav-category-content">
+        <form class="au-form" action="/youtubes/_live" accept-charset="UTF-8" method="get">
+          <input name="utf8" type="hidden" value="✓">
+          <div class="au-form-group">
+            <select name="youtube[id]" id="youtube_id" class="au-select">
+              <% @common['select_form_of_youtube_live'].each do |entry| %>
+                <option value="<%= entry['id'] %>"><%= entry['title'] %></option>
+              <% end %>
+            </select>
+            <button type="submit" class="au-button au-button-primary">検索</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="au-nav-section">
+    <div class="au-nav-category">
+      <div class="au-nav-category-header">
+        <i class="youtube icon au-nav-icon"></i>
+        <span class="au-nav-category-title">YouTube検索</span>
+        <i class="chevron down icon au-nav-chevron"></i>
+      </div>
+      <div class="au-nav-category-content">
+        <div class="au-nav-submenu">
+          <a class="au-nav-link" href="/youtubes">YouTube検索トップ</a>
+          <a class="au-nav-link" href="/youtubes/new_arrival">新着動画</a>
+          <a class="au-nav-link" href="/youtubes/view_counts">再生回数の多い順</a>
+          <a class="au-nav-link" href="/youtubes/desc">すべての動画(新しい順)</a>
+          <a class="au-nav-link" href="/youtubes/asc">すべての動画(古い順)</a>
+          <a class="au-nav-link" href="/youtubes/sing">Singを集めてみました</a>
+          <a class="au-nav-link" href="/youtubes/playyouhouse">Play You. House</a>
+          <a class="au-nav-link" href="/youtubes/release_at/year">原曲のリリース年から検索</a>
+          <a class="au-nav-link" href="/youtubes/release_at/years">原曲のリリース年代から検索</a>
+          <a class="au-nav-link" href="/youtubes/today/<%= Date.today.strftime("%Y/%m/%d") %>">今日のGoosehouse</a>
+          
+          <div class="au-nav-subcategory">
+            <div class="au-nav-subcategory-header">
+              <span class="au-nav-subcategory-title">HOY (House Of the Year)</span>
+              <i class="chevron down icon au-nav-chevron-small"></i>
+            </div>
+            <div class="au-nav-subcategory-content">
+              <a class="au-nav-sublink" href="/youtubes/hoy">HOY全体</a>
+              <a class="au-nav-sublink" href="/youtubes/hoy/2011">2011年</a>
+              <a class="au-nav-sublink" href="/youtubes/hoy/2012">2012年</a>
+              <a class="au-nav-sublink" href="/youtubes/hoy/2013">2013年</a>
+              <a class="au-nav-sublink" href="/youtubes/hoy/2014">2014年</a>
+              <a class="au-nav-sublink" href="/youtubes/hoy/2015">2015年</a>
+              <a class="au-nav-sublink" href="/youtubes/hoy/2016">2016年</a>
+            </div>
+          </div>
+          
+          <div class="au-nav-subcategory">
+            <div class="au-nav-subcategory-header">
+              <span class="au-nav-subcategory-title">年間のカバー達</span>
+              <i class="chevron down icon au-nav-chevron-small"></i>
+            </div>
+            <div class="au-nav-subcategory-content">
+              <a class="au-nav-sublink" href="/youtubes/cover">カバー全体</a>
+              <a class="au-nav-sublink" href="/youtubes/cover/2010">2010年</a>
+              <a class="au-nav-sublink" href="/youtubes/cover/2011">2011年</a>
+              <a class="au-nav-sublink" href="/youtubes/cover/2012">2012年</a>
+              <a class="au-nav-sublink" href="/youtubes/cover/2013">2013年</a>
+              <a class="au-nav-sublink" href="/youtubes/cover/2014">2014年</a>
+              <a class="au-nav-sublink" href="/youtubes/cover/2015">2015年</a>
+              <a class="au-nav-sublink" href="/youtubes/cover/2016">2016年</a>
+              <a class="au-nav-sublink" href="/youtubes/cover/2017">2017年</a>
+              <a class="au-nav-sublink" href="/youtubes/cover/2018">2018年</a>
+              <a class="au-nav-sublink" href="/youtubes/cover/2019">2019年</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="au-nav-section">
+    <div class="au-nav-category">
+      <div class="au-nav-category-header">
+        <i class="users icon au-nav-icon"></i>
+        <span class="au-nav-category-title">メンバー検索</span>
+        <i class="chevron down icon au-nav-chevron"></i>
+      </div>
+      <div class="au-nav-category-content">
+        <div class="au-nav-submenu">
+          <a class="au-nav-link" href="/members">メンバー絞り込み検索</a>
+          
+          <div class="au-nav-subcategory">
+            <div class="au-nav-subcategory-header">
+              <span class="au-nav-subcategory-title">その時代の全員曲</span>
+              <i class="chevron down icon au-nav-chevron-small"></i>
+            </div>
+            <div class="au-nav-subcategory-content">
+              <a class="au-nav-sublink" href="/members/pyhouse/phase1">Play You. House 1期</a>
+              <a class="au-nav-sublink" href="/members/pyhouse/phase2">Play You. House 2期</a>
+              <a class="au-nav-sublink" href="/members/goosehouse/phase1">Goosehouse 1期</a>
+              <a class="au-nav-sublink" href="/members/goosehouse/phase2">Goosehouse 2期</a>
+              <a class="au-nav-sublink" href="/members/goosehouse/phase3">Goosehouse 3期</a>
+              <a class="au-nav-sublink" href="/members/goosehouse/phase4">Goosehouse 4期</a>
+              <a class="au-nav-sublink" href="/members/goosehouse/phase5">Goosehouse 5期</a>
+              <a class="au-nav-sublink" href="/members/goosehouse/phase6">Goosehouse 6期</a>
+              <a class="au-nav-sublink" href="/members/goosehouse/phase7">Goosehouse 7期</a>
+              <a class="au-nav-sublink" href="/members/goosehouse/phase8">Goosehouse 8期</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="au-nav-section">
+    <a class="au-nav-link-simple" href="/unit_groups">
+      <i class="group icon au-nav-icon"></i>
+      <span>ユニットグループ検索</span>
+    </a>
+  </div>
+
+  <div class="au-nav-section">
+    <a class="au-nav-link-simple" href="/artists">
+      <i class="microphone icon au-nav-icon"></i>
+      <span>アーティスト検索</span>
+    </a>
+  </div>
+
+  <div class="au-nav-section">
+    <a class="au-nav-link-simple" href="/musical_instruments">
+      <i class="music icon au-nav-icon"></i>
+      <span>楽器検索</span>
+    </a>
+  </div>
+
+  <div class="au-nav-section">
+    <a class="au-nav-link-simple" href="/musical_instruments/player">
+      <i class="user circle icon au-nav-icon"></i>
+      <span>演奏者検索</span>
+    </a>
+  </div>
+
+  <div class="au-nav-section">
+    <a class="au-nav-link-simple" href="/genres">
+      <i class="tags icon au-nav-icon"></i>
+      <span>ジャンル検索</span>
+    </a>
+  </div>
+
+  <div class="au-nav-section">
+    <div class="au-nav-category">
+      <div class="au-nav-category-header">
+        <i class="broadcast icon au-nav-icon"></i>
+        <span class="au-nav-category-title">Ustream検索</span>
+        <i class="chevron down icon au-nav-chevron"></i>
+      </div>
+      <div class="au-nav-category-content">
+        <div class="au-nav-submenu">
+          <a class="au-nav-link" href="/ustreams/hoy">HOY</a>
+          <a class="au-nav-link" href="/ustreams/view_counts">再生回数の多い順</a>
+          <a class="au-nav-link" href="/ustreams/desc">すべての動画(新しい順)</a>
+          <a class="au-nav-link" href="/ustreams/asc">すべての動画(古い順)</a>
+        </div>
+      </div>
+    </div>
+  </div>

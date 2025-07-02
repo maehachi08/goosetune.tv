@@ -1,0 +1,188 @@
+<!-- au.com Style Desktop Navigation -->
+<nav class="au-nav-desktop desktop only" style="z-index: 1000;">
+  <!-- Top Row: Main Navigation -->
+  <div class="au-nav-desktop-header">
+    <div class="au-nav-desktop-container">
+      <div class="au-nav-desktop-brand">
+        <a href="/" class="au-nav-logo">GoosetuneTV</a>
+      </div>
+      
+      <div class="au-nav-desktop-menu">
+        <div class="au-nav-desktop-item au-nav-dropdown">
+          <span class="au-nav-desktop-link">
+            <i class="youtube icon au-nav-icon"></i>
+            YouTube検索
+            <i class="chevron down icon au-nav-chevron"></i>
+          </span>
+          <div class="au-nav-desktop-dropdown-content">
+            <div class="au-nav-desktop-dropdown-section">
+              <a href="/youtubes" class="au-nav-desktop-dropdown-link">YouTube検索トップ</a>
+              <a href="/youtubes/new_arrival" class="au-nav-desktop-dropdown-link">新着動画</a>
+              <a href="/youtubes/view_counts" class="au-nav-desktop-dropdown-link">再生回数の多い順</a>
+              <a href="/youtubes/desc" class="au-nav-desktop-dropdown-link">すべての動画(新しい順)</a>
+              <a href="/youtubes/asc" class="au-nav-desktop-dropdown-link">すべての動画(古い順)</a>
+              <a href="/youtubes/sing" class="au-nav-desktop-dropdown-link">Singを集めてみました</a>
+              <a href="/youtubes/today/<%= Date.today.strftime("%Y/%m/%d") %>" class="au-nav-desktop-dropdown-link">今日のGoosehouse</a>
+            </div>
+            <div class="au-nav-desktop-dropdown-section">
+              <h4 class="au-nav-desktop-dropdown-title">HOY (House Of the Year)</h4>
+              <a href="/youtubes/hoy" class="au-nav-desktop-dropdown-link">HOY全体</a>
+              <a href="/youtubes/hoy/2015" class="au-nav-desktop-dropdown-link">2015年</a>
+              <a href="/youtubes/hoy/2016" class="au-nav-desktop-dropdown-link">2016年</a>
+            </div>
+            <div class="au-nav-desktop-dropdown-section">
+              <h4 class="au-nav-desktop-dropdown-title">年間のカバー達</h4>
+              <a href="/youtubes/cover" class="au-nav-desktop-dropdown-link">カバー全体</a>
+              <a href="/youtubes/cover/2018" class="au-nav-desktop-dropdown-link">2018年</a>
+              <a href="/youtubes/cover/2019" class="au-nav-desktop-dropdown-link">2019年</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="au-nav-desktop-item au-nav-dropdown">
+          <span class="au-nav-desktop-link">
+            <i class="users icon au-nav-icon"></i>
+            メンバー
+            <i class="chevron down icon au-nav-chevron"></i>
+          </span>
+          <div class="au-nav-desktop-dropdown-content">
+            <div class="au-nav-desktop-dropdown-section">
+              <a href="/members" class="au-nav-desktop-dropdown-link">メンバー絞り込み検索</a>
+              <h4 class="au-nav-desktop-dropdown-title">その時代の全員曲</h4>
+              <a href="/members/pyhouse/phase1" class="au-nav-desktop-dropdown-link">Play You. House 1期</a>
+              <a href="/members/pyhouse/phase2" class="au-nav-desktop-dropdown-link">Play You. House 2期</a>
+              <a href="/members/goosehouse/phase1" class="au-nav-desktop-dropdown-link">Goosehouse 1期</a>
+              <a href="/members/goosehouse/phase2" class="au-nav-desktop-dropdown-link">Goosehouse 2期</a>
+              <a href="/members/goosehouse/phase3" class="au-nav-desktop-dropdown-link">Goosehouse 3期</a>
+              <a href="/members/goosehouse/phase4" class="au-nav-desktop-dropdown-link">Goosehouse 4期</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="au-nav-desktop-item">
+          <a href="/ustreams" class="au-nav-desktop-link">
+            <i class="video icon au-nav-icon"></i>
+            Ustream
+          </a>
+        </div>
+
+        <div class="au-nav-desktop-item">
+          <a href="/artists" class="au-nav-desktop-link">
+            <i class="microphone icon au-nav-icon"></i>
+            アーティスト
+          </a>
+        </div>
+
+        <div class="au-nav-desktop-item">
+          <a href="/musical_instruments" class="au-nav-desktop-link">
+            <i class="music icon au-nav-icon"></i>
+            楽器
+          </a>
+        </div>
+
+        <div class="au-nav-desktop-item">
+          <a href="/genres" class="au-nav-desktop-link">
+            <i class="tags icon au-nav-icon"></i>
+            ジャンル
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Bottom Row: Search Forms -->
+  <div class="au-nav-desktop-secondary">
+    <div class="au-nav-desktop-container">
+      <!-- First Row of Forms -->
+      <div class="au-nav-desktop-forms">
+        
+        <!-- Keyword Search -->
+        <div class="au-nav-desktop-form-item">
+          <div class="au-nav-desktop-form-header">
+            <i class="search icon au-nav-form-icon"></i>
+            <span>キーワード検索</span>
+          </div>
+          <form class="au-form-inline" action="/youtubes/keyword" accept-charset="UTF-8" method="get">
+            <input name="utf8" type="hidden" value="✓">
+            <input name="search[keyword]" placeholder="動画を検索..." type="search" autocomplete="off" class="au-search-input-inline">
+            <button type="submit" class="au-button-inline">検索</button>
+          </form>
+        </div>
+        
+        <!-- YouTube Upload Month Search -->
+        <div class="au-nav-desktop-form-item">
+          <div class="au-nav-desktop-form-header">
+            <i class="calendar icon au-nav-form-icon"></i>
+            <span>アップロード月検索</span>
+          </div>
+          <form class="au-form-inline" action="/youtubes/_upload_month" accept-charset="UTF-8" method="get">
+            <input name="utf8" type="hidden" value="✓">
+            <select name="youtube[published][year]" class="au-select-inline">
+              <% (@common['select_form_of_upload_month']['first_entry_year']..
+                  @common['select_form_of_upload_month']['latest_entry_year']).each do |year| %>
+                <option value="<%= year %>"><%= year %>年</option>
+              <% end %>
+            </select>
+            <select name="youtube[published][month]" class="au-select-inline">
+              <option value="1">1月</option>
+              <option value="2">2月</option>
+              <option value="3">3月</option>
+              <option value="4">4月</option>
+              <option value="5">5月</option>
+              <option value="6">6月</option>
+              <option value="7" selected>7月</option>
+              <option value="8">8月</option>
+              <option value="9">9月</option>
+              <option value="10">10月</option>
+              <option value="11">11月</option>
+              <option value="12">12月</option>
+            </select>
+            <input type="hidden" name="youtube[published(3i)]" value="1">
+            <button type="submit" class="au-button-inline">検索</button>
+          </form>
+        </div>
+
+      </div>
+      
+      <!-- Second Row of Forms -->
+      <div class="au-nav-desktop-forms">
+
+        <!-- Ustream Search -->
+        <div class="au-nav-desktop-form-item">
+          <div class="au-nav-desktop-form-header">
+            <i class="video icon au-nav-form-icon"></i>
+            <span>Ustream放送検索</span>
+          </div>
+          <form class="au-form-inline" action="/ustreams/_published" accept-charset="UTF-8" method="get">
+            <input name="utf8" type="hidden" value="✓">
+            <select name="ustreams[id]" class="au-select-inline">
+              <% @common['select_form_of_ustream'].each do |entry| %>
+                <option value="<%= entry['id'] %>"><%= entry['title'] %></option>
+              <% end %>
+            </select>
+            <button type="submit" class="au-button-inline">検索</button>
+          </form>
+        </div>
+
+        <!-- YouTube Live Search -->
+        <div class="au-nav-desktop-form-item">
+          <div class="au-nav-desktop-form-header">
+            <i class="play circle icon au-nav-form-icon"></i>
+            <span>YouTubeLive検索</span>
+          </div>
+          <form class="au-form-inline" action="/youtubes/_live" accept-charset="UTF-8" method="get">
+            <input name="utf8" type="hidden" value="✓">
+            <select name="youtube[id]" class="au-select-inline">
+              <% @common['select_form_of_youtube_live'].each do |entry| %>
+                <option value="<%= entry['id'] %>"><%= entry['title'] %></option>
+              <% end %>
+            </select>
+            <button type="submit" class="au-button-inline">検索</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</nav>

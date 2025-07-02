@@ -7,23 +7,22 @@
   <div class="ui raised segment" style="padding-bottom: 5em;">
     <h1 class="title"><%= raw(@title) %></h1>
 
-    <div class="ui six stackable cards column grid" id="masonry">
+    <div class="ui six stackable cards column grid masonry" id="masonry">
       <% @data['youtubes'].each do |entry| %>
           <%= render :partial => 'shared/entry', :locals => { :entry => entry } %>
       <% end %>
-
-      <nav id="page-nav">
-        <%# link_to_next_pageの引数に 'params: params' が必要 %>
-        <%# See https://github.com/amatsuda/kaminari/issues/513#issuecomment-35795809 %>
-        <% if not request.path_info == '/youtubes/new_arrival' %>
-          <% if not @headers['x-next-page'].empty? %>
-            <%= link_to_next_page @data['youtubes'], "", params: params %>
-          <% end %>
-        <% end %>
-      </nav>
-
-      <div class="clearfix"></div>
     </div>
+
+    <nav id="page-nav" style="visibility: hidden; position: absolute; top: -9999px;">
+      <!-- DEBUG: next-page = <%= @headers ? @headers['x-next-page'] : 'nil' %> -->
+      <% if not request.path_info == '/youtubes/new_arrival' %>
+        <% if @headers && @headers['x-next-page'].present? %>
+          <%= link_to "", url_for(params.to_unsafe_h.merge(page: @headers['x-next-page'])), rel: 'next' %>
+        <% elsif @data && @data['youtubes'].respond_to?(:next_page) && @data['youtubes'].next_page %>
+          <%= link_to "", url_for(params.to_unsafe_h.merge(page: @data['youtubes'].next_page)), rel: 'next' %>
+        <% end %>
+      <% end %>
+    </nav>
 
     <div class="page-load-status">
       <p class="infinite-scroll-request loader-ellips">

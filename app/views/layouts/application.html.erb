@@ -39,8 +39,34 @@
 
   <script src="/jquery.min.js"></script>
 
-  <script src="/bundle.js" async></script>
+  <script src="/bundle.js"></script>
   <script src="/stuff.js" async></script>
+  
+  <!-- デバッグ用のインラインJavaScript -->
+  <script>
+    console.log("INLINE TEST: JavaScript is working!");
+    console.log("INLINE TEST: jQuery available?", typeof jQuery !== 'undefined');
+    
+    document.addEventListener("DOMContentLoaded", function() {
+        console.log("INLINE TEST: DOMContentLoaded fired from inline script!");
+        
+        // bundle.jsが読み込まれているかテスト
+        if (window.testVariable) {
+            console.log("INLINE TEST: Bundle.js loaded successfully:", window.testVariable);
+        } else {
+            console.log("INLINE TEST: Bundle.js NOT loaded or testVariable not set");
+        }
+        
+        // masonry要素の存在確認
+        var masonryElement = document.querySelector('.masonry');
+        console.log("INLINE TEST: Masonry element found:", masonryElement);
+        
+        // page-nav要素の存在確認
+        var pageNavElement = document.querySelector('#page-nav');
+        console.log("INLINE TEST: Page nav element found:", pageNavElement);
+        
+    });
+  </script>
 
 
   <!-- font-awesome -->
@@ -81,21 +107,57 @@
 
         $('.ui.accordion').accordion();
 
+        // au.com style navigation accordion
+        $('.au-nav-category-header').on('click', function() {
+            const $category = $(this).closest('.au-nav-category');
+            const $content = $category.find('.au-nav-category-content');
+            
+            if ($category.hasClass('active')) {
+                $category.removeClass('active');
+                $content.slideUp(200);
+            } else {
+                $category.addClass('active');
+                $content.slideDown(200);
+            }
+        });
 
+        $('.au-nav-subcategory-header').on('click', function() {
+            const $subcategory = $(this).closest('.au-nav-subcategory');
+            const $content = $subcategory.find('.au-nav-subcategory-content');
+            
+            if ($subcategory.hasClass('active')) {
+                $subcategory.removeClass('active');
+                $content.slideUp(150);
+            } else {
+                $subcategory.addClass('active');
+                $content.slideDown(150);
+            }
+        });
 
-    console.log("Document ready");
+        // Tablet navigation toggle
+        $('#tablet-menu-toggle').on('click', function() {
+            const $dropdown = $('#tablet-dropdown');
+            $dropdown.toggleClass('active');
+        });
 
-    // モバイル用のみ初期化（context 修正）
-    $('.ui.sidebar.mobile-sidebar').sidebar({
-      context: $('.ui.pushable'),
-      transition: 'overlay',
-      dimPage: true
-    });
+        // Mobile navigation toggle
+        $('#mobile-menu-toggle').on('click', function() {
+            $('#mobile-sidebar').addClass('active');
+            $('body').css('overflow', 'hidden');
+        });
 
-    $('#mobile-menu-toggle').on('click', function () {
-      console.log("Mobile menu toggle clicked");
-      $('.ui.sidebar.mobile-sidebar').sidebar('toggle');
-    });
+        $('#mobile-menu-close, #mobile-overlay').on('click', function() {
+            $('#mobile-sidebar').removeClass('active');
+            $('body').css('overflow', '');
+        });
+
+        // Close dropdowns when clicking outside
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.au-nav-tablet').length) {
+                $('#tablet-dropdown').removeClass('active');
+            }
+        });
+
 
 
       });
@@ -162,20 +224,930 @@
     }
 
   }
-  @media only screen and (min-width: 768px) and (max-width: 991px) {
+  @media only screen and (min-width: 601px) and (max-width: 991px) {
     .tablet.only { display: block !important; }
     .computer.only, .mobile.only { display: none !important; }
+    
+    /* Hide old tablet navigation */
     .ui.top.fixed.menu.tablet.only {
-      display: flex !important;
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      white-space: nowrap;
-    }
-    .ui.top.fixed.menu.tablet.only .item {
-      flex: 0 0 auto;
-      white-space: nowrap;
+      display: none !important;
     }
   }
+  @media only screen and (max-width: 600px) {
+    .mobile.only {
+      display: block !important;
+    }
+    .computer.only,
+    .tablet.only {
+      display: none !important;
+    }
+    
+    /* Hide old mobile navigation */
+    .ui.top.fixed.menu.mobile.only {
+      display: none !important;
+    }
+    .ui.left.fixed.menu.computer.only {
+      display: none !important;
+    }
+    .ui.sidebar.mobile-sidebar {
+      display: none !important;
+    }
+  }
+
+  /* au.com Style Navigation */
+  .au-nav {
+    background: #ffffff;
+    border-right: 1px solid #e0e0e0;
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    width: 260px;
+    padding: 0;
+  }
+
+  .au-nav-header {
+    padding: 20px 24px;
+    border-bottom: 1px solid #f0f0f0;
+    background: #f8f9fa;
+  }
+
+  .au-nav-logo {
+    font-size: 16px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    display: block;
+  }
+
+  .au-nav-logo:hover {
+    color: #ff6900;
+    text-decoration: none;
+  }
+
+  .au-nav-search {
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .au-search-form {
+    position: relative;
+  }
+
+  .au-search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .au-search-input {
+    width: 100%;
+    padding: 12px 40px 12px 16px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .au-search-input:focus {
+    border-color: #ff6900;
+    box-shadow: 0 0 0 2px rgba(255, 105, 0, 0.1);
+  }
+
+  .au-search-button {
+    position: absolute;
+    right: 8px;
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: color 0.2s ease;
+  }
+
+  .au-search-button:hover {
+    color: #ff6900;
+  }
+
+  .au-nav-section {
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .au-nav-category-header,
+  .au-nav-link-simple {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    position: relative;
+  }
+
+  .au-nav-category-header:hover,
+  .au-nav-link-simple:hover {
+    background-color: #f8f9fa;
+    color: #ff6900;
+  }
+
+  .au-nav-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    color: #666;
+    flex-shrink: 0;
+  }
+
+  .au-nav-category-title {
+    flex: 1;
+  }
+
+  .au-nav-chevron {
+    color: #999;
+    transition: transform 0.2s ease;
+  }
+
+  .au-nav-category.active .au-nav-chevron {
+    transform: rotate(180deg);
+  }
+
+  .au-nav-category-content {
+    display: none;
+    background: #fafafa;
+    border-top: 1px solid #f0f0f0;
+  }
+
+  .au-nav-category.active .au-nav-category-content {
+    display: block;
+  }
+
+  .au-nav-submenu {
+    padding: 8px 0;
+  }
+
+  .au-nav-link {
+    display: block;
+    padding: 10px 24px 10px 52px;
+    color: #555;
+    text-decoration: none;
+    font-size: 13px;
+    line-height: 1.4;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .au-nav-link:hover {
+    background-color: #f0f0f0;
+    color: #ff6900;
+    text-decoration: none;
+  }
+
+  .au-nav-subcategory {
+    margin: 4px 0;
+  }
+
+  .au-nav-subcategory-header {
+    display: flex;
+    align-items: center;
+    padding: 8px 24px 8px 52px;
+    color: #666;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .au-nav-subcategory-header:hover {
+    color: #ff6900;
+  }
+
+  .au-nav-subcategory-title {
+    flex: 1;
+  }
+
+  .au-nav-chevron-small {
+    color: #999;
+    font-size: 12px;
+    transition: transform 0.2s ease;
+  }
+
+  .au-nav-subcategory.active .au-nav-chevron-small {
+    transform: rotate(180deg);
+  }
+
+  .au-nav-subcategory-content {
+    display: none;
+  }
+
+  .au-nav-subcategory.active .au-nav-subcategory-content {
+    display: block;
+  }
+
+  .au-nav-sublink {
+    display: block;
+    padding: 6px 24px 6px 64px;
+    color: #666;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 1.4;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .au-nav-sublink:hover {
+    background-color: #eee;
+    color: #ff6900;
+    text-decoration: none;
+  }
+
+  .au-form {
+    padding: 16px 24px;
+  }
+
+  .au-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .au-select-group {
+    display: flex;
+    gap: 8px;
+  }
+
+  .au-select {
+    flex: 1;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 13px;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .au-select:focus {
+    border-color: #ff6900;
+    box-shadow: 0 0 0 2px rgba(255, 105, 0, 0.1);
+  }
+
+  .au-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    outline: none;
+  }
+
+  .au-button-primary {
+    background: #ff6900;
+    color: white;
+  }
+
+  .au-button-primary:hover {
+    background: #e55a00;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  /* Desktop Navigation Styles (1020px - 1200px) */
+  .au-nav-desktop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: none;
+  }
+
+  .au-nav-desktop-header {
+    height: 70px;
+    display: flex;
+    align-items: center;
+  }
+
+  .au-nav-desktop-container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .au-nav-desktop-secondary .au-nav-desktop-container {
+    flex-direction: column;
+    gap: 10px;
+    align-items: stretch;
+    max-width: none;
+    width: 100%;
+  }
+
+  .au-nav-desktop-brand {
+    flex-shrink: 0;
+  }
+
+  .au-nav-desktop-menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex: 1;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .au-nav-desktop-item {
+    position: relative;
+  }
+
+  .au-nav-desktop-link {
+    display: flex;
+    align-items: center;
+    padding: 8px 12px;
+    color: #333;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .au-nav-desktop-link:hover {
+    color: #ff6900;
+    background-color: #f8f9fa;
+    text-decoration: none;
+  }
+
+  .au-nav-desktop-link .au-nav-icon {
+    margin-right: 6px;
+    font-size: 14px;
+  }
+
+  .au-nav-desktop-link .au-nav-chevron {
+    margin-left: 8px;
+    font-size: 12px;
+    transition: transform 0.2s ease;
+  }
+
+  .au-nav-dropdown:hover .au-nav-chevron {
+    transform: rotate(180deg);
+  }
+
+  .au-nav-desktop-dropdown-content {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    min-width: 280px;
+    max-width: 600px;
+    padding: 20px;
+    display: none;
+    z-index: 1001;
+  }
+
+  .au-nav-dropdown:hover .au-nav-desktop-dropdown-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .au-nav-desktop-dropdown-section {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  .au-nav-desktop-dropdown-title {
+    font-size: 11px;
+    font-weight: 600;
+    color: #666;
+    margin: 0 0 8px 0;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .au-nav-desktop-dropdown-link {
+    display: block;
+    padding: 6px 10px;
+    color: #555;
+    text-decoration: none;
+    font-size: 11px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+  }
+
+  .au-nav-desktop-dropdown-link:hover {
+    color: #ff6900;
+    background-color: #f8f9fa;
+    text-decoration: none;
+  }
+
+  .au-nav-desktop-search {
+    flex-shrink: 0;
+    width: 240px;
+  }
+
+  .au-nav-desktop-search .au-search-input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .au-nav-desktop-search .au-search-input {
+    width: 100%;
+    padding: 10px 40px 10px 14px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 13px;
+    background: #f8f9fa;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+
+  .au-nav-desktop-search .au-search-input:focus {
+    border-color: #ff6900;
+    background: #fff;
+    box-shadow: 0 0 0 2px rgba(255, 105, 0, 0.1);
+  }
+
+  .au-nav-desktop-search .au-search-button {
+    position: absolute;
+    right: 8px;
+    background: none;
+    border: none;
+    color: #666;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    transition: all 0.2s ease;
+  }
+
+  .au-nav-desktop-search .au-search-button:hover {
+    color: #ff6900;
+    background-color: rgba(255, 105, 0, 0.1);
+  }
+
+  /* Desktop Navigation Secondary Row */
+  .au-nav-desktop-secondary {
+    background: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+    padding: 10px 0;
+    min-height: 70px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+
+  .au-nav-desktop-forms {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+    justify-content: center;
+    width: 100%;
+    overflow-x: hidden;
+    min-height: 32px;
+  }
+
+  .au-nav-desktop-form-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    background: #ffffff;
+    padding: 4px 6px;
+    border-radius: 3px;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    min-height: 26px;
+    flex: 1 1 0;
+    white-space: nowrap;
+    max-width: 600px;
+    min-width: 280px;
+  }
+
+  .au-nav-desktop-form-header {
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    flex-shrink: 0;
+    font-size: 10px;
+    font-weight: 600;
+    color: #666;
+    width: 120px;
+    min-width: 120px;
+    text-align: left;
+  }
+
+  .au-nav-form-icon {
+    font-size: 11px;
+    color: #ff6900;
+  }
+
+  .au-form-inline {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+  }
+
+  .au-select-inline {
+    padding: 2px 4px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    font-size: 10px;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s ease;
+    width: 88px;
+    height: 22px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .au-select-inline:focus {
+    border-color: #ff6900;
+    box-shadow: 0 0 0 2px rgba(255, 105, 0, 0.1);
+  }
+
+  .au-button-inline {
+    padding: 2px 8px;
+    background: #ff6900;
+    color: white;
+    border: none;
+    border-radius: 2px;
+    font-size: 10px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    height: 22px;
+    line-height: 1;
+  }
+
+  .au-button-inline:hover {
+    background: #e55a00;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .au-search-input-inline {
+    padding: 2px 4px;
+    border: 1px solid #ddd;
+    border-radius: 2px;
+    font-size: 10px;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s ease;
+    width: 180px;
+    height: 22px;
+  }
+
+  .au-search-input-inline:focus {
+    border-color: #ff6900;
+    box-shadow: 0 0 0 2px rgba(255, 105, 0, 0.1);
+  }
+
+  /* YouTube Live and Ustream select dropdown styling */
+  .au-nav-desktop-form-item select[name="youtube[id]"],
+  .au-nav-desktop-form-item select[name="ustreams[id]"] {
+    width: 180px;
+  }
+
+  .au-nav-desktop-form-item select[name="youtube[id]"] option,
+  .au-nav-desktop-form-item select[name="ustreams[id]"] option {
+    white-space: normal;
+    word-wrap: break-word;
+    padding: 4px 8px;
+    line-height: 1.3;
+  }
+
+
+  /* Tablet Navigation Styles */
+  .au-nav-tablet {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .au-nav-tablet-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    height: 60px;
+  }
+
+  .au-nav-tablet-toggle {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #666;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+  }
+
+  .au-nav-tablet-toggle:hover {
+    color: #ff6900;
+    background-color: #f8f9fa;
+  }
+
+  .au-nav-tablet-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-height: 80vh;
+    overflow-y: auto;
+    display: none;
+  }
+
+  .au-nav-tablet-dropdown.active {
+    display: block;
+  }
+
+  /* Tablet Navigation Content Adjustments */
+  .au-nav-tablet .au-nav-search {
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .au-nav-tablet .au-nav-section {
+    border-bottom: 1px solid #f0f0f0;
+  }
+
+  .au-nav-tablet .au-nav-category-header,
+  .au-nav-tablet .au-nav-link-simple {
+    padding: 16px 20px;
+    font-size: 14px;
+  }
+
+  .au-nav-tablet .au-nav-link {
+    padding: 10px 24px 10px 52px;
+    font-size: 13px;
+  }
+
+  .au-nav-tablet .au-nav-sublink {
+    padding: 6px 24px 6px 64px;
+    font-size: 12px;
+  }
+
+  .au-nav-tablet .au-form {
+    padding: 16px 20px;
+  }
+
+  .au-nav-tablet .au-select {
+    font-size: 13px;
+    padding: 8px 12px;
+  }
+
+  .au-nav-tablet .au-button-primary {
+    font-size: 13px;
+    padding: 10px 16px;
+  }
+
+  /* Mobile Navigation Styles */
+  .au-nav-mobile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: #ffffff;
+    border-bottom: 1px solid #e0e0e0;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+
+  .au-nav-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    height: 56px;
+    position: relative;
+  }
+
+  .au-nav-mobile-toggle {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #666;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    position: absolute;
+    left: 16px;
+    z-index: 10;
+  }
+
+  .au-nav-logo-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #ff6900;
+    text-decoration: none;
+  }
+
+  .au-nav-mobile-toggle:hover {
+    color: #ff6900;
+    background-color: #f8f9fa;
+  }
+
+  .au-nav-mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.3s ease, opacity 0.3s ease;
+  }
+
+  .au-nav-mobile-sidebar.active {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .au-nav-mobile-sidebar-content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 280px;
+    height: 100%;
+    background: #ffffff;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.2);
+    transform: translateX(-100%);
+    transition: transform 0.3s ease;
+    overflow-y: auto;
+    z-index: 10001;
+  }
+
+  .au-nav-mobile-sidebar.active .au-nav-mobile-sidebar-content {
+    transform: translateX(0);
+  }
+
+  .au-nav-mobile-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    z-index: 10000;
+  }
+
+  .au-nav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    height: 60px;
+    border-bottom: 1px solid #f0f0f0;
+    position: relative;
+  }
+
+  .au-nav-mobile-close {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #666;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 4px;
+    transition: color 0.2s ease, background-color 0.2s ease;
+    position: absolute;
+    right: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .au-nav-mobile-close:hover {
+    color: #ff6900;
+    background-color: #f8f9fa;
+  }
+
+  /* Responsive Navigation Control */
+  
+  /* Large Desktop (1200px+) - Sidebar Navigation */
+  @media only screen and (min-width: 1200px) {
+    .computer.only { display: block !important; }
+    .tablet.only, .mobile.only { display: none !important; }
+    
+    .au-nav.sidebar-fixed {
+      width: 260px;
+    }
+    
+    .au-nav-desktop {
+      display: none !important;
+    }
+    
+    .au-nav-tablet {
+      display: none !important;
+    }
+    
+    .au-nav-mobile {
+      display: none !important;
+    }
+    
+    .pusher {
+      padding-top: 50px !important;
+    }
+  }
+
+  /* Tablet (768px - 1199px) - Desktop Style Navigation */
+  @media only screen and (min-width: 768px) and (max-width: 1199px) {
+    .desktop.only { display: block !important; }
+    .computer.only, .tablet.only, .mobile.only { display: none !important; }
+    
+    .au-nav-desktop {
+      display: block !important;
+    }
+    
+    .au-nav-tablet {
+      display: none !important;
+    }
+    
+    .au-nav.sidebar-fixed {
+      display: none !important;
+    }
+    
+    .au-nav-mobile {
+      display: none !important;
+    }
+    
+    .ui.pushable {
+      display: block;
+    }
+    
+    .pusher {
+      margin-left: 0;
+      padding: 1rem;
+      padding-top: 210px !important;
+    }
+  }
+
+  /* Tablet Small (768px - 845px) - Compact Navigation */
+  @media only screen and (min-width: 768px) and (max-width: 845px) {
+    .au-nav-desktop-container {
+      padding: 0 8px;
+    }
+    
+    .au-nav-desktop-menu {
+      gap: 8px;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+    }
+    
+    .au-nav-desktop-link {
+      padding: 4px 6px;
+      font-size: 10px;
+      white-space: nowrap;
+    }
+    
+    .au-nav-desktop-link .au-nav-icon {
+      margin-right: 3px;
+      font-size: 11px;
+    }
+    
+    .au-nav-logo {
+      font-size: 0.9rem;
+      flex-shrink: 0;
+    }
+    
+    .au-nav-desktop-brand {
+      margin-right: 12px;
+    }
+  }
+
+  /* Mobile (767px and below) - Sidebar Navigation */
   @media only screen and (max-width: 767px) {
     .mobile.only {
       display: block !important;
@@ -184,15 +1156,218 @@
     .tablet.only {
       display: none !important;
     }
-    .ui.top.fixed.menu.mobile.only .item {
-      flex: 0 0 auto;
-      white-space: nowrap;
+    
+    .pusher {
+      padding-top: 70px !important;
     }
-    .ui.top.fixed.menu.mobile.only {
-      width: 100vw;
+    
+    .au-nav-mobile {
+      display: block !important;
     }
-    .ui.left.fixed.menu.computer.only {
+    
+    .au-nav-desktop {
       display: none !important;
+    }
+    
+    .au-nav.sidebar-fixed {
+      display: none !important;
+    }
+    
+    .au-nav-tablet {
+      display: none !important;
+    }
+
+    .au-nav-search {
+      padding: 12px 16px;
+    }
+
+    .au-nav-icon {
+      width: 18px;
+      height: 18px;
+      margin-right: 10px;
+    }
+
+    .au-nav-category-header,
+    .au-nav-link-simple {
+      padding: 14px 16px;
+      font-size: 14px;
+    }
+
+    .au-nav-link {
+      padding: 8px 20px 8px 44px;
+      font-size: 13px;
+    }
+
+    .au-nav-sublink {
+      padding: 6px 20px 6px 56px;
+      font-size: 12px;
+    }
+
+    .au-form {
+      padding: 12px 16px;
+    }
+
+    .au-select-group {
+      flex-direction: column;
+      gap: 8px;
+    }
+  }
+
+  /* Footer Styles - au.com Light Theme */
+  .au-footer {
+    margin-top: 80px;
+    background: #ffffff;
+    color: #333;
+  }
+
+  .au-footer-hero {
+    background-image: url('/images/goosehouse_goods.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    position: relative;
+    padding: 80px 0;
+    min-height: 400px;
+  }
+
+  .au-footer-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(0.5px);
+  }
+
+  .au-footer-content {
+    position: relative;
+    z-index: 2;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 40px;
+  }
+
+  .au-footer-logo {
+    flex: 1;
+    min-width: 300px;
+  }
+
+  .au-footer-logo h2 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 16px 0;
+    color: #ff6900;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+  }
+
+  .au-footer-logo p {
+    font-size: 1.2rem;
+    color: #555;
+    margin: 0;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+  }
+
+  .au-footer-links {
+    display: flex;
+    gap: 60px;
+    flex-wrap: wrap;
+  }
+
+  .au-footer-section {
+    min-width: 160px;
+  }
+
+  .au-footer-section h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0 0 20px 0;
+    color: #ff6900;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+  }
+
+  .au-footer-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .au-footer-section li {
+    margin-bottom: 8px;
+  }
+
+  .au-footer-section a {
+    color: #666;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+    text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
+  }
+
+  .au-footer-section a:hover {
+    color: #ff6900;
+    text-decoration: none;
+  }
+
+  .au-footer-bottom {
+    background: #f8f9fa;
+    padding: 20px 0;
+    text-align: center;
+    border-top: 1px solid #e0e0e0;
+  }
+
+  .au-footer-bottom p {
+    margin: 0;
+    color: #666;
+    font-size: 0.9rem;
+  }
+
+  /* Footer Responsive */
+  @media only screen and (max-width: 768px) {
+    .au-footer-content {
+      flex-direction: column;
+      text-align: center;
+      gap: 30px;
+    }
+
+    .au-footer-logo {
+      min-width: auto;
+    }
+
+    .au-footer-logo h2 {
+      font-size: 2rem;
+    }
+
+    .au-footer-links {
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .au-footer-hero {
+      padding: 60px 0;
+      min-height: 300px;
+    }
+  }
+
+  @media only screen and (max-width: 600px) {
+    .au-footer-links {
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .au-footer-section {
+      text-align: center;
+    }
+
+    .au-footer-hero {
+      padding: 40px 0;
+      min-height: 250px;
     }
   }
 
@@ -202,34 +1377,38 @@
 <body>
 
 
+<!-- Mobile Sidebar (outside pushable) -->
+<div class="au-nav-mobile-sidebar mobile only" id="mobile-sidebar">
+  <div class="au-nav-mobile-sidebar-content">
+    <div class="au-nav-header">
+      <a href="/" class="au-nav-logo">GoosetuneTV</a>
+      <button class="au-nav-mobile-close" id="mobile-menu-close">
+        <i class="times icon"></i>
+      </button>
+    </div>
+    <%= render :partial => 'shared/navgation/menu_content' %>
+  </div>
+  <div class="au-nav-mobile-overlay" id="mobile-overlay"></div>
+</div>
+
 <div class="ui pushable">
 
-<!-- Navigation for computer only -->
+<!-- Navigation for computer only (large desktop) -->
 <%= render :partial => 'shared/navgation/computer' %>
 
-<!-- 💡 ② 上部水平メニュー（タブレット用） -->
-<div class="ui top fixed menu tablet only" style="z-index: 1000; display: flex; flex-wrap: nowrap; overflow-x: auto; white-space: nowrap;">
-  <a class="item" href="/">トップ</a>
-  <a class="item" href="/members">メンバー</a>
-  <a class="item" href="/youtubes">YouTube</a>
-  <a class="item" href="/ustreams">Ustream</a>
-  <a class="item" href="/artists">アーティスト</a>
-</div>
 
-<!-- 💡 ③ ハンバーガー＋サイドバー（モバイル用） -->
-<!-- トップバー（アイコン表示） -->
-<div class="ui top fixed menu mobile only" style="z-index: 1000; display: flex; align-items: center; justify-content: space-between;">
-  <div class="menu">
-    <a class="item" id="mobile-menu-toggle" style="flex: 0 0 auto;"><i class="bars icon"></i></a>
-    <div class="header item" style="flex: 1 1 auto; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">GoosetuneTV</div>
+<!-- Desktop Style Navigation for Tablet -->
+<%= render :partial => 'shared/navgation/desktop' %>
+
+<!-- au.com Style Mobile Navigation -->
+<nav class="au-nav-mobile mobile only" style="z-index: 1000;">
+  <div class="au-nav-mobile-header">
+    <button class="au-nav-mobile-toggle" id="mobile-menu-toggle">
+      <i class="bars icon"></i>
+    </button>
+    <a href="/" class="au-nav-logo au-nav-logo-center">GoosetuneTV</a>
   </div>
-</div>
-
-
-<!-- サイドバー本体（モバイル用） -->
-<div class="ui sidebar vertical menu mobile-sidebar mobile only">
-  <!-- Navigation -->
-</div>
+</nav>
 
 
 
@@ -249,7 +1428,7 @@
 
 
     <!-- Main -->
-    <div class="pusher" style="padding-top: 50px;">
+    <div class="pusher" style="padding-top: 0;">
           <div id="bottom-editarea">
             <p id="pageTop"><a href="#"><i class="fa fa-chevron-up"></i></a></p>
           </div>
@@ -258,16 +1437,37 @@
           <%= yield %>
 
           <!-- Footer -->
-          <footer style="position: relative; top: 100px;">
-            <div class="jumbotron"></div>
-            <div id="title">
-              <p class="text-muted">
-                <small>
-                  <%= "#{Date.today.year} GoosetuneTV" %>
-                  <br>
-                  <%= "Goosehouse動画を検索できるまとめ" %>
-                </small>
-              </p>
+          <footer class="au-footer">
+            <div class="au-footer-hero">
+              <div class="au-footer-content">
+                <div class="au-footer-logo">
+                  <h2>GoosetuneTV</h2>
+                  <p>Goosehouse動画を検索できるまとめ</p>
+                </div>
+                <div class="au-footer-links">
+                  <div class="au-footer-section">
+                    <h4>検索機能</h4>
+                    <ul>
+                      <li><a href="/youtubes">YouTube検索</a></li>
+                      <li><a href="/members">メンバー検索</a></li>
+                      <li><a href="/ustreams">Ustream検索</a></li>
+                      <li><a href="/artists">アーティスト検索</a></li>
+                    </ul>
+                  </div>
+                  <div class="au-footer-section">
+                    <h4>カテゴリ</h4>
+                    <ul>
+                      <li><a href="/youtubes/new_arrival">新着動画</a></li>
+                      <li><a href="/youtubes/view_counts">人気動画</a></li>
+                      <li><a href="/youtubes/hoy">HOY</a></li>
+                      <li><a href="/youtubes/cover">カバー楽曲</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="au-footer-bottom">
+              <p>&copy; <%= Date.today.year %> GoosetuneTV - All rights reserved</p>
             </div>
           </footer>
     </div>

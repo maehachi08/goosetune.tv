@@ -36,7 +36,21 @@ class YoutubesController < ApplicationController
     @title = "再生回数の多い順"
     api_path = '/api/v2/youtubes/view_counts'
     goosetune_api_get_paginate_data(params, api_path)
-    render "entries"
+    
+    # Kaminariオブジェクトからページネーション情報を補完
+    if @data && @data['youtubes'].respond_to?(:next_page)
+      @headers['x-next-page'] = @data['youtubes'].next_page
+      @headers['x-prev-page'] = @data['youtubes'].prev_page
+      @headers['x-total-pages'] = @data['youtubes'].total_pages
+      @headers['x-current-page'] = @data['youtubes'].current_page
+    end
+    
+    if request.xhr? && params[:page].present?
+      # AJAX リクエストの場合はアイテムのみを返す
+      render partial: 'shared/entry_collection', locals: { entries: @data['youtubes'] }, layout: false
+    else
+      render "entries"
+    end
   end
 
   def desc
