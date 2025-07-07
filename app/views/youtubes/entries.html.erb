@@ -1,25 +1,21 @@
 <div class="container">
 
-  <div id="bottom-editarea">
-    <p id="pageTop"><a href="#"><i class="fa fa-chevron-up"></i></a></p>
-  </div>
-
   <div class="ui raised segment" style="padding-bottom: 5em;">
     <h1 class="title"><%= raw(@title) %></h1>
 
-    <div class="ui six stackable cards column grid masonry" id="masonry">
+    <div class="ui six stackable cards column grid masonry">
       <% @data['youtubes'].each do |entry| %>
           <%= render :partial => 'shared/entry', :locals => { :entry => entry } %>
       <% end %>
-    </div>
 
-    <nav id="page-nav" style="visibility: hidden; position: absolute; top: -9999px;">
-      <!-- DEBUG: next-page = <%= @headers ? @headers['x-next-page'] : 'nil' %> -->
+      <div class="clearfix"></div>
+    </div>
+    <nav id="page-nav">
+      <%# link_to_next_pageの引数に 'params: params' が必要 %>
+      <%# See https://github.com/amatsuda/kaminari/issues/513#issuecomment-35795809 %>
       <% if not request.path_info == '/youtubes/new_arrival' %>
-        <% if @headers && @headers['x-next-page'].present? %>
-          <%= link_to "", url_for(params.to_unsafe_h.merge(page: @headers['x-next-page'])), rel: 'next' %>
-        <% elsif @data && @data['youtubes'].respond_to?(:next_page) && @data['youtubes'].next_page %>
-          <%= link_to "", url_for(params.to_unsafe_h.merge(page: @data['youtubes'].next_page)), rel: 'next' %>
+        <% if not @headers['x-next-page'].empty? %>
+          <%= link_to_next_page @data['youtubes'], "Next", params: params, rel: "Next" %>
         <% end %>
       <% end %>
     </nav>
@@ -35,6 +31,6 @@
       <p class="infinite-scroll-error"></p>
     </div>
 
-  <div>
+  </div>
 </div>
 

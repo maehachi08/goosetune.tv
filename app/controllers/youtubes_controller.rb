@@ -39,10 +39,10 @@ class YoutubesController < ApplicationController
     
     # Kaminariオブジェクトからページネーション情報を補完
     if @data && @data['youtubes'].respond_to?(:next_page)
-      @headers['x-next-page'] = @data['youtubes'].next_page
-      @headers['x-prev-page'] = @data['youtubes'].prev_page
-      @headers['x-total-pages'] = @data['youtubes'].total_pages
-      @headers['x-current-page'] = @data['youtubes'].current_page
+      response['x-next-page'] = @data['youtubes'].next_page
+      response['x-prev-page'] = @data['youtubes'].prev_page
+      response['x-total-pages'] = @data['youtubes'].total_pages
+      response['x-current-page'] = @data['youtubes'].current_page
     end
     
     if request.xhr? && params[:page].present?
