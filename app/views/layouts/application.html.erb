@@ -42,31 +42,6 @@
   <script src="/bundle.js"></script>
   <script src="/stuff.js" async></script>
   
-  <!-- デバッグ用のインラインJavaScript -->
-  <script>
-    console.log("INLINE TEST: JavaScript is working!");
-    console.log("INLINE TEST: jQuery available?", typeof jQuery !== 'undefined');
-    
-    document.addEventListener("DOMContentLoaded", function() {
-        console.log("INLINE TEST: DOMContentLoaded fired from inline script!");
-        
-        // bundle.jsが読み込まれているかテスト
-        if (window.testVariable) {
-            console.log("INLINE TEST: Bundle.js loaded successfully:", window.testVariable);
-        } else {
-            console.log("INLINE TEST: Bundle.js NOT loaded or testVariable not set");
-        }
-        
-        // masonry要素の存在確認
-        var masonryElement = document.querySelector('.masonry');
-        console.log("INLINE TEST: Masonry element found:", masonryElement);
-        
-        // page-nav要素の存在確認
-        var pageNavElement = document.querySelector('#page-nav');
-        console.log("INLINE TEST: Page nav element found:", pageNavElement);
-        
-    });
-  </script>
 
 
   <!-- font-awesome -->

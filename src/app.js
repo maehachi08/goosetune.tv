@@ -34,12 +34,8 @@ import './scss/crown.scss';
 
 import './js/page_to_top.js';
 
-// テスト用のJavaScript
-import './test_simple.js';
 
-console.log('Starting jQuery ready function...');
 $(function() {
-    console.log('jQuery ready function executed!');
     $('.magnific-popup').magnificPopup({
         type: 'iframe',
         mainClass: 'mfp-fade',
@@ -65,20 +61,14 @@ $(function() {
     InfiniteScroll.imagesLoaded = imagesLoaded;
 
     // 要素の存在確認
-    console.log('Masonry element check:', document.querySelector('.masonry'));
-    console.log('Page nav element check:', document.querySelector('#page-nav'));
-    console.log('Items found:', document.querySelectorAll('.ui.card.item').length);
-    
     var masonryElement = document.querySelector('.masonry');
     if (!masonryElement) {
         console.error('Masonry element not found!');
         return;
     }
-    
     // 既存のMasonryスタイルをクリア
     masonryElement.style.height = '';
     masonryElement.style.position = '';
-    
     // 各アイテムの位置をリセット
     const items = masonryElement.querySelectorAll('.ui.card.item');
     items.forEach(item => {
@@ -87,63 +77,31 @@ $(function() {
         item.style.top = '';
         item.style.transform = '';
     });
-    
-    console.log('🔧 Before Masonry init - items:', items.length);
-    console.log('🔧 Container height before init:', masonryElement.style.height);
-    
     var msnry = new Masonry( masonryElement, {
         itemSelector : '.ui.card.item',
         columnWidth  : '.ui.card.item',
         percentPosition: true,
         gutter: 12
     });
-    
-    console.log('🔧 After Masonry init - container height:', masonryElement.style.height);
-    
     // 初期アイテムの画像読み込み完了を待ってレイアウトを実行
     $(masonryElement).imagesLoaded(function() {
-        console.log('🎯 Initial images loaded, updating layout...');
         msnry.layout();
-        
         // さらに確実にレイアウトを実行
         setTimeout(() => {
             msnry.layout();
-            console.log('🎯 Second layout executed');
-            
-            // コンテナの高さをログで確認
-            console.log('🎯 Initial container height:', masonryElement.style.height);
-            console.log('🎯 Container computed height:', window.getComputedStyle(masonryElement).height);
-            console.log('🎯 Container scroll height:', masonryElement.scrollHeight);
-            console.log('🎯 Initial masonry layout completed');
         }, 200);
     });
 
 
 
-    console.log('Initializing infinite scroll 5.0.0...');
-    
     // page-nav要素の存在確認
     var pageNavElement = document.querySelector('#page-nav');
     var nextLinkElement = document.querySelector('#page-nav a[rel="next"]');
-    
-    console.log('🔍 Page nav element:', pageNavElement);
-    console.log('🔍 Next link element:', nextLinkElement);
-    console.log('🔍 Next link href:', nextLinkElement ? nextLinkElement.href : 'none');
-    console.log('🔍 Masonry container:', document.querySelector('.masonry'));
-    console.log('🔍 Current items count:', document.querySelectorAll('.ui.card.item').length);
-    console.log('🔍 Status container:', document.querySelector('.page-load-status'));
-    
     if (!pageNavElement || !nextLinkElement) {
         console.error('❌ Page nav or next link element not found!');
         return;
     }
 
-    // ナビゲーションを見た目上非表示にするが、DOMには残す
-    pageNavElement.style.opacity = '0';
-    pageNavElement.style.height = '0';
-    pageNavElement.style.overflow = 'hidden';
-    pageNavElement.style.pointerEvents = 'none';
-    
     var infScroll = new InfiniteScroll( '.masonry', {
         path: '#page-nav a[rel="next"]',
         append: '.ui.card.item',
@@ -152,106 +110,63 @@ $(function() {
         status: '.page-load-status',
         scrollThreshold: 100,
         loadOnScroll: true,
-        elementScroll: false,
+        elementScroll: false,  // ウィンドウ全体のスクロールを監視
         checkLastPage: true,
-        debug: true,
+        debug: false,
         // 5.0.0用の追加設定
         button: false,
-        hideNav: false
+        hideNav: '#page-nav'  // セレクターで指定してナビゲーションを隠す
     });
-    
-    // 自動ロード機能は無効化（コメントアウト）
-    // 通常のスクロール動作のみ有効
-    
-    // infinite scrollの内部状態をチェック
-    console.log('🔧 InfiniteScroll internal state:');
-    console.log('🔧 loadOnScroll:', infScroll.options.loadOnScroll);
-    console.log('🔧 scrollThreshold:', infScroll.options.scrollThreshold);
-    console.log('🔧 Element scroll:', infScroll.options.elementScroll);
-    console.log('🔧 Path selector working:', document.querySelector('#page-nav a[rel="next"]'));
-    console.log('🔧 Current path:', infScroll.getPath && infScroll.getPath());
-    console.log('🔧 Container element:', infScroll.element);
-    console.log('🔧 Is enabled:', infScroll.isEnabled);
-    
-    // シンプルなテスト用ボタン
-    let currentPage = 1;
-    
-    const testButton = document.createElement('button');
-    testButton.textContent = 'Load Next Page';
-    testButton.style.position = 'fixed';
-    testButton.style.top = '10px';
-    testButton.style.right = '10px';
-    testButton.style.zIndex = '9999';
-    testButton.style.backgroundColor = 'red';
-    testButton.style.color = 'white';
-    testButton.style.padding = '10px';
-    
-    testButton.onclick = function() {
-        currentPage++;
-        const nextPath = '/youtubes/view_counts?page=' + currentPage;
-        
-        fetch(nextPath)
-            .then(response => response.text())
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const newItems = doc.querySelectorAll('.ui.card.item');
-                
-                if (newItems.length > 0) {
-                    const masonryContainer = document.querySelector('.masonry');
-                    const newElements = [];
-                    
-                    // 新しいアイテムをDOMに追加
-                    newItems.forEach(item => {
-                        const clonedItem = item.cloneNode(true);
-                        masonryContainer.appendChild(clonedItem);
-                        newElements.push(clonedItem);
-                    });
-                    
-                    // 画像読み込み完了を待ってからMasonryレイアウト更新
-                    $(newElements).imagesLoaded(function() {
-                        // Masonryを完全にリロード
-                        msnry.reloadItems();
-                        msnry.layout();
-                        console.log(`✅ Added ${newItems.length} items from page ${currentPage}`);
-                    });
-                }
-            })
-            .catch(err => console.log('Error:', err));
-    };
-    
-    document.body.appendChild(testButton);
-    
-    console.log('Infinite scroll 5.0.0 initialized:', infScroll);
+    // スクロールを発生させるために高さを強制的に設定
+    document.body.style.setProperty('min-height', '100vh', 'important');
+    document.documentElement.style.setProperty('min-height', '100vh', 'important');
+    // masonryコンテナとその親要素の高さを設定
+    const masonryContainer = document.querySelector('.masonry');
+    if (masonryContainer) {
+        masonryContainer.style.setProperty('min-height', '100vh', 'important');
+        masonryContainer.style.setProperty('height', 'auto', 'important');
+        // 親要素も設定
+        let parent = masonryContainer.parentElement;
+        while (parent && parent !== document.documentElement) {
+            parent.style.setProperty('min-height', '100vh', 'important');
+            parent.style.setProperty('height', 'auto', 'important');
+            parent = parent.parentElement;
+        }
+    }
 
+    // InfiniteScrollライブラリに自動スクロール検知を任せる
     infScroll.on('request', function(path, fetchPromise) {
-        console.log('🔄 REQUEST: Loading:', path);
-        console.log('📍 Status element exists:', document.querySelector('.page-load-status'));
-        console.log('📍 Request element exists:', document.querySelector('.infinite-scroll-request'));
-        
         $('.page-load-status').show();
         $('.infinite-scroll-request').show();
-        console.log('✅ Loading status shown');
     });
-    
+
     infScroll.on('load', function(response, path) {
-        console.log('📥 LOAD: Loaded:', path);
-        console.log('📊 Response type:', typeof response);
-        console.log('📊 Response length:', response ? response.length : 'null');
         $('.infinite-scroll-request').hide();
     });
-    
+
     infScroll.on('append', function(response, path, items) {
-        console.log('📌 APPEND: Items:', items);
-        console.log('📌 Items length:', items ? items.length : 'null');
-        console.log('📌 Items type:', typeof items);
-        
         if (items && items.length > 0) {
-            console.log('✅ Adding', items.length, 'items to masonry');
-            
-            // Masonryレイアウトを更新
-            msnry.appended(items);
-            
+            // 新しいアイテムを最初は非表示にする
+            items.forEach(item => {
+                item.style.opacity = '0';
+                item.style.transform = 'scale(0.8)';
+                item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            });
+
+            // 画像読み込み完了を待ってからMasonryレイアウト更新
+            $(items).imagesLoaded(function() {
+                msnry.reloadItems();
+                msnry.layout();
+
+                // レイアウト完了後に新しいアイテムを表示
+                setTimeout(() => {
+                    items.forEach(item => {
+                        item.style.opacity = '1';
+                        item.style.transform = 'scale(1)';
+                    });
+                }, 100);
+            });
+
             // Magnific Popupを再初期化
             $(items).find('.magnific-popup').magnificPopup({
                 type: 'iframe',
@@ -259,21 +174,17 @@ $(function() {
                 removalDelay: 200,
                 preloader: false
             });
-        } else {
-            console.log('❌ No items to append');
         }
-        
+
         $('.page-load-status').hide();
     });
-    
+
     infScroll.on('last', function(response, path) {
-        console.log('🏁 LAST: Last page reached');
         $('.page-load-status').hide();
         $('.infinite-scroll-last').show();
     });
-    
+
     infScroll.on('error', function(error, path) {
-        console.log('❌ ERROR: Loading failed:', path, error);
         $('.infinite-scroll-request').hide();
         $('.infinite-scroll-error').show();
     });

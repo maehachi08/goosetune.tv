@@ -3,15 +3,11 @@
 */
 .ui.divider { margin-bottom: 2rem; }
 
-body {
-    /* min-height: 500px; */
-}
 
-/* infinite scroll用にmasonryコンテナに最小高さを設定 */
+/* infinite scroll用の設定 */
 .masonry {
-    /* min-height: 120vh !important; */
-    /* Masonryが高さを自動調整できるように - 制限を削除 */
-    /* height: auto !important; */
+    /* Masonryが高さを自動調整できるように制限を削除 */
+    min-height: 100vh; /* 最低限のビューポート高さを確保してスクロールを発生させる */
 }
 
 
