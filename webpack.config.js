@@ -90,6 +90,9 @@ module.exports = {
           },
           {
             loader: 'sass-loader',
+            options: {
+              implementation: require('sass'),
+            }
           }
         ],
       },
@@ -103,7 +106,7 @@ module.exports = {
       },
       {
         test: /\.(jpg|png)$/,
-        use: 'url-loader'
+        type: 'asset/resource'
       },
       {
         test: /\.(js|jsx)$/,

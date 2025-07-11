@@ -23,9 +23,15 @@
           <div class="au-form-group">
             <div class="au-select-group">
               <select id="youtube_published_1i" name="youtube[published][year]" class="au-select">
-                <% (@common['select_form_of_upload_month']['first_entry_year']..
-                    @common['select_form_of_upload_month']['latest_entry_year']).each do |year| %>
-                  <option value="<%= year %>"><%= year %> 年</option>
+                <% if @common && @common['select_form_of_upload_month'] %>
+                  <% (@common['select_form_of_upload_month']['first_entry_year']..
+                      @common['select_form_of_upload_month']['latest_entry_year']).each do |year| %>
+                    <option value="<%= year %>"><%= year %> 年</option>
+                  <% end %>
+                <% else %>
+                  <% (2010..2021).each do |year| %>
+                    <option value="<%= year %>"><%= year %> 年</option>
+                  <% end %>
                 <% end %>
               </select>
               <select id="youtube_puAblished_2i" name="youtube[published][month]" class="au-select">
@@ -63,8 +69,14 @@
           <input name="utf8" type="hidden" value="✓">
           <div class="au-form-group">
             <select name="ustreams[id]" id="ustream_id" class="au-select">
-              <% @common['select_form_of_ustream'].each do |entry| %>
-                <option value="<%= entry['id'] %>"><%= entry['title'] %></option>
+              <% if @common && @common['select_form_of_ustream'] %>
+                <% @common['select_form_of_ustream'].each do |entry| %>
+                  <option value="<%= entry['id'] %>"><%= entry['title'] %></option>
+                <% end %>
+              <% else %>
+                <option value="109889306">Goose house UST LIVE #78</option>
+                <option value="109333557">Goose house UST #77</option>
+                <option value="107969495">Goose house UST #76</option>
               <% end %>
             </select>
             <button type="submit" class="au-button au-button-primary">検索</button>
@@ -86,8 +98,14 @@
           <input name="utf8" type="hidden" value="✓">
           <div class="au-form-group">
             <select name="youtube[id]" id="youtube_id" class="au-select">
-              <% @common['select_form_of_youtube_live'].each do |entry| %>
-                <option value="<%= entry['id'] %>"><%= entry['title'] %></option>
+              <% if @common && @common['select_form_of_youtube_live'] %>
+                <% @common['select_form_of_youtube_live'].each do |entry| %>
+                  <option value="<%= entry['id'] %>"><%= entry['title'] %></option>
+                <% end %>
+              <% else %>
+                <option value="aNJLXRxEw2k">Streaming Live 「Halloween with Play.Goose at home! Special（20201031）」</option>
+                <option value="MEAj4qTAoiM">Streaming Live  Play.Goose #August 2020" Reversi "（20200829）</option>
+                <option value="09VjcF_vp9o">Streaming live Play.Goose #March 2020</option>
               <% end %>
             </select>
             <button type="submit" class="au-button au-button-primary">検索</button>

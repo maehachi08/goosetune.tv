@@ -34,20 +34,11 @@ class YoutubesController < ApplicationController
 
   def view_counts
     @title = "再生回数の多い順"
-    api_path = '/api/v2/youtubes/view_counts'
-    goosetune_api_get_paginate_data(params, api_path)
-    
-    # Kaminariオブジェクトからページネーション情報を補完
-    if @data && @data['youtubes'].respond_to?(:next_page)
-      response['x-next-page'] = @data['youtubes'].next_page
-      response['x-prev-page'] = @data['youtubes'].prev_page
-      response['x-total-pages'] = @data['youtubes'].total_pages
-      response['x-current-page'] = @data['youtubes'].current_page
-    end
+    @entries = Youtube.order('view_counts DESC').page(params[:page])
     
     if request.xhr? && params[:page].present?
       # AJAX リクエストの場合はアイテムのみを返す
-      render partial: 'shared/entry_collection', locals: { entries: @data['youtubes'] }, layout: false
+      render partial: 'shared/entry_collection', locals: { entries: @entries }, layout: false
     else
       render "entries"
     end
@@ -57,28 +48,48 @@ class YoutubesController < ApplicationController
     @title = "すべての動画(新しい順)"
     api_path = '/api/v2/youtubes/desc'
     goosetune_api_get_paginate_data(params, api_path)
-    render "entries"
+    
+    if request.xhr? && params[:page].present?
+      render partial: 'shared/entry_collection', locals: { entries: @data['youtubes'] }, layout: false
+    else
+      render "entries"
+    end
   end
 
   def asc
     @title = "すべての動画(古い順)"
     api_path = '/api/v2/youtubes/asc'
     goosetune_api_get_paginate_data(params, api_path)
-    render "entries"
+    
+    if request.xhr? && params[:page].present?
+      render partial: 'shared/entry_collection', locals: { entries: @data['youtubes'] }, layout: false
+    else
+      render "entries"
+    end
   end
 
   def sing
     @title = "Singを集めてみました"
     api_path = '/api/v2/youtubes/sing'
     goosetune_api_get_paginate_data(params, api_path)
-    render "entries"
+    
+    if request.xhr? && params[:page].present?
+      render partial: 'shared/entry_collection', locals: { entries: @data['youtubes'] }, layout: false
+    else
+      render "entries"
+    end
   end
 
   def playyouhouse
     @title = "タイトルが曲名ではなく'Play You. House'"
     api_path = '/api/v2/youtubes/playyouhouse'
     goosetune_api_get_paginate_data(params, api_path)
-    render "entries"
+    
+    if request.xhr? && params[:page].present?
+      render partial: 'shared/entry_collection', locals: { entries: @data['youtubes'] }, layout: false
+    else
+      render "entries"
+    end
   end
 
   def cover
@@ -93,7 +104,12 @@ class YoutubesController < ApplicationController
     @title = "#{year}年のカバー達"
     api_path = "/api/v2/youtubes/cover/#{year}"
     goosetune_api_get_paginate_data(params, api_path)
-    render "entries"
+    
+    if request.xhr? && params[:page].present?
+      render partial: 'shared/entry_collection', locals: { entries: @data['youtubes'] }, layout: false
+    else
+      render "entries"
+    end
   end
 
   def keyword
@@ -101,7 +117,12 @@ class YoutubesController < ApplicationController
     @title = "キーワード: #{keyword}"
     api_path = "/api/v2/youtubes/keyword"
     goosetune_api_get_paginate_data(params, api_path)
-    render "entries"
+    
+    if request.xhr? && params[:page].present?
+      render partial: 'shared/entry_collection', locals: { entries: @data['youtubes'] }, layout: false
+    else
+      render "entries"
+    end
   end
 
   def _upload_month
@@ -119,7 +140,12 @@ class YoutubesController < ApplicationController
     @title = "#{year}年#{month}月にYouTubeへアップロードされた動画"
     api_path = "/api/v2/youtubes/upload_month/#{year}/#{month}"
     goosetune_api_get_paginate_data(params, api_path)
-    render "entries"
+    
+    if request.xhr? && params[:page].present?
+      render partial: 'shared/entry_collection', locals: { entries: @data['youtubes'] }, layout: false
+    else
+      render "entries"
+    end
   end
 
   def _live

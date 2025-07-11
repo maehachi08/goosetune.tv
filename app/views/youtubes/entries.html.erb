@@ -4,20 +4,12 @@
     <h1 class="title"><%= raw(@title) %></h1>
 
     <div class="ui six stackable cards column grid masonry">
-      <% @data['youtubes'].each do |entry| %>
+      <% @entries.each do |entry| %>
           <%= render :partial => 'shared/entry', :locals => { :entry => entry } %>
       <% end %>
-
-      <div class="clearfix"></div>
     </div>
     <nav id="page-nav">
-      <%# link_to_next_pageの引数に 'params: params' が必要 %>
-      <%# See https://github.com/amatsuda/kaminari/issues/513#issuecomment-35795809 %>
-      <% if not request.path_info == '/youtubes/new_arrival' %>
-        <% if not @headers['x-next-page'].empty? %>
-          <%= link_to_next_page @data['youtubes'], "Next", params: params, rel: "Next" %>
-        <% end %>
-      <% end %>
+      <%= link_to_next_page @entries, "Next", params: params, rel: "next" %>
     </nav>
 
     <div class="page-load-status">
