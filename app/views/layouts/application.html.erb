@@ -191,11 +191,11 @@
     .sidebar-fixed {
       position: sticky;
       top: 0;
-      height: 100vh;
+      min-height: 100vh;
       overflow-y: auto;
       flex-shrink: 0;
       align-self: flex-start;
-      width: 220px; /* 必要に応じて調整 */
+      width: 220px;
     }
 
   }
@@ -1038,6 +1038,12 @@
     
     .au-nav.sidebar-fixed {
       width: 260px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow-y: auto;
+      flex-shrink: 0;
+      align-self: flex-start;
     }
     
     .au-nav-desktop {

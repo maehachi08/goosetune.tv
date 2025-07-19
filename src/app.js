@@ -120,19 +120,6 @@ $(function() {
     // スクロールを発生させるために高さを強制的に設定
     document.body.style.setProperty('min-height', '100vh', 'important');
     document.documentElement.style.setProperty('min-height', '100vh', 'important');
-    // masonryコンテナとその親要素の高さを設定
-    const masonryContainer = document.querySelector('.masonry');
-    if (masonryContainer) {
-        masonryContainer.style.setProperty('min-height', '100vh', 'important');
-        masonryContainer.style.setProperty('height', 'auto', 'important');
-        // 親要素も設定
-        let parent = masonryContainer.parentElement;
-        while (parent && parent !== document.documentElement) {
-            parent.style.setProperty('min-height', '100vh', 'important');
-            parent.style.setProperty('height', 'auto', 'important');
-            parent = parent.parentElement;
-        }
-    }
 
     // InfiniteScrollライブラリに自動スクロール検知を任せる
     infScroll.on('request', function(path, fetchPromise) {
