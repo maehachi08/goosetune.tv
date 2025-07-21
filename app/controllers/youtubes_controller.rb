@@ -34,11 +34,14 @@ class YoutubesController < ApplicationController
 
   def view_counts
     @title = "再生回数の多い順"
-    @entries = Youtube.order('view_counts DESC').page(params[:page])
-    
+    api_path = '/api/v2/youtubes/view_counts'
+    goosetune_api_get_paginate_data(params, api_path)
+    #@entries = Youtube.order('view_counts DESC').page(params[:page])
+
     if request.xhr? && params[:page].present?
       # AJAX リクエストの場合はアイテムのみを返す
-      render partial: 'shared/entry_collection', locals: { entries: @entries }, layout: false
+      #render partial: 'shared/entry_collection', locals: { entries: @entries }, layout: false
+      render partial: 'shared/entry_collection', locals: { entries: @data['youtubes'] }, layout: false
     else
       render "entries"
     end
