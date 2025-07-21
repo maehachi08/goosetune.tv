@@ -8,15 +8,23 @@
     <h1 class="title"><%= raw(@title) %></h1>
 
     <div class="ui six stackable cards column grid masonry">
-      <% @data['youtubes'].each do |entry| %>
+      <% if ENV['API_MODE'] == 'false' && @entries.present? %>
+        <% @entries.each do |entry| %>
           <%= render :partial => 'shared/entry', :locals => { :entry => entry } %>
+        <% end %>
+      <% else %>
+        <% @data['youtubes'].each do |entry| %>
+          <%= render :partial => 'shared/entry', :locals => { :entry => entry } %>
+        <% end %>
       <% end %>
 
       <nav id="page-nav">
         <%# link_to_next_pageの引数に 'params: params' が必要 %>
         <%# See https://github.com/amatsuda/kaminari/issues/513#issuecomment-35795809 %>
         <% if not request.path_info == '/youtubes/new_arrival' %>
-          <% if @headers['x-next-page'].present? %>
+          <% if ENV['API_MODE'] == 'false' && @entries.present? %>
+            <%= link_to_next_page @entries, "", params: params %>
+          <% elsif @headers['x-next-page'].present? %>
             <%= link_to_next_page @data['youtubes'], "", params: params %>
           <% end %>
         <% end %>
