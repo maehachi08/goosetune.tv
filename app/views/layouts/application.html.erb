@@ -174,7 +174,7 @@
 
     .ui.pushable > .pusher {
       position: static;         /* fixed や absolute になっていないか確認 */
-      overflow: visible;        /* overflow が hidden になっていないか確認 */
+      overflow: auto;           /* sticky要素が正常に動作するように変更 */
     }
 
     .ui.left.vertical.menu.computer.only {
@@ -196,6 +196,7 @@
       flex-shrink: 0;
       align-self: flex-start;
       width: 220px; /* 必要に応じて調整 */
+      z-index: 1000;
     }
 
   }
@@ -1038,6 +1039,8 @@
     
     .au-nav.sidebar-fixed {
       width: 260px;
+      position: sticky !important;
+      top: 0;
     }
     
     .au-nav-desktop {

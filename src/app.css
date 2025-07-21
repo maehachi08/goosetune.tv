@@ -4,13 +4,6 @@
 .ui.divider { margin-bottom: 2rem; }
 
 
-/* infinite scroll用の設定 */
-.masonry {
-    /* Masonryが高さを自動調整できるように制限を削除 */
-    min-height: 100vh; /* 最低限のビューポート高さを確保してスクロールを発生させる */
-}
-
-
 a:link, a:visited, a:hover, a:active {
   text-decoration: none;
 }

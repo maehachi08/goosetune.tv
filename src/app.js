@@ -108,30 +108,28 @@ $(function() {
         history: false,
         outlayer: msnry,
         status: '.page-load-status',
-        scrollThreshold: 100,
+        scrollThreshold: 300,          // スクロール位置が末尾から何px以内になったら次を読み込むか
         loadOnScroll: true,
-        elementScroll: false,  // ウィンドウ全体のスクロールを監視
+        elementScroll: '.pusher',      // pusherエリアのスクロールを監視
         checkLastPage: true,
         debug: false,
         // 5.0.0用の追加設定
         button: false,
         hideNav: '#page-nav'  // セレクターで指定してナビゲーションを隠す
     });
-    // スクロールを発生させるために高さを強制的に設定
-    document.body.style.setProperty('min-height', '100vh', 'important');
-    document.documentElement.style.setProperty('min-height', '100vh', 'important');
-    // masonryコンテナとその親要素の高さを設定
+    // pusherエリアのみスクロール可能にしてサイドバーのstickyを維持
+    const pusher = document.querySelector('.pusher');
+    if (pusher) {
+        pusher.style.setProperty('overflow-y', 'auto', 'important');
+        pusher.style.setProperty('height', '100vh', 'important');
+    }
+    
+    // masonryコンテナは自然な高さに任せる
     const masonryContainer = document.querySelector('.masonry');
     if (masonryContainer) {
-        masonryContainer.style.setProperty('min-height', '100vh', 'important');
         masonryContainer.style.setProperty('height', 'auto', 'important');
-        // 親要素も設定
-        let parent = masonryContainer.parentElement;
-        while (parent && parent !== document.documentElement) {
-            parent.style.setProperty('min-height', '100vh', 'important');
-            parent.style.setProperty('height', 'auto', 'important');
-            parent = parent.parentElement;
-        }
+        // padding-bottomを削除して自然な表示に
+        masonryContainer.style.removeProperty('padding-bottom');
     }
 
     // InfiniteScrollライブラリに自動スクロール検知を任せる
