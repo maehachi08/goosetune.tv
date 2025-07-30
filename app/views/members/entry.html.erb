@@ -4,7 +4,7 @@
       メンバー検索結果: <%= @data['member']['name'] %>
     </h1>
 
-    <div class="ui six stackable cards column grid" id="masonry">
+    <div class="ui six stackable cards column grid masonry">
       <% @data['youtubes'].each do |entry| %>
         <%= render :partial => 'shared/entry', :locals => {:entry => entry} %>
       <% end %>

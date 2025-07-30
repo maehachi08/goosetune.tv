@@ -41,7 +41,7 @@
 
   <script src="/bundle.js"></script>
   <script src="/stuff.js" async></script>
-  
+
 
 
   <!-- font-awesome -->
@@ -86,7 +86,7 @@
         $('.au-nav-category-header').on('click', function() {
             const $category = $(this).closest('.au-nav-category');
             const $content = $category.find('.au-nav-category-content');
-            
+
             if ($category.hasClass('active')) {
                 $category.removeClass('active');
                 $content.slideUp(200);
@@ -99,7 +99,7 @@
         $('.au-nav-subcategory-header').on('click', function() {
             const $subcategory = $(this).closest('.au-nav-subcategory');
             const $content = $subcategory.find('.au-nav-subcategory-content');
-            
+
             if ($subcategory.hasClass('active')) {
                 $subcategory.removeClass('active');
                 $content.slideUp(150);
@@ -132,6 +132,18 @@
                 $('#tablet-dropdown').removeClass('active');
             }
         });
+
+        // Page top button functionality - direct binding after DOM ready
+        setTimeout(function() {
+            $('#pageTop a, #pageTop').off('click').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                $('html, body').animate({
+                    scrollTop: 0
+                }, 300);
+                return false;
+            });
+        }, 100);
 
 
 
@@ -203,7 +215,7 @@
   @media only screen and (min-width: 601px) and (max-width: 991px) {
     .tablet.only { display: block !important; }
     .computer.only, .mobile.only { display: none !important; }
-    
+
     /* Hide old tablet navigation */
     .ui.top.fixed.menu.tablet.only {
       display: none !important;
@@ -217,7 +229,7 @@
     .tablet.only {
       display: none !important;
     }
-    
+
     /* Hide old mobile navigation */
     .ui.top.fixed.menu.mobile.only {
       display: none !important;
@@ -519,7 +531,7 @@
     align-items: center;
     justify-content: center;
   }
-  
+
   .au-nav-desktop-secondary .au-nav-desktop-container {
     flex-direction: column;
     gap: 10px;
@@ -1031,30 +1043,30 @@
   }
 
   /* Responsive Navigation Control */
-  
+
   /* Large Desktop (1200px+) - Sidebar Navigation */
   @media only screen and (min-width: 1200px) {
     .computer.only { display: block !important; }
     .tablet.only, .mobile.only { display: none !important; }
-    
+
     .au-nav.sidebar-fixed {
       width: 260px;
       position: sticky !important;
       top: 0;
     }
-    
+
     .au-nav-desktop {
       display: none !important;
     }
-    
+
     .au-nav-tablet {
       display: none !important;
     }
-    
+
     .au-nav-mobile {
       display: none !important;
     }
-    
+
     .pusher {
       padding-top: 50px !important;
     }
@@ -1064,27 +1076,27 @@
   @media only screen and (min-width: 768px) and (max-width: 1199px) {
     .desktop.only { display: block !important; }
     .computer.only, .tablet.only, .mobile.only { display: none !important; }
-    
+
     .au-nav-desktop {
       display: block !important;
     }
-    
+
     .au-nav-tablet {
       display: none !important;
     }
-    
+
     .au-nav.sidebar-fixed {
       display: none !important;
     }
-    
+
     .au-nav-mobile {
       display: none !important;
     }
-    
+
     .ui.pushable {
       display: block;
     }
-    
+
     .pusher {
       margin-left: 0;
       padding: 1rem;
@@ -1097,29 +1109,29 @@
     .au-nav-desktop-container {
       padding: 0 8px;
     }
-    
+
     .au-nav-desktop-menu {
       gap: 8px;
       flex-wrap: nowrap;
       overflow-x: auto;
     }
-    
+
     .au-nav-desktop-link {
       padding: 4px 6px;
       font-size: 10px;
       white-space: nowrap;
     }
-    
+
     .au-nav-desktop-link .au-nav-icon {
       margin-right: 3px;
       font-size: 11px;
     }
-    
+
     .au-nav-logo {
       font-size: 0.9rem;
       flex-shrink: 0;
     }
-    
+
     .au-nav-desktop-brand {
       margin-right: 12px;
     }
@@ -1134,23 +1146,23 @@
     .tablet.only {
       display: none !important;
     }
-    
+
     .pusher {
       padding-top: 70px !important;
     }
-    
+
     .au-nav-mobile {
       display: block !important;
     }
-    
+
     .au-nav-desktop {
       display: none !important;
     }
-    
+
     .au-nav.sidebar-fixed {
       display: none !important;
     }
-    
+
     .au-nav-tablet {
       display: none !important;
     }
@@ -1346,6 +1358,73 @@
     .au-footer-hero {
       padding: 40px 0;
       min-height: 250px;
+    }
+  }
+
+  /* Bottom edit area container - hidden but keep pageTop visible */
+  #bottom-editarea {
+    position: relative;
+    pointer-events: none;
+    z-index: 10002;
+  }
+
+  /* Page Top Button Styles */
+  #pageTop {
+    position: fixed !important;
+    right: 40px !important;
+    bottom: 100px !important;
+    z-index: 10002 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    pointer-events: auto;
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+
+  #pageTop a {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 105, 0, 0.8);
+    color: white !important;
+    border-radius: 50%;
+    text-decoration: none;
+    box-shadow: 0 2px 8px rgba(255, 105, 0, 0.3);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+  }
+
+  #pageTop a:hover {
+    background: rgba(255, 105, 0, 0.9) !important;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(255, 105, 0, 0.4);
+    text-decoration: none !important;
+    color: white !important;
+  }
+
+  #pageTop a i {
+    font-size: 18px;
+    color: white !important;
+  }
+
+  @media (max-width: 768px) {
+    #pageTop {
+      right: 20px !important;
+      bottom: 80px !important;
+    }
+
+    #pageTop a {
+      width: 45px;
+      height: 45px;
+    }
+
+    #pageTop a i {
+      font-size: 16px;
     }
   }
 

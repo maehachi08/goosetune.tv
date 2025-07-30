@@ -10,7 +10,7 @@
       <div class="ui divider"></div>
     </h2>
 
-    <div class="ui six stackable cards column grid" id="masonry">
+    <div class="ui six stackable cards column grid masonry">
       <% if @data[key]['title'] == 'cover' %>
         <% @data[key]['entry'].each do |entry| %>
           <%= render :partial => 'shared/entry', :locals => { :entry => entry, :cover => 'true' } %>

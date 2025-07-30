@@ -3,7 +3,7 @@
   <div class="ui raised segment">
     <h1 class="title">リリース検索(年別)</h1>
 
-    <div class="ui six stackable cards column grid" id="masonry">
+    <div class="ui six stackable cards column grid masonry">
 
       <% @data['youtubes'].keys.each do |key| %>
 
@@ -14,7 +14,7 @@
             <img src=<%= entry['thumbnail'] %> alt=<%= entry['title'] %> />
           </a>
           <div class="content">
-            <a class="header" href="/youtubes/release_at/years/<%= key %>"><%= "#{key}年にリリースした曲" %></a>
+            <a class="header" href="/youtubes/release_at/year/<%= key %>"><%= "#{key}年にリリースした曲" %></a>
           </div>
         </div>
 

@@ -52,3 +52,9 @@ public/jquery.min.js
 public/semantic-ui/
 public/stuff.js
 public/index.css
+
+# Ignore generated image files
+public/*.png
+public/*.jpg
+public/*.jpeg
+public/*.gif

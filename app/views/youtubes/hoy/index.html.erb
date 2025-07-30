@@ -1,26 +1,40 @@
 <div class="container">
 
-  <div id="bottom-editarea">
-    <p id="pageTop"><a href="#"><i class="fa fa-chevron-up"></i></a></p>
-  </div>
 
   <div class="ui raised segment">
     <h1 class="title"><%= raw(@title) %></h1>
 
-    <div class="ui six stackable cards column grid" id="masonry">
-      <% @data.keys.each do |year| %>
-        <% entry = @data[year] %>
+    <div class="ui six stackable cards column grid masonry">
+      <% if ENV['API_MODE'] == 'false' && @data['hoys'].present? %>
+        <% @data['hoys'].keys.each do |year| %>
+          <% entry = @data['hoys'][year] %>
 
-        <div class="ui card item" style="min-height: 150px; min-width: 150px;">
-          <a class="image" href="/youtubes/hoy/<%= year %>">
-            <img src=<%= entry['thumbnail'] %> alt=<%= "HOY #{year}" %> />
-          </a>
-          <div class="content">
-            <a class="header" href="/youtubes/hoy/<%= year %>"><%= "HOY #{year}" %></a>
+          <div class="ui card item" style="min-height: 150px; min-width: 150px;">
+            <a class="image" href="/youtubes/hoy/<%= year %>">
+              <img src=<%= entry['thumbnail'] %> alt=<%= "HOY #{year}" %> />
+            </a>
+            <div class="content">
+              <a class="header" href="/youtubes/hoy/<%= year %>"><%= "HOY #{year}" %></a>
+            </div>
+            <div class="extra content">
+            </div>
           </div>
-          <div class="extra content">
+        <% end %>
+      <% else %>
+        <% @data.keys.each do |year| %>
+          <% entry = @data[year] %>
+
+          <div class="ui card item" style="min-height: 150px; min-width: 150px;">
+            <a class="image" href="/youtubes/hoy/<%= year %>">
+              <img src=<%= entry['thumbnail'] %> alt=<%= "HOY #{year}" %> />
+            </a>
+            <div class="content">
+              <a class="header" href="/youtubes/hoy/<%= year %>"><%= "HOY #{year}" %></a>
+            </div>
+            <div class="extra content">
+            </div>
           </div>
-        </div>
+        <% end %>
       <% end %>
     </div>
 

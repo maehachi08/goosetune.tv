@@ -222,7 +222,7 @@
                             </tr>
                             <tr>
                                 <td class="name">公開日</td>
-                                <td class="value aligned left"><%= DateTime.parse(@data['youtube']['published']).strftime( '%Y/%m/%d' ) %></td>
+                                <td class="value aligned left"><%= @data['youtube']['published'].strftime( '%Y/%m/%d' ) %></td>
                             </tr>
                             <% if not @data['youtube']['release_at'].nil? %>
                                 <tr>
@@ -257,7 +257,7 @@
                style="margin-bottom: 2rem; border-bottom: 1px solid #dee2e6;">
             関連するYouTube動画
           </div>
-          <div class="ui six stackable cards column grid" id="masonry">
+          <div class="ui six stackable cards column grid masonry">
             <% @data['relation'].each do |entry| %>
               <div class="ui card item" style="min-height: 250px; min-width: 150px;">
                   <a class="image" href="/youtubes/<%= entry['id'] %>">

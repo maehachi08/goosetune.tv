@@ -29,21 +29,14 @@
     });
   });
 
-$('.ui.sticky')
-  .sticky({
-    context: $('#search_artist'),
-    pushing: true
-  })
-;
 </script>
 
 <div class="container">
 
-  <div class="ui sticky" style="right: 40px; bottom: 10px;">
-    <div id="search_artist" class="these_members_link clearfix">
-      検索する
-    </div>
-  </div>
+  <button id="search_artist" class="au-button au-button-primary" style="position: fixed; right: 40px; bottom: 40px; z-index: 1000; border-radius: 25px; box-shadow: 0 4px 8px rgba(0,0,0,0.15); font-size: 14px; padding: 16px 24px;">
+    <i class="search icon" style="margin-right: 8px;"></i>
+    検索する
+  </button>
 
   <!-- ###################### -->
   <!-- アーティスト検索       -->

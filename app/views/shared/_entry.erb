@@ -32,7 +32,9 @@
       </div>
       <div class="extra content">
         <%= "再生回数 #{entry['view_counts'].to_j}回" %> <br />
-        <%= "公開日 #{DateTime.parse(entry['published']).strftime('%Y/%m/%d')}" if entry['published'] %>
+        <% if entry['published'] %>
+          <%= "公開日 #{entry['published'].is_a?(String) ? DateTime.parse(entry['published']).strftime('%Y/%m/%d') : entry['published'].strftime('%Y/%m/%d')}" %>
+        <% end %>
       </div>
     <% end %>
   <% end %>

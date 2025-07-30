@@ -4,7 +4,7 @@
     <h1 class="title"><%= raw(@title) %></h1>
 
     <% entry = @data['youtube'] %>
-    <div class="ui six stackable cards column grid" id="masonry">
+    <div class="ui six stackable cards column grid masonry">
       <div class="ui card item" style="min-height: 250px; min-width: 150px;">
         <a class="image" href="/youtubes/<%= entry['id'] %>">
           <img src=<%= entry['thumbnail'] %> alt=<%= entry['title'] %> />

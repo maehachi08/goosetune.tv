@@ -6,7 +6,7 @@
   <div class="ui raised segment">
     <h1 class="title">ジャンル検索</h1>
 
-    <div class="ui six stackable cards column grid" id="masonry">
+    <div class="ui six stackable cards column grid masonry">
       <% @data.each do |genre| %>
         <% entry = genre['youtube'] %>
         <% genre = genre['genre'] %>
