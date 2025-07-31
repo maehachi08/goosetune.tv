@@ -1,21 +1,7 @@
-$(function(){
+// This file has been consolidated into the main application.html.erb layout
+// to avoid conflicts. The page-to-top functionality is now handled directly
+// in the layout file with proper .pusher element scroll detection.
 
-    var topBtn=$('#pageTop');
-    topBtn.hide();
-
-    $(window).scroll(function(){
-        if($(this).scrollTop()>80){
-            topBtn.fadeIn();
-        } else {
-            topBtn.fadeOut();
-        }
-    });
-
-    topBtn.click(function(){
-        $('body,html').animate({
-        scrollTop: 0},500);
-        return false;
-    });
-
-});
+// Keeping this as a placeholder to prevent webpack build errors
+console.log('page_to_top.js: Functionality moved to layout file');
 

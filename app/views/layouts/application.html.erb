@@ -133,17 +133,59 @@
             }
         });
 
-        // Page top button functionality - direct binding after DOM ready
-        setTimeout(function() {
-            $('#pageTop a, #pageTop').off('click').on('click', function(e) {
+        // Page top button functionality - optimized for .pusher scroll container
+        function initPageTopButton() {
+            const $pageTop = $('#pageTop');
+            const $pusher = $('.pusher');
+            
+            // Initially hide the button
+            $pageTop.hide();
+            
+            // Click handler for page top button
+            $('#pageTop, #pageTop a').off('click').on('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                $('html, body').animate({
-                    scrollTop: 0
-                }, 300);
+                console.log('PageTop button clicked');
+                
+                // Scroll the .pusher element (which is the actual scrollable container)
+                if ($pusher.length > 0) {
+                    $pusher.animate({
+                        scrollTop: 0
+                    }, 500);
+                } else {
+                    // Fallback to window scroll
+                    $('html, body').animate({
+                        scrollTop: 0
+                    }, 500);
+                }
+                
                 return false;
             });
-        }, 100);
+            
+            // Show/hide pageTop button based on scroll position
+            // Listen to .pusher scroll events since that's the actual scrollable container
+            if ($pusher.length > 0) {
+                $pusher.scroll(function() {
+                    if ($(this).scrollTop() > 300) {
+                        $pageTop.fadeIn(300);
+                    } else {
+                        $pageTop.fadeOut(300);
+                    }
+                });
+            } else {
+                // Fallback to window scroll for pages without .pusher
+                $(window).scroll(function() {
+                    if ($(this).scrollTop() > 300) {
+                        $pageTop.fadeIn(300);
+                    } else {
+                        $pageTop.fadeOut(300);
+                    }
+                });
+            }
+        }
+        
+        // Initialize page top button
+        initPageTopButton();
 
 
 
@@ -1377,7 +1419,7 @@
     margin: 0 !important;
     padding: 0 !important;
     pointer-events: auto;
-    display: block !important;
+    display: none; /* Initially hidden, will be shown by JavaScript when scrolled */
     visibility: visible !important;
     opacity: 1 !important;
   }
@@ -1391,12 +1433,14 @@
     background: rgba(255, 105, 0, 0.8);
     color: white !important;
     border-radius: 50%;
-    text-decoration: none;
+    text-decoration: none !important;
     box-shadow: 0 2px 8px rgba(255, 105, 0, 0.3);
     transition: all 0.3s ease;
     backdrop-filter: blur(4px);
     border: 2px solid rgba(255, 255, 255, 0.2);
-    cursor: pointer;
+    cursor: pointer !important;
+    pointer-events: auto !important;
+    user-select: none;
   }
 
   #pageTop a:hover {
@@ -1487,7 +1531,7 @@
     <!-- Main -->
     <div class="pusher" style="padding-top: 0;">
           <div id="bottom-editarea">
-            <p id="pageTop"><a href="#"><i class="fa fa-chevron-up"></i></a></p>
+            <p id="pageTop"><a href="#" title="ページの上部に戻る"><i class="fa fa-chevron-up">↑</i></a></p>
           </div>
 
           <!-- <div class="jumbotron"></div> -->
