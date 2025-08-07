@@ -82,10 +82,10 @@
 
         $('.ui.accordion').accordion();
 
-        // au.com style navigation accordion
-        $('.au-nav-category-header').on('click', function() {
-            const $category = $(this).closest('.au-nav-category');
-            const $content = $category.find('.au-nav-category-content');
+        // gtv style navigation accordion
+        $('.gtv-nav-category-header').on('click', function() {
+            const $category = $(this).closest('.gtv-nav-category');
+            const $content = $category.find('.gtv-nav-category-content');
 
             if ($category.hasClass('active')) {
                 $category.removeClass('active');
@@ -96,9 +96,9 @@
             }
         });
 
-        $('.au-nav-subcategory-header').on('click', function() {
-            const $subcategory = $(this).closest('.au-nav-subcategory');
-            const $content = $subcategory.find('.au-nav-subcategory-content');
+        $('.gtv-nav-subcategory-header').on('click', function() {
+            const $subcategory = $(this).closest('.gtv-nav-subcategory');
+            const $content = $subcategory.find('.gtv-nav-subcategory-content');
 
             if ($subcategory.hasClass('active')) {
                 $subcategory.removeClass('active');
@@ -128,7 +128,7 @@
 
         // Close dropdowns when clicking outside
         $(document).on('click', function(e) {
-            if (!$(e.target).closest('.au-nav-tablet').length) {
+            if (!$(e.target).closest('.gtv-nav-tablet').length) {
                 $('#tablet-dropdown').removeClass('active');
             }
         });
@@ -284,8 +284,8 @@
     }
   }
 
-  /* au.com Style Navigation */
-  .au-nav {
+  /* gtv Style Navigation */
+  .gtv-nav {
     background: #ffffff;
     border-right: 1px solid #e0e0e0;
     box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
@@ -294,13 +294,13 @@
     padding: 0;
   }
 
-  .au-nav-header {
+  .gtv-nav-header {
     padding: 20px 24px;
     border-bottom: 1px solid #f0f0f0;
     background: #f8f9fa;
   }
 
-  .au-nav-logo {
+  .gtv-nav-logo {
     font-size: 16px;
     font-weight: bold;
     color: #333;
@@ -308,27 +308,27 @@
     display: block;
   }
 
-  .au-nav-logo:hover {
+  .gtv-nav-logo:hover {
     color: #ff6900;
     text-decoration: none;
   }
 
-  .au-nav-search {
+  .gtv-nav-search {
     padding: 16px 20px;
     border-bottom: 1px solid #f0f0f0;
   }
 
-  .au-search-form {
+  .gtv-search-form {
     position: relative;
   }
 
-  .au-search-input-wrapper {
+  .gtv-search-input-wrapper {
     position: relative;
     display: flex;
     align-items: center;
   }
 
-  .au-search-input {
+  .gtv-search-input {
     width: 100%;
     padding: 12px 40px 12px 16px;
     border: 1px solid #ddd;
@@ -339,12 +339,12 @@
     transition: border-color 0.2s ease;
   }
 
-  .au-search-input:focus {
+  .gtv-search-input:focus {
     border-color: #ff6900;
     box-shadow: 0 0 0 2px rgba(255, 105, 0, 0.1);
   }
 
-  .au-search-button {
+  .gtv-search-button {
     position: absolute;
     right: 8px;
     background: none;
@@ -356,16 +356,16 @@
     transition: color 0.2s ease;
   }
 
-  .au-search-button:hover {
+  .gtv-search-button:hover {
     color: #ff6900;
   }
 
-  .au-nav-section {
+  .gtv-nav-section {
     border-bottom: 1px solid #f0f0f0;
   }
 
-  .au-nav-category-header,
-  .au-nav-link-simple {
+  .gtv-nav-category-header,
+  .gtv-nav-link-simple {
     display: flex;
     align-items: center;
     padding: 16px 20px;
@@ -378,13 +378,13 @@
     position: relative;
   }
 
-  .au-nav-category-header:hover,
-  .au-nav-link-simple:hover {
+  .gtv-nav-category-header:hover,
+  .gtv-nav-link-simple:hover {
     background-color: #f8f9fa;
     color: #ff6900;
   }
 
-  .au-nav-icon {
+  .gtv-nav-icon {
     width: 20px;
     height: 20px;
     margin-right: 12px;
@@ -392,34 +392,34 @@
     flex-shrink: 0;
   }
 
-  .au-nav-category-title {
+  .gtv-nav-category-title {
     flex: 1;
   }
 
-  .au-nav-chevron {
+  .gtv-nav-chevron {
     color: #999;
     transition: transform 0.2s ease;
   }
 
-  .au-nav-category.active .au-nav-chevron {
+  .gtv-nav-category.active .gtv-nav-chevron {
     transform: rotate(180deg);
   }
 
-  .au-nav-category-content {
+  .gtv-nav-category-content {
     display: none;
     background: #fafafa;
     border-top: 1px solid #f0f0f0;
   }
 
-  .au-nav-category.active .au-nav-category-content {
+  .gtv-nav-category.active .gtv-nav-category-content {
     display: block;
   }
 
-  .au-nav-submenu {
+  .gtv-nav-submenu {
     padding: 8px 0;
   }
 
-  .au-nav-link {
+  .gtv-nav-link {
     display: block;
     padding: 10px 24px 10px 52px;
     color: #555;
@@ -429,17 +429,17 @@
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 
-  .au-nav-link:hover {
+  .gtv-nav-link:hover {
     background-color: #f0f0f0;
     color: #ff6900;
     text-decoration: none;
   }
 
-  .au-nav-subcategory {
+  .gtv-nav-subcategory {
     margin: 4px 0;
   }
 
-  .au-nav-subcategory-header {
+  .gtv-nav-subcategory-header {
     display: flex;
     align-items: center;
     padding: 8px 24px 8px 52px;
@@ -450,33 +450,33 @@
     transition: color 0.2s ease;
   }
 
-  .au-nav-subcategory-header:hover {
+  .gtv-nav-subcategory-header:hover {
     color: #ff6900;
   }
 
-  .au-nav-subcategory-title {
+  .gtv-nav-subcategory-title {
     flex: 1;
   }
 
-  .au-nav-chevron-small {
+  .gtv-nav-chevron-small {
     color: #999;
     font-size: 12px;
     transition: transform 0.2s ease;
   }
 
-  .au-nav-subcategory.active .au-nav-chevron-small {
+  .gtv-nav-subcategory.active .gtv-nav-chevron-small {
     transform: rotate(180deg);
   }
 
-  .au-nav-subcategory-content {
+  .gtv-nav-subcategory-content {
     display: none;
   }
 
-  .au-nav-subcategory.active .au-nav-subcategory-content {
+  .gtv-nav-subcategory.active .gtv-nav-subcategory-content {
     display: block;
   }
 
-  .au-nav-sublink {
+  .gtv-nav-sublink {
     display: block;
     padding: 6px 24px 6px 64px;
     color: #666;
@@ -486,28 +486,28 @@
     transition: background-color 0.2s ease, color 0.2s ease;
   }
 
-  .au-nav-sublink:hover {
+  .gtv-nav-sublink:hover {
     background-color: #eee;
     color: #ff6900;
     text-decoration: none;
   }
 
-  .au-form {
+  .gtv-form {
     padding: 16px 24px;
   }
 
-  .au-form-group {
+  .gtv-form-group {
     display: flex;
     flex-direction: column;
     gap: 12px;
   }
 
-  .au-select-group {
+  .gtv-select-group {
     display: flex;
     gap: 8px;
   }
 
-  .au-select {
+  .gtv-select {
     flex: 1;
     padding: 8px 12px;
     border: 1px solid #ddd;
@@ -518,12 +518,12 @@
     transition: border-color 0.2s ease;
   }
 
-  .au-select:focus {
+  .gtv-select:focus {
     border-color: #ff6900;
     box-shadow: 0 0 0 2px rgba(255, 105, 0, 0.1);
   }
 
-  .au-button {
+  .gtv-button {
     padding: 10px 20px;
     border: none;
     border-radius: 4px;
@@ -534,19 +534,19 @@
     outline: none;
   }
 
-  .au-button-primary {
+  .gtv-button-primary {
     background: #ff6900;
     color: white;
   }
 
-  .au-button-primary:hover {
+  .gtv-button-primary:hover {
     background: #e55a00;
     transform: translateY(-1px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
   /* Desktop Navigation Styles (1020px - 1200px) */
-  .au-nav-desktop {
+  .gtv-nav-desktop {
     position: fixed;
     top: 0;
     left: 0;
@@ -558,13 +558,13 @@
     display: none;
   }
 
-  .au-nav-desktop-header {
+  .gtv-nav-desktop-header {
     height: 70px;
     display: flex;
     align-items: center;
   }
 
-  .au-nav-desktop-container {
+  .gtv-nav-desktop-container {
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
@@ -574,7 +574,7 @@
     justify-content: center;
   }
 
-  .au-nav-desktop-secondary .au-nav-desktop-container {
+  .gtv-nav-desktop-secondary .gtv-nav-desktop-container {
     flex-direction: column;
     gap: 10px;
     align-items: stretch;
@@ -582,11 +582,11 @@
     width: 100%;
   }
 
-  .au-nav-desktop-brand {
+  .gtv-nav-desktop-brand {
     flex-shrink: 0;
   }
 
-  .au-nav-desktop-menu {
+  .gtv-nav-desktop-menu {
     display: flex;
     align-items: center;
     gap: 20px;
@@ -596,11 +596,11 @@
     margin-right: auto;
   }
 
-  .au-nav-desktop-item {
+  .gtv-nav-desktop-item {
     position: relative;
   }
 
-  .au-nav-desktop-link {
+  .gtv-nav-desktop-link {
     display: flex;
     align-items: center;
     padding: 8px 12px;
@@ -614,28 +614,28 @@
     white-space: nowrap;
   }
 
-  .au-nav-desktop-link:hover {
+  .gtv-nav-desktop-link:hover {
     color: #ff6900;
     background-color: #f8f9fa;
     text-decoration: none;
   }
 
-  .au-nav-desktop-link .au-nav-icon {
+  .gtv-nav-desktop-link .gtv-nav-icon {
     margin-right: 6px;
     font-size: 14px;
   }
 
-  .au-nav-desktop-link .au-nav-chevron {
+  .gtv-nav-desktop-link .gtv-nav-chevron {
     margin-left: 8px;
     font-size: 12px;
     transition: transform 0.2s ease;
   }
 
-  .au-nav-dropdown:hover .au-nav-chevron {
+  .gtv-nav-dropdown:hover .gtv-nav-chevron {
     transform: rotate(180deg);
   }
 
-  .au-nav-desktop-dropdown-content {
+  .gtv-nav-desktop-dropdown-content {
     position: absolute;
     top: 100%;
     left: 50%;
@@ -651,18 +651,18 @@
     z-index: 1001;
   }
 
-  .au-nav-dropdown:hover .au-nav-desktop-dropdown-content {
+  .gtv-nav-dropdown:hover .gtv-nav-desktop-dropdown-content {
     display: flex;
     flex-wrap: wrap;
     gap: 24px;
   }
 
-  .au-nav-desktop-dropdown-section {
+  .gtv-nav-desktop-dropdown-section {
     flex: 1;
     min-width: 200px;
   }
 
-  .au-nav-desktop-dropdown-title {
+  .gtv-nav-desktop-dropdown-title {
     font-size: 11px;
     font-weight: 600;
     color: #666;
@@ -671,7 +671,7 @@
     border-bottom: 1px solid #f0f0f0;
   }
 
-  .au-nav-desktop-dropdown-link {
+  .gtv-nav-desktop-dropdown-link {
     display: block;
     padding: 6px 10px;
     color: #555;
@@ -681,24 +681,24 @@
     transition: all 0.2s ease;
   }
 
-  .au-nav-desktop-dropdown-link:hover {
+  .gtv-nav-desktop-dropdown-link:hover {
     color: #ff6900;
     background-color: #f8f9fa;
     text-decoration: none;
   }
 
-  .au-nav-desktop-search {
+  .gtv-nav-desktop-search {
     flex-shrink: 0;
     width: 240px;
   }
 
-  .au-nav-desktop-search .au-search-input-wrapper {
+  .gtv-nav-desktop-search .gtv-search-input-wrapper {
     position: relative;
     display: flex;
     align-items: center;
   }
 
-  .au-nav-desktop-search .au-search-input {
+  .gtv-nav-desktop-search .gtv-search-input {
     width: 100%;
     padding: 10px 40px 10px 14px;
     border: 1px solid #ddd;
@@ -709,13 +709,13 @@
     transition: all 0.2s ease;
   }
 
-  .au-nav-desktop-search .au-search-input:focus {
+  .gtv-nav-desktop-search .gtv-search-input:focus {
     border-color: #ff6900;
     background: #fff;
     box-shadow: 0 0 0 2px rgba(255, 105, 0, 0.1);
   }
 
-  .au-nav-desktop-search .au-search-button {
+  .gtv-nav-desktop-search .gtv-search-button {
     position: absolute;
     right: 8px;
     background: none;
@@ -727,13 +727,13 @@
     transition: all 0.2s ease;
   }
 
-  .au-nav-desktop-search .au-search-button:hover {
+  .gtv-nav-desktop-search .gtv-search-button:hover {
     color: #ff6900;
     background-color: rgba(255, 105, 0, 0.1);
   }
 
   /* Desktop Navigation Secondary Row */
-  .au-nav-desktop-secondary {
+  .gtv-nav-desktop-secondary {
     background: #f8f9fa;
     border-bottom: 1px solid #e0e0e0;
     padding: 10px 0;
@@ -743,7 +743,7 @@
     width: 100%;
   }
 
-  .au-nav-desktop-forms {
+  .gtv-nav-desktop-forms {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -754,7 +754,7 @@
     min-height: 32px;
   }
 
-  .au-nav-desktop-form-item {
+  .gtv-nav-desktop-form-item {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -770,7 +770,7 @@
     min-width: 280px;
   }
 
-  .au-nav-desktop-form-header {
+  .gtv-nav-desktop-form-header {
     display: flex;
     align-items: center;
     gap: 2px;
@@ -783,18 +783,18 @@
     text-align: left;
   }
 
-  .au-nav-form-icon {
+  .gtv-nav-form-icon {
     font-size: 11px;
     color: #ff6900;
   }
 
-  .au-form-inline {
+  .gtv-form-inline {
     display: flex;
     align-items: center;
     gap: 3px;
   }
 
-  .au-select-inline {
+  .gtv-select-inline {
     padding: 2px 4px;
     border: 1px solid #ddd;
     border-radius: 2px;
@@ -808,12 +808,12 @@
     overflow: hidden;
   }
 
-  .au-select-inline:focus {
+  .gtv-select-inline:focus {
     border-color: #ff6900;
     box-shadow: 0 0 0 2px rgba(255, 105, 0, 0.1);
   }
 
-  .au-button-inline {
+  .gtv-button-inline {
     padding: 2px 8px;
     background: #ff6900;
     color: white;
@@ -827,13 +827,13 @@
     line-height: 1;
   }
 
-  .au-button-inline:hover {
+  .gtv-button-inline:hover {
     background: #e55a00;
     transform: translateY(-1px);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  .au-search-input-inline {
+  .gtv-search-input-inline {
     padding: 2px 4px;
     border: 1px solid #ddd;
     border-radius: 2px;
@@ -845,19 +845,19 @@
     height: 22px;
   }
 
-  .au-search-input-inline:focus {
+  .gtv-search-input-inline:focus {
     border-color: #ff6900;
     box-shadow: 0 0 0 2px rgba(255, 105, 0, 0.1);
   }
 
   /* YouTube Live and Ustream select dropdown styling */
-  .au-nav-desktop-form-item select[name="youtube[id]"],
-  .au-nav-desktop-form-item select[name="ustreams[id]"] {
+  .gtv-nav-desktop-form-item select[name="youtube[id]"],
+  .gtv-nav-desktop-form-item select[name="ustreams[id]"] {
     width: 180px;
   }
 
-  .au-nav-desktop-form-item select[name="youtube[id]"] option,
-  .au-nav-desktop-form-item select[name="ustreams[id]"] option {
+  .gtv-nav-desktop-form-item select[name="youtube[id]"] option,
+  .gtv-nav-desktop-form-item select[name="ustreams[id]"] option {
     white-space: normal;
     word-wrap: break-word;
     padding: 4px 8px;
@@ -866,7 +866,7 @@
 
 
   /* Tablet Navigation Styles */
-  .au-nav-tablet {
+  .gtv-nav-tablet {
     position: fixed;
     top: 0;
     left: 0;
@@ -877,7 +877,7 @@
     z-index: 1000;
   }
 
-  .au-nav-tablet-header {
+  .gtv-nav-tablet-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -885,7 +885,7 @@
     height: 60px;
   }
 
-  .au-nav-tablet-toggle {
+  .gtv-nav-tablet-toggle {
     background: none;
     border: none;
     font-size: 18px;
@@ -896,12 +896,12 @@
     transition: color 0.2s ease, background-color 0.2s ease;
   }
 
-  .au-nav-tablet-toggle:hover {
+  .gtv-nav-tablet-toggle:hover {
     color: #ff6900;
     background-color: #f8f9fa;
   }
 
-  .au-nav-tablet-dropdown {
+  .gtv-nav-tablet-dropdown {
     position: absolute;
     top: 100%;
     left: 0;
@@ -914,52 +914,52 @@
     display: none;
   }
 
-  .au-nav-tablet-dropdown.active {
+  .gtv-nav-tablet-dropdown.active {
     display: block;
   }
 
   /* Tablet Navigation Content Adjustments */
-  .au-nav-tablet .au-nav-search {
+  .gtv-nav-tablet .gtv-nav-search {
     padding: 16px 20px;
     border-bottom: 1px solid #f0f0f0;
   }
 
-  .au-nav-tablet .au-nav-section {
+  .gtv-nav-tablet .gtv-nav-section {
     border-bottom: 1px solid #f0f0f0;
   }
 
-  .au-nav-tablet .au-nav-category-header,
-  .au-nav-tablet .au-nav-link-simple {
+  .gtv-nav-tablet .gtv-nav-category-header,
+  .gtv-nav-tablet .gtv-nav-link-simple {
     padding: 16px 20px;
     font-size: 14px;
   }
 
-  .au-nav-tablet .au-nav-link {
+  .gtv-nav-tablet .gtv-nav-link {
     padding: 10px 24px 10px 52px;
     font-size: 13px;
   }
 
-  .au-nav-tablet .au-nav-sublink {
+  .gtv-nav-tablet .gtv-nav-sublink {
     padding: 6px 24px 6px 64px;
     font-size: 12px;
   }
 
-  .au-nav-tablet .au-form {
+  .gtv-nav-tablet .gtv-form {
     padding: 16px 20px;
   }
 
-  .au-nav-tablet .au-select {
+  .gtv-nav-tablet .gtv-select {
     font-size: 13px;
     padding: 8px 12px;
   }
 
-  .au-nav-tablet .au-button-primary {
+  .gtv-nav-tablet .gtv-button-primary {
     font-size: 13px;
     padding: 10px 16px;
   }
 
   /* Mobile Navigation Styles */
-  .au-nav-mobile {
+  .gtv-nav-mobile {
     position: fixed;
     top: 0;
     left: 0;
@@ -970,7 +970,7 @@
     z-index: 1000;
   }
 
-  .au-nav-mobile-header {
+  .gtv-nav-mobile-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -979,7 +979,7 @@
     position: relative;
   }
 
-  .au-nav-mobile-toggle {
+  .gtv-nav-mobile-toggle {
     background: none;
     border: none;
     font-size: 18px;
@@ -993,7 +993,7 @@
     z-index: 10;
   }
 
-  .au-nav-logo-center {
+  .gtv-nav-logo-center {
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -1003,12 +1003,12 @@
     text-decoration: none;
   }
 
-  .au-nav-mobile-toggle:hover {
+  .gtv-nav-mobile-toggle:hover {
     color: #ff6900;
     background-color: #f8f9fa;
   }
 
-  .au-nav-mobile-sidebar {
+  .gtv-nav-mobile-sidebar {
     position: fixed;
     top: 0;
     left: 0;
@@ -1020,12 +1020,12 @@
     transition: visibility 0.3s ease, opacity 0.3s ease;
   }
 
-  .au-nav-mobile-sidebar.active {
+  .gtv-nav-mobile-sidebar.active {
     visibility: visible;
     opacity: 1;
   }
 
-  .au-nav-mobile-sidebar-content {
+  .gtv-nav-mobile-sidebar-content {
     position: absolute;
     top: 0;
     left: 0;
@@ -1039,11 +1039,11 @@
     z-index: 10001;
   }
 
-  .au-nav-mobile-sidebar.active .au-nav-mobile-sidebar-content {
+  .gtv-nav-mobile-sidebar.active .gtv-nav-mobile-sidebar-content {
     transform: translateX(0);
   }
 
-  .au-nav-mobile-overlay {
+  .gtv-nav-mobile-overlay {
     position: absolute;
     top: 0;
     left: 0;
@@ -1054,7 +1054,7 @@
     z-index: 10000;
   }
 
-  .au-nav-header {
+  .gtv-nav-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -1064,7 +1064,7 @@
     position: relative;
   }
 
-  .au-nav-mobile-close {
+  .gtv-nav-mobile-close {
     background: none;
     border: none;
     font-size: 18px;
@@ -1079,7 +1079,7 @@
     transform: translateY(-50%);
   }
 
-  .au-nav-mobile-close:hover {
+  .gtv-nav-mobile-close:hover {
     color: #ff6900;
     background-color: #f8f9fa;
   }
@@ -1091,21 +1091,21 @@
     .computer.only { display: block !important; }
     .tablet.only, .mobile.only { display: none !important; }
 
-    .au-nav.sidebar-fixed {
+    .gtv-nav.sidebar-fixed {
       width: 260px;
       position: sticky !important;
       top: 0;
     }
 
-    .au-nav-desktop {
+    .gtv-nav-desktop {
       display: none !important;
     }
 
-    .au-nav-tablet {
+    .gtv-nav-tablet {
       display: none !important;
     }
 
-    .au-nav-mobile {
+    .gtv-nav-mobile {
       display: none !important;
     }
 
@@ -1119,19 +1119,19 @@
     .desktop.only { display: block !important; }
     .computer.only, .tablet.only, .mobile.only { display: none !important; }
 
-    .au-nav-desktop {
+    .gtv-nav-desktop {
       display: block !important;
     }
 
-    .au-nav-tablet {
+    .gtv-nav-tablet {
       display: none !important;
     }
 
-    .au-nav.sidebar-fixed {
+    .gtv-nav.sidebar-fixed {
       display: none !important;
     }
 
-    .au-nav-mobile {
+    .gtv-nav-mobile {
       display: none !important;
     }
 
@@ -1148,95 +1148,95 @@
 
   /* Tablet Medium (900px - 1150px) - Medium Compact Navigation */
   @media only screen and (min-width: 900px) and (max-width: 1150px) {
-    .au-nav-desktop-container {
+    .gtv-nav-desktop-container {
       padding: 0 12px;
     }
 
-    .au-nav-desktop-menu {
+    .gtv-nav-desktop-menu {
       gap: 12px;
     }
 
-    .au-nav-desktop-link {
+    .gtv-nav-desktop-link {
       padding: 6px 8px;
       font-size: 11px;
       white-space: nowrap;
     }
 
-    .au-nav-desktop-link .au-nav-icon {
+    .gtv-nav-desktop-link .gtv-nav-icon {
       margin-right: 4px;
       font-size: 12px;
     }
 
-    .au-nav-logo {
+    .gtv-nav-logo {
       font-size: 1rem;
       flex-shrink: 0;
     }
 
-    .au-nav-desktop-brand {
+    .gtv-nav-desktop-brand {
       margin-right: 16px;
     }
   }
 
   /* Tablet Small Plus (846px - 899px) - Small Compact Navigation */
   @media only screen and (min-width: 846px) and (max-width: 899px) {
-    .au-nav-desktop-container {
+    .gtv-nav-desktop-container {
       padding: 0 10px;
     }
 
-    .au-nav-desktop-menu {
+    .gtv-nav-desktop-menu {
       gap: 10px;
     }
 
-    .au-nav-desktop-link {
+    .gtv-nav-desktop-link {
       padding: 5px 7px;
       font-size: 10px;
       white-space: nowrap;
     }
 
-    .au-nav-desktop-link .au-nav-icon {
+    .gtv-nav-desktop-link .gtv-nav-icon {
       margin-right: 3px;
       font-size: 11px;
     }
 
-    .au-nav-logo {
+    .gtv-nav-logo {
       font-size: 0.95rem;
       flex-shrink: 0;
     }
 
-    .au-nav-desktop-brand {
+    .gtv-nav-desktop-brand {
       margin-right: 14px;
     }
   }
 
   /* Tablet Small (768px - 845px) - Compact Navigation */
   @media only screen and (min-width: 768px) and (max-width: 845px) {
-    .au-nav-desktop-container {
+    .gtv-nav-desktop-container {
       padding: 0 8px;
     }
 
-    .au-nav-desktop-menu {
+    .gtv-nav-desktop-menu {
       gap: 8px;
       flex-wrap: nowrap;
       overflow-x: auto;
     }
 
-    .au-nav-desktop-link {
+    .gtv-nav-desktop-link {
       padding: 4px 6px;
       font-size: 10px;
       white-space: nowrap;
     }
 
-    .au-nav-desktop-link .au-nav-icon {
+    .gtv-nav-desktop-link .gtv-nav-icon {
       margin-right: 3px;
       font-size: 11px;
     }
 
-    .au-nav-logo {
+    .gtv-nav-logo {
       font-size: 0.9rem;
       flex-shrink: 0;
     }
 
-    .au-nav-desktop-brand {
+    .gtv-nav-desktop-brand {
       margin-right: 12px;
     }
   }
@@ -1255,66 +1255,66 @@
       padding-top: 70px !important;
     }
 
-    .au-nav-mobile {
+    .gtv-nav-mobile {
       display: block !important;
     }
 
-    .au-nav-desktop {
+    .gtv-nav-desktop {
       display: none !important;
     }
 
-    .au-nav.sidebar-fixed {
+    .gtv-nav.sidebar-fixed {
       display: none !important;
     }
 
-    .au-nav-tablet {
+    .gtv-nav-tablet {
       display: none !important;
     }
 
-    .au-nav-search {
+    .gtv-nav-search {
       padding: 12px 16px;
     }
 
-    .au-nav-icon {
+    .gtv-nav-icon {
       width: 18px;
       height: 18px;
       margin-right: 10px;
     }
 
-    .au-nav-category-header,
-    .au-nav-link-simple {
+    .gtv-nav-category-header,
+    .gtv-nav-link-simple {
       padding: 14px 16px;
       font-size: 14px;
     }
 
-    .au-nav-link {
+    .gtv-nav-link {
       padding: 8px 20px 8px 44px;
       font-size: 13px;
     }
 
-    .au-nav-sublink {
+    .gtv-nav-sublink {
       padding: 6px 20px 6px 56px;
       font-size: 12px;
     }
 
-    .au-form {
+    .gtv-form {
       padding: 12px 16px;
     }
 
-    .au-select-group {
+    .gtv-select-group {
       flex-direction: column;
       gap: 8px;
     }
   }
 
   /* Footer Styles - au.com Light Theme */
-  .au-footer {
+  .gtv-footer {
     margin-top: 80px;
     background: #ffffff;
     color: #333;
   }
 
-  .au-footer-hero {
+  .gtv-footer-hero {
     background-image: url('/images/goosehouse_goods.jpg');
     background-size: cover;
     background-position: center center;
@@ -1324,7 +1324,7 @@
     min-height: 400px;
   }
 
-  .au-footer-hero::before {
+  .gtv-footer-hero::before {
     content: '';
     position: absolute;
     top: 0;
@@ -1335,7 +1335,7 @@
     backdrop-filter: blur(0.5px);
   }
 
-  .au-footer-content {
+  .gtv-footer-content {
     position: relative;
     z-index: 2;
     max-width: 1200px;
@@ -1348,12 +1348,12 @@
     gap: 40px;
   }
 
-  .au-footer-logo {
+  .gtv-footer-logo {
     flex: 1;
     min-width: 300px;
   }
 
-  .au-footer-logo h2 {
+  .gtv-footer-logo h2 {
     font-size: 2.5rem;
     font-weight: 700;
     margin: 0 0 16px 0;
@@ -1361,24 +1361,24 @@
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
   }
 
-  .au-footer-logo p {
+  .gtv-footer-logo p {
     font-size: 1.2rem;
     color: #555;
     margin: 0;
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
   }
 
-  .au-footer-links {
+  .gtv-footer-links {
     display: flex;
     gap: 60px;
     flex-wrap: wrap;
   }
 
-  .au-footer-section {
+  .gtv-footer-section {
     min-width: 160px;
   }
 
-  .au-footer-section h4 {
+  .gtv-footer-section h4 {
     font-size: 1.1rem;
     font-weight: 600;
     margin: 0 0 20px 0;
@@ -1386,17 +1386,17 @@
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
   }
 
-  .au-footer-section ul {
+  .gtv-footer-section ul {
     list-style: none;
     padding: 0;
     margin: 0;
   }
 
-  .au-footer-section li {
+  .gtv-footer-section li {
     margin-bottom: 8px;
   }
 
-  .au-footer-section a {
+  .gtv-footer-section a {
     color: #666;
     text-decoration: none;
     font-size: 0.95rem;
@@ -1404,19 +1404,19 @@
     text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.8);
   }
 
-  .au-footer-section a:hover {
+  .gtv-footer-section a:hover {
     color: #ff6900;
     text-decoration: none;
   }
 
-  .au-footer-bottom {
+  .gtv-footer-bottom {
     background: #f8f9fa;
     padding: 20px 0;
     text-align: center;
     border-top: 1px solid #e0e0e0;
   }
 
-  .au-footer-bottom p {
+  .gtv-footer-bottom p {
     margin: 0;
     color: #666;
     font-size: 0.9rem;
@@ -1424,42 +1424,42 @@
 
   /* Footer Responsive */
   @media only screen and (max-width: 768px) {
-    .au-footer-content {
+    .gtv-footer-content {
       flex-direction: column;
       text-align: center;
       gap: 30px;
     }
 
-    .au-footer-logo {
+    .gtv-footer-logo {
       min-width: auto;
     }
 
-    .au-footer-logo h2 {
+    .gtv-footer-logo h2 {
       font-size: 2rem;
     }
 
-    .au-footer-links {
+    .gtv-footer-links {
       justify-content: center;
       gap: 40px;
     }
 
-    .au-footer-hero {
+    .gtv-footer-hero {
       padding: 60px 0;
       min-height: 300px;
     }
   }
 
   @media only screen and (max-width: 600px) {
-    .au-footer-links {
+    .gtv-footer-links {
       flex-direction: column;
       gap: 20px;
     }
 
-    .au-footer-section {
+    .gtv-footer-section {
       text-align: center;
     }
 
-    .au-footer-hero {
+    .gtv-footer-hero {
       padding: 40px 0;
       min-height: 250px;
     }
@@ -1541,17 +1541,17 @@
 
 
 <!-- Mobile Sidebar (outside pushable) -->
-<div class="au-nav-mobile-sidebar mobile only" id="mobile-sidebar">
-  <div class="au-nav-mobile-sidebar-content">
-    <div class="au-nav-header">
-      <a href="/" class="au-nav-logo">GoosetuneTV</a>
-      <button class="au-nav-mobile-close" id="mobile-menu-close">
+<div class="gtv-nav-mobile-sidebar mobile only" id="mobile-sidebar">
+  <div class="gtv-nav-mobile-sidebar-content">
+    <div class="gtv-nav-header">
+      <a href="/" class="gtv-nav-logo">GoosetuneTV</a>
+      <button class="gtv-nav-mobile-close" id="mobile-menu-close">
         <i class="times icon"></i>
       </button>
     </div>
     <%= render :partial => 'shared/navgation/menu_content' %>
   </div>
-  <div class="au-nav-mobile-overlay" id="mobile-overlay"></div>
+  <div class="gtv-nav-mobile-overlay" id="mobile-overlay"></div>
 </div>
 
 <div class="ui pushable">
@@ -1564,12 +1564,12 @@
 <%= render :partial => 'shared/navgation/desktop' %>
 
 <!-- au.com Style Mobile Navigation -->
-<nav class="au-nav-mobile mobile only" style="z-index: 1000;">
-  <div class="au-nav-mobile-header">
-    <button class="au-nav-mobile-toggle" id="mobile-menu-toggle">
+<nav class="gtv-nav-mobile mobile only" style="z-index: 1000;">
+  <div class="gtv-nav-mobile-header">
+    <button class="gtv-nav-mobile-toggle" id="mobile-menu-toggle">
       <i class="bars icon"></i>
     </button>
-    <a href="/" class="au-nav-logo au-nav-logo-center">GoosetuneTV</a>
+    <a href="/" class="gtv-nav-logo gtv-nav-logo-center">GoosetuneTV</a>
   </div>
 </nav>
 
@@ -1600,15 +1600,15 @@
           <%= yield %>
 
           <!-- Footer -->
-          <footer class="au-footer">
-            <div class="au-footer-hero">
-              <div class="au-footer-content">
-                <div class="au-footer-logo">
+          <footer class="gtv-footer">
+            <div class="gtv-footer-hero">
+              <div class="gtv-footer-content">
+                <div class="gtv-footer-logo">
                   <h2>GoosetuneTV</h2>
                   <p>Goosehouse動画を検索できるまとめ</p>
                 </div>
-                <div class="au-footer-links">
-                  <div class="au-footer-section">
+                <div class="gtv-footer-links">
+                  <div class="gtv-footer-section">
                     <h4>検索機能</h4>
                     <ul>
                       <li><a href="/youtubes">YouTube検索</a></li>
@@ -1617,7 +1617,7 @@
                       <li><a href="/artists">アーティスト検索</a></li>
                     </ul>
                   </div>
-                  <div class="au-footer-section">
+                  <div class="gtv-footer-section">
                     <h4>カテゴリ</h4>
                     <ul>
                       <li><a href="/youtubes/new_arrival">新着動画</a></li>
@@ -1629,7 +1629,7 @@
                 </div>
               </div>
             </div>
-            <div class="au-footer-bottom">
+            <div class="gtv-footer-bottom">
               <p>&copy; <%= Date.today.year %> GoosetuneTV - All rights reserved</p>
             </div>
           </footer>
