@@ -22,17 +22,32 @@
               <a href="/youtubes/desc" class="au-nav-desktop-dropdown-link">すべての動画(新しい順)</a>
               <a href="/youtubes/asc" class="au-nav-desktop-dropdown-link">すべての動画(古い順)</a>
               <a href="/youtubes/sing" class="au-nav-desktop-dropdown-link">Singを集めてみました</a>
+              <a href="/youtubes/playyouhouse" class="au-nav-desktop-dropdown-link">Play You. House</a>
+              <a href="/youtubes/release_at/year" class="au-nav-desktop-dropdown-link">原曲のリリース年から検索</a>
+              <a href="/youtubes/release_at/years" class="au-nav-desktop-dropdown-link">原曲のリリース年代から検索</a>
               <a href="/youtubes/today/<%= Date.today.strftime("%Y/%m/%d") %>" class="au-nav-desktop-dropdown-link">今日のGoosehouse</a>
             </div>
             <div class="au-nav-desktop-dropdown-section">
               <h4 class="au-nav-desktop-dropdown-title">HOY (House Of the Year)</h4>
               <a href="/youtubes/hoy" class="au-nav-desktop-dropdown-link">HOY全体</a>
+              <a href="/youtubes/hoy/2011" class="au-nav-desktop-dropdown-link">2011年</a>
+              <a href="/youtubes/hoy/2012" class="au-nav-desktop-dropdown-link">2012年</a>
+              <a href="/youtubes/hoy/2013" class="au-nav-desktop-dropdown-link">2013年</a>
+              <a href="/youtubes/hoy/2014" class="au-nav-desktop-dropdown-link">2014年</a>
               <a href="/youtubes/hoy/2015" class="au-nav-desktop-dropdown-link">2015年</a>
               <a href="/youtubes/hoy/2016" class="au-nav-desktop-dropdown-link">2016年</a>
             </div>
             <div class="au-nav-desktop-dropdown-section">
               <h4 class="au-nav-desktop-dropdown-title">年間のカバー達</h4>
               <a href="/youtubes/cover" class="au-nav-desktop-dropdown-link">カバー全体</a>
+              <a href="/youtubes/cover/2010" class="au-nav-desktop-dropdown-link">2010年</a>
+              <a href="/youtubes/cover/2011" class="au-nav-desktop-dropdown-link">2011年</a>
+              <a href="/youtubes/cover/2012" class="au-nav-desktop-dropdown-link">2012年</a>
+              <a href="/youtubes/cover/2013" class="au-nav-desktop-dropdown-link">2013年</a>
+              <a href="/youtubes/cover/2014" class="au-nav-desktop-dropdown-link">2014年</a>
+              <a href="/youtubes/cover/2015" class="au-nav-desktop-dropdown-link">2015年</a>
+              <a href="/youtubes/cover/2016" class="au-nav-desktop-dropdown-link">2016年</a>
+              <a href="/youtubes/cover/2017" class="au-nav-desktop-dropdown-link">2017年</a>
               <a href="/youtubes/cover/2018" class="au-nav-desktop-dropdown-link">2018年</a>
               <a href="/youtubes/cover/2019" class="au-nav-desktop-dropdown-link">2019年</a>
             </div>
@@ -55,6 +70,10 @@
               <a href="/members/goosehouse/phase2" class="au-nav-desktop-dropdown-link">Goosehouse 2期</a>
               <a href="/members/goosehouse/phase3" class="au-nav-desktop-dropdown-link">Goosehouse 3期</a>
               <a href="/members/goosehouse/phase4" class="au-nav-desktop-dropdown-link">Goosehouse 4期</a>
+              <a href="/members/goosehouse/phase5" class="au-nav-desktop-dropdown-link">Goosehouse 5期</a>
+              <a href="/members/goosehouse/phase6" class="au-nav-desktop-dropdown-link">Goosehouse 6期</a>
+              <a href="/members/goosehouse/phase7" class="au-nav-desktop-dropdown-link">Goosehouse 7期</a>
+              <a href="/members/goosehouse/phase8" class="au-nav-desktop-dropdown-link">Goosehouse 8期</a>
             </div>
           </div>
         </div>
@@ -77,6 +96,20 @@
           <a href="/musical_instruments" class="au-nav-desktop-link">
             <i class="music icon au-nav-icon"></i>
             楽器
+          </a>
+        </div>
+
+        <div class="au-nav-desktop-item">
+          <a href="/unit_groups" class="au-nav-desktop-link">
+            <i class="group icon au-nav-icon"></i>
+            ユニットグループ
+          </a>
+        </div>
+
+        <div class="au-nav-desktop-item">
+          <a href="/musical_instruments/player" class="au-nav-desktop-link">
+            <i class="user circle icon au-nav-icon"></i>
+            演奏者
           </a>
         </div>
 
@@ -114,7 +147,7 @@
         <div class="au-nav-desktop-form-item">
           <div class="au-nav-desktop-form-header">
             <i class="calendar icon au-nav-form-icon"></i>
-            <span>アップロード月検索</span>
+            <span>YouTubeアップロード月検索</span>
           </div>
           <form class="au-form-inline" action="/youtubes/_upload_month" accept-charset="UTF-8" method="get">
             <input name="utf8" type="hidden" value="✓">
@@ -122,27 +155,27 @@
               <% if @common && @common['select_form_of_upload_month'] %>
                 <% (@common['select_form_of_upload_month']['first_entry_year']..
                     @common['select_form_of_upload_month']['latest_entry_year']).each do |year| %>
-                  <option value="<%= year %>"><%= year %>年</option>
+                  <option value="<%= year %>"><%= year %> 年</option>
                 <% end %>
               <% else %>
                 <% (2010..2021).each do |year| %>
-                  <option value="<%= year %>"><%= year %>年</option>
+                  <option value="<%= year %>"><%= year %> 年</option>
                 <% end %>
               <% end %>
             </select>
             <select name="youtube[published][month]" class="au-select-inline">
-              <option value="1">1月</option>
-              <option value="2">2月</option>
-              <option value="3">3月</option>
-              <option value="4">4月</option>
-              <option value="5">5月</option>
-              <option value="6">6月</option>
-              <option value="7" selected>7月</option>
-              <option value="8">8月</option>
-              <option value="9">9月</option>
-              <option value="10">10月</option>
-              <option value="11">11月</option>
-              <option value="12">12月</option>
+              <option value="1">1 月</option>
+              <option value="2">2 月</option>
+              <option value="3">3 月</option>
+              <option value="4">4 月</option>
+              <option value="5">5 月</option>
+              <option value="6">6 月</option>
+              <option value="7" selected="selected">7 月</option>
+              <option value="8">8 月</option>
+              <option value="9">9 月</option>
+              <option value="10">10 月</option>
+              <option value="11">11 月</option>
+              <option value="12">12 月</option>
             </select>
             <input type="hidden" name="youtube[published(3i)]" value="1">
             <button type="submit" class="au-button-inline">検索</button>

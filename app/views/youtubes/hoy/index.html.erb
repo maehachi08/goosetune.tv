@@ -7,11 +7,12 @@
     <div class="ui six stackable cards column grid masonry">
       <% if ENV['API_MODE'] == 'false' && @data['hoys'].present? %>
         <% @data['hoys'].keys.each do |year| %>
-          <% entry = @data['hoys'][year] %>
+          <% entries = @data['hoys'][year] %>
+          <% first_entry = entries.first %>
 
           <div class="ui card item" style="min-height: 150px; min-width: 150px;">
             <a class="image" href="/youtubes/hoy/<%= year %>">
-              <img src=<%= entry['thumbnail'] %> alt=<%= "HOY #{year}" %> />
+              <img src=<%= first_entry.thumbnail %> alt=<%= "HOY #{year}" %> />
             </a>
             <div class="content">
               <a class="header" href="/youtubes/hoy/<%= year %>"><%= "HOY #{year}" %></a>
