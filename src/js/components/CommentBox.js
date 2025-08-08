@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 
 class CommentBox extends React.Component {
   handleClick() {
-    console.log('this is:', this);
   }
 
   // bootstrap's card-group and semantic-ui card

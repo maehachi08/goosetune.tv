@@ -3,5 +3,4 @@
 // in the layout file with proper .pusher element scroll detection.
 
 // Keeping this as a placeholder to prevent webpack build errors
-console.log('page_to_top.js: Functionality moved to layout file');
 

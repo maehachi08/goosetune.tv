@@ -133,65 +133,20 @@
             }
         });
 
-        // Page top button functionality - enhanced debugging
+        // Page top button functionality
         function initPageTopButton() {
             const $pageTop = $('#pageTop');
             const $pusher = $('.pusher');
             const $window = $(window);
             const $document = $(document);
             
-            console.log('PageTop button initialized');
-            console.log('PageTop element found:', $pageTop.length);
-            console.log('Pusher element found:', $pusher.length);
+            // Initially hide the button
+            $pageTop.hide();
             
-            // Investigate scrollable elements
-            console.log('=== Scrollable Elements Investigation ===');
-            console.log('Body scroll height:', document.body.scrollHeight, 'client height:', document.body.clientHeight);
-            console.log('Document element scroll height:', document.documentElement.scrollHeight, 'client height:', document.documentElement.clientHeight);
-            console.log('Window innerHeight:', window.innerHeight, 'outerHeight:', window.outerHeight);
-            
-            if ($pusher.length > 0) {
-                const pusherEl = $pusher[0];
-                console.log('Pusher scroll height:', pusherEl.scrollHeight, 'client height:', pusherEl.clientHeight);
-                console.log('Pusher overflow-y:', window.getComputedStyle(pusherEl).overflowY);
-                console.log('Pusher position:', window.getComputedStyle(pusherEl).position);
-            }
-            
-            // Find all potentially scrollable elements
-            const scrollableElements = [];
-            const allElements = document.querySelectorAll('*');
-            allElements.forEach(el => {
-                const style = window.getComputedStyle(el);
-                if (style.overflowY === 'auto' || style.overflowY === 'scroll' || 
-                    style.overflow === 'auto' || style.overflow === 'scroll') {
-                    if (el.scrollHeight > el.clientHeight) {
-                        scrollableElements.push({
-                            element: el,
-                            tagName: el.tagName,
-                            className: el.className,
-                            id: el.id,
-                            scrollHeight: el.scrollHeight,
-                            clientHeight: el.clientHeight
-                        });
-                    }
-                }
-            });
-            
-            console.log('Found scrollable elements:', scrollableElements.length);
-            scrollableElements.forEach((info, index) => {
-                console.log(`Scrollable ${index + 1}:`, info.tagName, info.className || '[no class]', info.id || '[no id]', 
-                           'scrollable area:', info.scrollHeight - info.clientHeight);
-            });
-            
-            // Show button initially for testing
-            $pageTop.show().css('opacity', '0.7');
-            
-            // Enhanced click handler with multiple approaches
+            // Click handler for page top button
             $pageTop.on('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('PageTop button clicked - outer div');
-                
                 performScroll();
                 return false;
             });
@@ -199,86 +154,46 @@
             $pageTop.find('a').on('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-                console.log('PageTop button clicked - inner a');
-                
                 performScroll();
                 return false;
             });
             
             function performScroll() {
-                console.log('Performing scroll to top...');
-                console.log('Current scroll positions - Window:', $window.scrollTop(), 'Document:', $document.scrollTop(), 'Pusher:', $pusher.scrollTop());
-                
-                let scrollPerformed = false;
-                
                 // Method 1: Animate pusher if it exists and has scroll
-                if ($pusher.length > 0) {
-                    const pusherScroll = $pusher.scrollTop();
-                    console.log('Pusher scroll position:', pusherScroll);
-                    if (pusherScroll > 0) {
-                        console.log('Attempting to scroll pusher to top...');
-                        $pusher.animate({ scrollTop: 0 }, {
-                            duration: 500,
-                            complete: function() {
-                                console.log('Pusher scroll animation completed');
-                            }
-                        });
-                        scrollPerformed = true;
-                    }
+                if ($pusher.length > 0 && $pusher.scrollTop() > 0) {
+                    $pusher.animate({ scrollTop: 0 }, 500);
                 }
                 
                 // Method 2: Animate window/document
                 const windowScroll = $window.scrollTop();
                 const documentScroll = $document.scrollTop();
-                console.log('Window scroll:', windowScroll, 'Document scroll:', documentScroll);
-                
                 if (windowScroll > 0 || documentScroll > 0) {
-                    console.log('Attempting to scroll window/document to top...');
-                    $('html, body').animate({ scrollTop: 0 }, {
-                        duration: 500,
-                        complete: function() {
-                            console.log('Window/document scroll animation completed');
-                        }
-                    });
-                    scrollPerformed = true;
+                    $('html, body').animate({ scrollTop: 0 }, 500);
                 }
                 
                 // Method 3: Direct scroll API
-                console.log('Attempting window.scrollTo with smooth behavior...');
                 try {
                     window.scrollTo({ top: 0, behavior: 'smooth' });
-                    scrollPerformed = true;
                 } catch (e) {
-                    console.log('Modern scrollTo failed:', e);
+                    // Fallback for older browsers
+                    window.scrollTo(0, 0);
                 }
                 
-                // Method 4: Force scroll all currently scrolled elements
-                console.log('Method 4: Force scroll all currently scrolled elements');
+                // Method 4: Scroll all currently scrolled elements
                 const currentlyScrolledElements = [];
                 document.querySelectorAll('*').forEach(el => {
                     if (el.scrollTop > 0) {
                         currentlyScrolledElements.push(el);
-                        console.log('Found scrolled element:', el.tagName, el.className, el.id, 'scrollTop:', el.scrollTop);
                     }
                 });
                 
                 // Animate currently scrolled elements
-                currentlyScrolledElements.forEach((el, index) => {
-                    console.log(`Animating scrolled element ${index + 1}:`, el.tagName);
-                    $(el).animate({ scrollTop: 0 }, {
-                        duration: 500,
-                        complete: function() {
-                            console.log(`Animation completed for element ${index + 1}:`, el.tagName);
-                        }
-                    });
-                    scrollPerformed = true;
+                currentlyScrolledElements.forEach((el) => {
+                    $(el).animate({ scrollTop: 0 }, 500);
                 });
                 
-                // Method 5: Fallback immediate scroll
+                // Fallback immediate scroll
                 setTimeout(function() {
-                    console.log('Fallback scroll - forcing immediate scroll...');
-                    console.log('Pre-fallback positions - Window:', $window.scrollTop(), 'Pusher:', $pusher.scrollTop());
-                    
                     window.scrollTo(0, 0);
                     document.documentElement.scrollTop = 0;
                     document.body.scrollTop = 0;
@@ -288,18 +203,14 @@
                         $pusher[0].scrollTop = 0;
                     }
                     
-                    // Force scroll all elements that might be scrolled
+                    // Ensure all scrolled elements are reset to top
                     currentlyScrolledElements.forEach(el => {
                         el.scrollTop = 0;
                     });
-                    
-                    console.log('Post-fallback positions - Window:', $window.scrollTop(), 'Pusher:', $pusher.scrollTop());
-                }, scrollPerformed ? 600 : 100);
-                
-                console.log('Scroll methods attempted, scrollPerformed:', scrollPerformed);
+                }, 100);
             }
             
-            // Enhanced scroll detection with real-time scrollable element monitoring
+            // Monitor scroll for button visibility
             function handleScroll() {
                 let windowScroll = $window.scrollTop();
                 let documentScroll = $document.scrollTop();
@@ -307,71 +218,29 @@
                 let bodyScroll = document.body.scrollTop;
                 let docElementScroll = document.documentElement.scrollTop;
                 
-                // Check all previously found scrollable elements
-                let allScrollValues = [];
-                allScrollValues.push({ name: 'window', value: windowScroll });
-                allScrollValues.push({ name: 'document', value: documentScroll });
-                allScrollValues.push({ name: 'pusher', value: pusherScroll });
-                allScrollValues.push({ name: 'body', value: bodyScroll });
-                allScrollValues.push({ name: 'docElement', value: docElementScroll });
-                
-                // Check dynamic scrollable elements
-                const dynamicScrollableElements = [];
+                // Check for any scrolled elements
+                let hasScrolledElements = false;
                 document.querySelectorAll('*').forEach(el => {
                     if (el.scrollTop > 0) {
-                        dynamicScrollableElements.push({
-                            element: el,
-                            scrollTop: el.scrollTop,
-                            tagName: el.tagName,
-                            className: el.className,
-                            id: el.id
-                        });
-                        allScrollValues.push({ name: `${el.tagName}${el.className ? '.' + el.className : ''}${el.id ? '#' + el.id : ''}`, value: el.scrollTop });
+                        hasScrolledElements = true;
                     }
                 });
                 
-                if (dynamicScrollableElements.length > 0) {
-                    console.log('=== Elements currently being scrolled ===');
-                    dynamicScrollableElements.forEach((info, index) => {
-                        console.log(`Scrolled element ${index + 1}:`, info.tagName, info.className || '[no class]', info.id || '[no id]', 'scrollTop:', info.scrollTop);
-                    });
-                }
+                let maxScroll = Math.max(windowScroll, documentScroll, pusherScroll, bodyScroll, docElementScroll);
                 
-                let maxScroll = Math.max(...allScrollValues.map(item => item.value));
-                let maxScrollSource = allScrollValues.find(item => item.value === maxScroll);
-                
-                console.log('Scroll detected - Window:', windowScroll, 'Document:', documentScroll, 'Pusher:', pusherScroll, 
-                           'Body:', bodyScroll, 'DocElement:', docElementScroll, 'Max:', maxScroll, 'Source:', maxScrollSource?.name);
-                
-                if (maxScroll > 100) {
-                    $pageTop.fadeIn(300).css('opacity', '1');
+                if (maxScroll > 300 || hasScrolledElements) {
+                    $pageTop.fadeIn(300);
                 } else {
                     $pageTop.fadeOut(300);
                 }
             }
             
-            // Attach multiple scroll handlers
-            $pusher.on('scroll', function() {
-                console.log('Pusher scroll event');
-                handleScroll();
-            });
+            // Attach scroll handlers
+            $pusher.on('scroll', handleScroll);
+            $window.on('scroll', handleScroll);
+            $document.on('scroll', handleScroll);
             
-            $window.on('scroll', function() {
-                console.log('Window scroll event');
-                handleScroll();
-            });
-            
-            $document.on('scroll', function() {
-                console.log('Document scroll event');
-                handleScroll();
-            });
-            
-            // Test click detection
-            $pageTop.on('mouseenter', function() {
-                console.log('PageTop button hovered');
-            });
-            
-            // Force initial check
+            // Initial check
             setTimeout(handleScroll, 1000);
         }
         
@@ -1190,7 +1059,7 @@
     transform: translateX(-50%);
     font-size: 1.2rem;
     font-weight: 700;
-    color: #ff6900;
+    color: #333;
     text-decoration: none;
   }
 
@@ -1663,7 +1532,7 @@
     z-index: 1;
   }
 
-  /* Page Top Button Styles - Independent positioning */
+  /* Page Top Button Styles */
   #pageTop {
     position: fixed !important;
     right: 20px !important;
@@ -1672,7 +1541,7 @@
     margin: 0 !important;
     padding: 0 !important;
     pointer-events: auto !important;
-    display: block !important; /* Force display for debugging */
+    display: none; /* Initially hidden, shown by JavaScript when scrolled */
     visibility: visible !important;
     opacity: 1 !important;
     /* Reset any inherited positioning */

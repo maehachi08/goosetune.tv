@@ -92,7 +92,6 @@
   // アーティスト検索画面で 検索する ボタンをクリックした時の処理
   $(document).on("click", "#search_artist", function() {
     var data = JSON.parse(localStorage.getItem("selected_artist_ids"));
-    console.log(data);
     data_str = data.join(',');
     window.location.href = '/artists/' + data_str
   });

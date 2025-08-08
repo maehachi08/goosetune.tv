@@ -63,7 +63,6 @@ $(function() {
     // 要素の存在確認
     var masonryElement = document.querySelector('.masonry');
     if (!masonryElement) {
-        console.error('Masonry element not found!');
         return;
     }
     // 既存のMasonryスタイルをクリア
@@ -98,13 +97,11 @@ $(function() {
     var pageNavElement = document.querySelector('#page-nav');
     var nextLinkElement = document.querySelector('#page-nav a[rel="next"]');
     if (!pageNavElement) {
-        console.error('❌ Page nav element not found!');
         $('.page-load-status').hide();
         return;
     }
     
     if (!nextLinkElement) {
-        console.log('ℹ️ No next link found - this is likely the last page');
         $('.page-load-status').hide();
         $('.infinite-scroll-last').show();
         return;
