@@ -25,6 +25,10 @@ import './css/entry.css';
 import './css/infinitescroll_loading.css';
 import './css/page_to_top.css';
 import './css/members.css';
+import './css/footer.css';
+import './css/navigation.css';
+import './css/page-top-button.css';
+import './css/responsive.css';
 
 // custom scss
 import './scss/footer.scss';
