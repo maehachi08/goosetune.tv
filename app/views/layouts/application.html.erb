@@ -62,6 +62,195 @@
   <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/dist/semantic.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.5.0/components/visibility.min.css">
 
+  <script>
+      // webpackでbundleすると正常動作しないので外出ししている
+      $(document).ready(function() {
+          $('select.dropdown').dropdown();
+          $('#refine_members_research').on('click', function() {
+              $('#refine_search_modal').modal('show');
+          });
+          $('#js-sidebar').click(function() {
+            $('.ui.sidebar').sidebar('toggle');
+          });
+        $('.ui.dropdown').dropdown();
+
+        // $('.ui.sidebar').sidebar({
+        //   context: $('body'),
+        //   transition: 'overlay',
+        //   dimPage: true
+        // });
+
+        $('.ui.accordion').accordion();
+
+        // gtv style navigation accordion
+        $('.gtv-nav-category-header').on('click', function() {
+            const $category = $(this).closest('.gtv-nav-category');
+            const $content = $category.find('.gtv-nav-category-content');
+
+            if ($category.hasClass('active')) {
+                $category.removeClass('active');
+                $content.slideUp(200);
+            } else {
+                $category.addClass('active');
+                $content.slideDown(200);
+            }
+        });
+
+        $('.gtv-nav-subcategory-header').on('click', function() {
+            const $subcategory = $(this).closest('.gtv-nav-subcategory');
+            const $content = $subcategory.find('.gtv-nav-subcategory-content');
+
+            if ($subcategory.hasClass('active')) {
+                $subcategory.removeClass('active');
+                $content.slideUp(150);
+            } else {
+                $subcategory.addClass('active');
+                $content.slideDown(150);
+            }
+        });
+
+        // Tablet navigation toggle
+        $('#tablet-menu-toggle').on('click', function() {
+            const $dropdown = $('#tablet-dropdown');
+            $dropdown.toggleClass('active');
+        });
+
+        // Mobile navigation toggle
+        $('#mobile-menu-toggle').on('click', function() {
+            $('#mobile-sidebar').addClass('active');
+            $('body').css('overflow', 'hidden');
+        });
+
+        $('#mobile-menu-close, #mobile-overlay').on('click', function() {
+            $('#mobile-sidebar').removeClass('active');
+            $('body').css('overflow', '');
+        });
+
+        // Close dropdowns when clicking outside
+        $(document).on('click', function(e) {
+            if (!$(e.target).closest('.gtv-nav-tablet').length) {
+                $('#tablet-dropdown').removeClass('active');
+            }
+        });
+
+        // Page top button functionality
+        function initPageTopButton() {
+            const $pageTop = $('#pageTop');
+            const $pusher = $('.pusher');
+            const $window = $(window);
+            const $document = $(document);
+            
+            // Initially hide the button
+            $pageTop.hide();
+            
+            // Click handler for page top button
+            $pageTop.on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                performScroll();
+                return false;
+            });
+            
+            $pageTop.find('a').on('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                performScroll();
+                return false;
+            });
+            
+            function performScroll() {
+                // Method 1: Animate pusher if it exists and has scroll
+                if ($pusher.length > 0 && $pusher.scrollTop() > 0) {
+                    $pusher.animate({ scrollTop: 0 }, 500);
+                }
+                
+                // Method 2: Animate window/document
+                const windowScroll = $window.scrollTop();
+                const documentScroll = $document.scrollTop();
+                if (windowScroll > 0 || documentScroll > 0) {
+                    $('html, body').animate({ scrollTop: 0 }, 500);
+                }
+                
+                // Method 3: Direct scroll API
+                try {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                } catch (e) {
+                    // Fallback for older browsers
+                    window.scrollTo(0, 0);
+                }
+                
+                // Method 4: Scroll all currently scrolled elements
+                const currentlyScrolledElements = [];
+                document.querySelectorAll('*').forEach(el => {
+                    if (el.scrollTop > 0) {
+                        currentlyScrolledElements.push(el);
+                    }
+                });
+                
+                // Animate currently scrolled elements
+                currentlyScrolledElements.forEach((el) => {
+                    $(el).animate({ scrollTop: 0 }, 500);
+                });
+                
+                // Fallback immediate scroll
+                setTimeout(function() {
+                    window.scrollTo(0, 0);
+                    document.documentElement.scrollTop = 0;
+                    document.body.scrollTop = 0;
+                    
+                    if ($pusher.length > 0) {
+                        $pusher.scrollTop(0);
+                        $pusher[0].scrollTop = 0;
+                    }
+                    
+                    // Ensure all scrolled elements are reset to top
+                    currentlyScrolledElements.forEach(el => {
+                        el.scrollTop = 0;
+                    });
+                }, 100);
+            }
+            
+            // Monitor scroll for button visibility
+            function handleScroll() {
+                let windowScroll = $window.scrollTop();
+                let documentScroll = $document.scrollTop();
+                let pusherScroll = $pusher.length > 0 ? $pusher.scrollTop() : 0;
+                let bodyScroll = document.body.scrollTop;
+                let docElementScroll = document.documentElement.scrollTop;
+                
+                // Check for any scrolled elements
+                let hasScrolledElements = false;
+                document.querySelectorAll('*').forEach(el => {
+                    if (el.scrollTop > 0) {
+                        hasScrolledElements = true;
+                    }
+                });
+                
+                let maxScroll = Math.max(windowScroll, documentScroll, pusherScroll, bodyScroll, docElementScroll);
+                
+                if (maxScroll > 300 || hasScrolledElements) {
+                    $pageTop.fadeIn(300);
+                } else {
+                    $pageTop.fadeOut(300);
+                }
+            }
+            
+            // Attach scroll handlers
+            $pusher.on('scroll', handleScroll);
+            $window.on('scroll', handleScroll);
+            $document.on('scroll', handleScroll);
+            
+            // Initial check
+            setTimeout(handleScroll, 1000);
+        }
+        
+        // Initialize page top button
+        initPageTopButton();
+
+
+
+      });
+  </script>
 
 <style>
   @media only screen and (max-width: 991px) {

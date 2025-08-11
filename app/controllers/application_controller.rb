@@ -17,8 +17,6 @@ class ApplicationController < ActionController::Base
         "select_form_of_ustream":      ustream_id_title_array,
         "select_form_of_youtube_live": youtube_live_id_title_array
     }
-    # ビューで@commonとしてアクセスできるように別名も設定
-    @common = @common_data
   end
 
   def append_info_to_payload(payload)
