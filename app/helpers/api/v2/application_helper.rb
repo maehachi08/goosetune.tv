@@ -17,7 +17,7 @@ module Api::V2::ApplicationHelper
 
   def ustream_id_title_array
     ret = []
-    cache_name = "cache_all_youtubes_order_by_desc_id_title"
+    cache_name = "cache_all_ustreams_order_by_desc_id_title"
     entries = Rails.cache.fetch(cache_name) do
       ::Ustream.order('published DESC').pluck(:id, :title)
     end
