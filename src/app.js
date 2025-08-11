@@ -36,10 +36,33 @@ import './scss/entry.scss';
 import './scss/artists.scss';
 import './scss/crown.scss';
 
-import './js/page_to_top.js';
+// Import custom JavaScript modules
+import { initDropdown } from './js/ui/dropdown.js';
+import { initModal } from './js/ui/modal.js';
+import { initSidebar } from './js/ui/sidebar.js';
+import { initAccordion } from './js/ui/accordion.js';
+import { initDesktopNavigation } from './js/navigation/desktop.js';
+import { initTabletNavigation } from './js/navigation/tablet.js';
+import { initMobileNavigation } from './js/navigation/mobile.js';
+import { initPageTopButton } from './js/scroll/page-top.js';
 
 
 $(function() {
+    // Initialize UI components
+    initDropdown();
+    initModal();
+    initSidebar();
+    initAccordion();
+    
+    // Initialize navigation components
+    initDesktopNavigation();
+    initTabletNavigation();
+    initMobileNavigation();
+    
+    // Initialize scroll components
+    initPageTopButton();
+    
+    // Initialize Magnific Popup
     $('.magnific-popup').magnificPopup({
         type: 'iframe',
         mainClass: 'mfp-fade',
