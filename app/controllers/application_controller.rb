@@ -11,10 +11,10 @@ class ApplicationController < ActionController::Base
     begin
       ustream_data = ustream_id_title_array
       youtube_live_data = youtube_live_id_title_array
-      
+
       Rails.logger.info "DEBUG: ustream_data count: #{ustream_data.length}"
       Rails.logger.info "DEBUG: youtube_live_data count: #{youtube_live_data.length}"
-      
+
       @common_data = {
           "select_form_of_upload_month" =>
           {
@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
       }
       # ビューで@commonとしてアクセスできるように別名も設定
       @common = @common_data
-      
+
       Rails.logger.info "DEBUG: @common keys: #{@common.keys}"
       Rails.logger.info "DEBUG: @common['select_form_of_ustream'] present: #{@common['select_form_of_ustream'].present?}"
       Rails.logger.info "DEBUG: @common['select_form_of_youtube_live'] present: #{@common['select_form_of_youtube_live'].present?}"
@@ -36,7 +36,7 @@ class ApplicationController < ActionController::Base
       if @common['select_form_of_youtube_live'].present?
         Rails.logger.info "DEBUG: @common['select_form_of_youtube_live'] count: #{@common['select_form_of_youtube_live'].length}"
       end
-      
+
     rescue => e
       Rails.logger.error "ERROR in common_data: #{e.message}"
       Rails.logger.error e.backtrace.join("\n")

@@ -53,15 +53,15 @@ $(function() {
     initModal();
     initSidebar();
     initAccordion();
-    
+
     // Initialize navigation components
     initDesktopNavigation();
     initTabletNavigation();
     initMobileNavigation();
-    
+
     // Initialize scroll components
     initPageTopButton();
-    
+
     // Initialize Magnific Popup
     $('.magnific-popup').magnificPopup({
         type: 'iframe',
@@ -127,7 +127,7 @@ $(function() {
         $('.page-load-status').hide();
         return;
     }
-    
+
     if (!nextLinkElement) {
         $('.page-load-status').hide();
         $('.infinite-scroll-last').show();
@@ -155,7 +155,7 @@ $(function() {
         pusher.style.setProperty('overflow-y', 'auto', 'important');
         pusher.style.setProperty('height', '100vh', 'important');
     }
-    
+
     // masonryコンテナは自然な高さに任せる
     const masonryContainer = document.querySelector('.masonry');
     if (masonryContainer) {
