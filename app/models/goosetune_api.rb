@@ -19,8 +19,8 @@ class GoosetuneApi
     # http.verify_mode = OpenSSL::SSL::VERIFY_PEER
     request = Net::HTTP::Get.new(api_path)
     res = http.request(request)
-    puts api_path
-    puts res.body
+    #puts api_path
+    #puts res.body
     JSON.parse(res.body)
   end
 

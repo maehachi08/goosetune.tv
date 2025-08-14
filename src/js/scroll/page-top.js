@@ -1,13 +1,9 @@
 // Page top button functionality
 export function initPageTopButton() {
-    console.log('DEBUG: initPageTopButton called');
     const $pageTop = $('#pageTop');
     const $pusher = $('.pusher');
     const $window = $(window);
     const $document = $(document);
-
-    console.log('DEBUG: pageTop element found:', $pageTop.length);
-    console.log('DEBUG: pusher element found:', $pusher.length);
 
     // Initially hide the button
     $pageTop.hide();
@@ -97,13 +93,9 @@ export function initPageTopButton() {
 
         let maxScroll = Math.max(windowScroll, documentScroll, pusherScroll, bodyScroll, docElementScroll);
 
-        console.log('DEBUG: Scroll values - window:', windowScroll, 'document:', documentScroll, 'pusher:', pusherScroll, 'body:', bodyScroll, 'docElement:', docElementScroll, 'max:', maxScroll, 'hasScrolledElements:', hasScrolledElements);
-
         if (maxScroll > 300 || hasScrolledElements) {
-            console.log('DEBUG: Showing pageTop button');
             $pageTop.fadeIn(300);
         } else {
-            console.log('DEBUG: Hiding pageTop button');
             $pageTop.fadeOut(300);
         }
     }
