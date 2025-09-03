@@ -227,7 +227,7 @@
                             <% if not @data['youtube']['release_at'].nil? %>
                                 <tr>
                                     <td class="name">原曲のリリース日</td>
-                                    <td class="value aligned left"><%= DateTime.parse(@data['youtube']['release_at']).strftime( '%Y/%m/%d' ) %></td>
+                                    <td class="value aligned left"><%= @data['youtube']['release_at'].strftime( '%Y/%m/%d' ) %></td>
                                 </tr>
                             <% end %>
                             <% if not @data['youtube']['memo'].blank? %>

@@ -1,24 +1,61 @@
-# README
+# goosetunetv
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+goosetune.tv
 
-Things you may want to cover:
+## Development Environment
 
-* Ruby version
+### Prepare
 
-* System dependencies
+- Docker 及び Docker Compose のインストール
 
-* Configuration
+### Run Containers
 
-* Database creation
+1. `.env.sample` から `.env` を作成しMySQLデータベース ユーザパスワードを設定する
+   - docker-compose は `.env` というファイルを環境変数ファイルとして自動的に読み込みます ([refs](https://docs.docker.jp/compose/environment-variables.html))
 
-* Database initialization
+   ```
+   cp .env.sample .env
+   vim .env
+   ```
 
-* How to run the test suite
+1. `docker-compose up`
+   - 起動するapiコンテナはRails codeをボリュームマウントしており、修正が即時に反映されます
+   - MySQLデータベースのみコンテナ起動し、`rails s` で起動したい場合は `docker-compose up` の後に `docker-compose stop api`を実行することでrails appコンテナを停止できます
 
-* Services (job queues, cache servers, search engines, etc.)
+   ```
+   docker-compose up -d
 
-* Deployment instructions
+   # 起動後のログを確認する場合
+   docker-compose logs -f
+   ```
 
-* ...
+## Production
+
+### Prepare
+
+- packコマンド のインストール
+   - https://buildpacks.io/docs/tools/pack/
+      - [Cloud Native Buildpacks](https://buildpacks.io/)が公開しているCLI Tool
+      - applicationコンテナイメージのビルドには (Dockerfileを必要としない)Cloud Native Buildpacksを利用する
+
+      ```
+      brew install buildpacks/tap/pack
+      ```
+
+### Build Application Container Image
+
+```
+pack build 375144106126.dkr.ecr.ap-northeast-1.amazonaws.com/goosetunetv:latest \
+  --builder paketobuildpacks/builder-jammy-full \
+  --buildpack paketo-buildpacks/ruby \
+  --env BP_MRI_VERSION=3.3.5 \
+  --pull-policy always
+
+```
+
+### Deploy
+
+```
+docker push 375144106126.dkr.ecr.ap-northeast-1.amazonaws.com/goosetunetv:latest
+```
+

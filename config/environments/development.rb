@@ -74,8 +74,9 @@ Rails.application.configure do
   # Raise error when a before_action's only/except options reference missing actions
   config.action_controller.raise_on_missing_callback_actions = true
 
-  # for heroku
-  #config.hosts << "goosetunetv-c7223eb39722.herokuapp.com"
+  # for ecs
+  config.hosts << "goosetunetv-alb-1662435123.ap-northeast-1.elb.amazonaws.com"
+  config.hosts << "goosetune.tv"
 
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end

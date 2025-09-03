@@ -1,22 +1,25 @@
 version: "3.9"
 services:
   app:
-    build:
-      context: .
-      target: build
+    image: 375144106126.dkr.ecr.ap-northeast-1.amazonaws.com/goosetunetv:latest
+    #build:
+    #  context: .
+    #  target: build
     container_name: goosetunetv
     restart: always
-    volumes:
-      - .:/app:cached
+    #volumes:
+    #  - .:/app:cached
     ports:
       - "3000:3000"
     depends_on:
       - db
     environment:
-      - DATABASE_HOST="db"
-    env_file:
-      - .env
-    command: bash -c "sleep 60 && bundle exec puma -C config/puma.rb -b tcp://0.0.0.0 -p 3000"
+      - DATABASE_HOST=db
+      - RAILS_MASTER_KEY=2d0e6ea1e2e7f54513a57ac8a4f0ca75
+      - RAILS_ENV=development
+    #env_file:
+    #  - .env
+    #command: bash -c "sleep 60 && bundle exec rails db:migrate && bundle exec puma -C config/puma.rb -b tcp://0.0.0.0 -p 3000"
     deploy:
       resources:
         limits:

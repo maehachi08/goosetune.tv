@@ -1,3 +1,5 @@
+require 'net/http'
+
 module ApplicationHelper
   # url_exist?
   #   The present is a method provided by ActiveSupport.
