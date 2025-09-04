@@ -6,20 +6,20 @@
     <h1 class="title">演奏者検索
       <br />
       <small>
-        <%= "#{@data['musical_instrument']['name']}(#{@data['player']['name']})" %>
+        <%= "#{@data[:musical_instrument][:name]}(#{@data[:player][:name]})" %>
       </small>
     </h1>
 
     <div class="ui six stackable cards column grid masonry">
 
-      <% @data['youtubes'].each do |entry| %>
+      <% @data[:youtubes].each do |entry| %>
           <%= render :partial => 'shared/entry', :locals => {:entry => entry} %>
       <% end %>
 
       <nav id="page-nav">
         <%# link_to_next_pageの引数に 'params: params' が必要 %>
         <%# See https://github.com/amatsuda/kaminari/issues/513#issuecomment-35795809 %>
-        <% unless @headers['x-next-page'].empty? %>
+        <% unless @headers['x-next-page'].to_s.empty? %>
           <%= link_to_next_page @data['youtubes'], "", params: params %>
         <% end %>
       </nav>

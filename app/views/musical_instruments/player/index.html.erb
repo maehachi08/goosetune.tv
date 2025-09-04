@@ -13,8 +13,8 @@
         <% musical_instrument = @data[musical_instrument_id]['musical_instrument'] %>
 
         <% @data[musical_instrument_id]['players'].each do |musical_instrument_player| %>
-          <% player = musical_instrument_player['player'] %>
-          <% entry = musical_instrument_player['youtube'] %>
+          <% player = musical_instrument_player[:player] %>
+          <% entry = musical_instrument_player[:youtube] %>
 
           <div class="ui card item" style="min-height: 250px; min-width: 150px;">
 

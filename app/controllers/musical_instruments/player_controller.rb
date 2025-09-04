@@ -77,7 +77,9 @@ class MusicalInstruments::PlayerController < ApplicationController
         'youtubes': youtubes
       }
       @common = {}
-      @headers = {}
+      @headers = {
+        'x-next-page': youtubes.respond_to?(:next_page) && youtubes.next_page ? youtubes.next_page.to_s : ''
+      }
     else
       api_path = "/api/v2/musical_instruments/#{params[:musical_instruments_id]}/player/#{params['member_id']}"
       goosetune_api_get_paginate_data(params, api_path)
