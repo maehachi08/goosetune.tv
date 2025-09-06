@@ -87,9 +87,6 @@ gem "dockerfile-rails", ">= 1.6", :group => :development
 # See https://github.com/bkeepers/dotenv
 gem 'dotenv-rails'
 
-# Install kaminari
-# See https://github.com/amatsuda/kaminari
-gem 'kaminari'
 
 # Install yen
 # See https://github.com/siman-man/yen

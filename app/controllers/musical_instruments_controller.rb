@@ -1,6 +1,9 @@
 class MusicalInstrumentsController < ApplicationController
   def index
-    if ENV['API_MODE'] == 'false'
+    if ENV['API_MODE'] == 'true'
+      api_path = "/api/v2/musical_instruments"
+      goosetune_api_get_data(params, api_path)
+    else
       _musical_instruments = []
       cache_name = "#{controller_name}_#{action_name}_musical_instruments_all"
       all_musical_instruments  = Rails.cache.fetch(cache_name) do
@@ -30,14 +33,14 @@ class MusicalInstrumentsController < ApplicationController
       ret.store( 'musical_instruments', musical_instruments)
 
       @data = ret
-    else
-      api_path = "/api/v2/musical_instruments"
-      goosetune_api_get_data(params, api_path)
     end
   end
 
   def entry
-    if ENV['API_MODE'] == 'false'
+    if ENV['API_MODE'] == 'true'
+      api_path = "/api/v2/musical_instruments/#{params[:musical_instruments_id]}"
+      goosetune_api_get_paginate_data(params, api_path)
+    else
       musical_instrument = MusicalInstrument.find( params[:musical_instruments_id] )
       youtubes = musical_instrument.youtubes.order('published DESC').page(params[:page])
 
@@ -52,9 +55,6 @@ class MusicalInstrumentsController < ApplicationController
       if request.xhr? && params[:page].present?
         render partial: 'shared/entry_collection', locals: { entries: @data['youtubes'] }, layout: false
       end
-    else
-      api_path = "/api/v2/musical_instruments/#{params[:musical_instruments_id]}"
-      goosetune_api_get_paginate_data(params, api_path)
     end
   end
 

@@ -26,9 +26,11 @@
       <nav id="page-nav">
         <%# link_to_next_pageの引数に 'params: params' が必要 %>
         <%# See https://github.com/amatsuda/kaminari/issues/513#issuecomment-35795809 %>
-        <% if ENV['API_MODE'] == 'false' %>
-          <%= link_to_next_page @data['youtubes'], "", params: params %>
-        <% elsif @headers['x-next-page'].present? %>
+        <% if ENV['API_MODE'] == 'true' %>
+          <% if @headers['x-next-page'].present? %>
+            <%= link_to_next_page @data['youtubes'], "", params: params %>
+          <% end %>
+        <% else %>
           <%= link_to_next_page @data['youtubes'], "", params: params %>
         <% end %>
       </nav>

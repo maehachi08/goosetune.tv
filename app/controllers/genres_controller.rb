@@ -1,6 +1,9 @@
 class GenresController < ApplicationController
   def index
-    if ENV['API_MODE'] == 'false'
+    if ENV['API_MODE'] == 'true'
+      api_path = "/api/v2/genres"
+      goosetune_api_get_data(params, api_path)
+    else
       genres_info = []
       genres = Genre.all
 
@@ -12,16 +15,17 @@ class GenresController < ApplicationController
       end
 
       @data = genres_info
-    else
-      api_path = "/api/v2/genres"
-      goosetune_api_get_data(params, api_path)
     end
   end
 
   def entry
     genre_id = params[:genre_id]
 
-    if ENV['API_MODE'] == 'false'
+    if ENV['API_MODE'] == 'true'
+      api_path = "/api/v2/genres/#{genre_id}"
+      params.delete('genre_id')
+      goosetune_api_get_paginate_data(params, api_path)
+    else
       genre = Genre.find(genre_id)
       youtubes = genre.youtubes.order('published DESC')
       paginated_youtubes = Kaminari.paginate_array(youtubes.to_a).page(params[:page])
@@ -37,10 +41,6 @@ class GenresController < ApplicationController
       if request.xhr? && params[:page].present?
         render partial: 'shared/entry_collection', locals: { entries: @data['youtubes'] }, layout: false
       end
-    else
-      api_path = "/api/v2/genres/#{genre_id}"
-      params.delete('genre_id')
-      goosetune_api_get_paginate_data(params, api_path)
     end
   end
 

@@ -1,6 +1,10 @@
 class UstreamsController < ApplicationController
   def index
-    if ENV['API_MODE'] == 'false'
+    if ENV['API_MODE'] == 'true'
+      params = URI.encode_www_form({ limit: 6 })
+      api_path = "/api/v2/ustreams?#{params}"
+      goosetune_api_get_data(params, api_path)
+    else
       limit = params[:limit] ? params[:limit] : 4
 
       _desc = Ustream.all.order('published DESC').limit(limit)
@@ -45,15 +49,14 @@ class UstreamsController < ApplicationController
       ret.store( 'HOYから検索', hoy)
 
       @data = ret
-    else
-      params = URI.encode_www_form({ limit: 6 })
-      api_path = "/api/v2/ustreams?#{params}"
-      goosetune_api_get_data(params, api_path)
     end
   end
 
   def entry
-    if ENV['API_MODE'] == 'false'
+    if ENV['API_MODE'] == 'true'
+      api_path = "/api/v2/ustreams/#{params[:ustream_id]}"
+      goosetune_api_get_data(params, api_path)
+    else
       ustream = Ustream.find(params[:ustream_id])
 
       if Hoy.hoy?(ustream_id=ustream.id)
@@ -67,26 +70,27 @@ class UstreamsController < ApplicationController
         'ustream' => ustream,
         'youtubes' => youtubes,
       }
-    else
-      api_path = "/api/v2/ustreams/#{params[:ustream_id]}"
-      goosetune_api_get_data(params, api_path)
     end
   end
 
   def hoy
     @title = "HOY"
-    if ENV['API_MODE'] == 'false'
-      ustreams = Ustream.get_hoy_list
-      @data = ustreams
-    else
+    if ENV['API_MODE'] == 'true'
       api_path = '/api/v2/ustreams/hoy'
       goosetune_api_get_data(params, api_path)
+    else
+      ustreams = Ustream.get_hoy_list
+      @data = ustreams
     end
   end
 
   def view_counts
     @title = "再生回数の多い順"
-    if ENV['API_MODE'] == 'false'
+    if ENV['API_MODE'] == 'true'
+      api_path = '/api/v2/ustreams/view_counts'
+      goosetune_api_get_paginate_data(params, api_path)
+      render "entries"
+    else
       @data = {
         'entries' => Ustream.all.order('view_counts DESC').page(params[:page])
       }
@@ -99,16 +103,16 @@ class UstreamsController < ApplicationController
       else
         render "entries"
       end
-    else
-      api_path = '/api/v2/ustreams/view_counts'
-      goosetune_api_get_paginate_data(params, api_path)
-      render "entries"
     end
   end
 
   def desc
     @title = "すべての動画(新しい順)"
-    if ENV['API_MODE'] == 'false'
+    if ENV['API_MODE'] == 'true'
+      api_path = '/api/v2/ustreams/desc'
+      goosetune_api_get_paginate_data(params, api_path)
+      render "entries"
+    else
       @data = {
         'entries' => Ustream.all.order('published DESC').page(params[:page])
       }
@@ -121,16 +125,16 @@ class UstreamsController < ApplicationController
       else
         render "entries"
       end
-    else
-      api_path = '/api/v2/ustreams/desc'
-      goosetune_api_get_paginate_data(params, api_path)
-      render "entries"
     end
   end
 
   def asc
     @title = "すべての動画(古い順)"
-    if ENV['API_MODE'] == 'false'
+    if ENV['API_MODE'] == 'true'
+      api_path = '/api/v2/ustreams/asc'
+      goosetune_api_get_paginate_data(params, api_path)
+      render "entries"
+    else
       @data = {
         'entries' => Ustream.all.order('published ASC').page(params[:page])
       }
@@ -143,10 +147,6 @@ class UstreamsController < ApplicationController
       else
         render "entries"
       end
-    else
-      api_path = '/api/v2/ustreams/asc'
-      goosetune_api_get_paginate_data(params, api_path)
-      render "entries"
     end
   end
 

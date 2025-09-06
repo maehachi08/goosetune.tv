@@ -2,12 +2,12 @@ class Youtubes::HoyController < ApplicationController
   def index
     @title = "HOY(House Of the Year)"
 
-    if ENV['API_MODE'] == 'false'
-      @data = {}
-      @data['hoys'] = ::Hoy.all_entries()
-    else
+    if ENV['API_MODE'] == 'true'
       api_path = "/api/v2/ustreams/hoy"
       goosetune_api_get_data(params, api_path)
+    else
+      @data = {}
+      @data['hoys'] = ::Hoy.all_entries()
     end
   end
 
@@ -15,13 +15,13 @@ class Youtubes::HoyController < ApplicationController
     year = params[:year]
     @title = " #{year}年のHOY(House Of the Year)"
 
-    if ENV['API_MODE'] == 'false'
+    if ENV['API_MODE'] == 'true'
+      api_path = "/api/v2/youtubes/hoy/#{year}"
+      goosetune_api_get_data(params, api_path)
+    else
       @data = {}
       @data['entries'] = ::Hoy.year(year=year)
       @data['ustream'] = ::Hoy.get_hoy_ustream(year=year)
-    else
-      api_path = "/api/v2/youtubes/hoy/#{year}"
-      goosetune_api_get_data(params, api_path)
     end
   end
 

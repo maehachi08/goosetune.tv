@@ -1,6 +1,9 @@
 class ArtistsController < ApplicationController
   def index
-    if ENV['API_MODE'] == 'false'
+    if ENV['API_MODE'] == 'true'
+      api_path = "/api/v2/artists"
+      goosetune_api_get_data(params, api_path)
+    else
       # アーティストを50音別に分類
       @artists_a  = Artist.where('reading regexp \'^(ア|イ|ウ|エ|オ)\'').order( Arel.sql('cast(reading AS CHAR) ASC') )
       @artists_ka = Artist.where('reading regexp \'^(ガ|ギ|グ|ゲ|ゴ|カ|キ|ク|ケ|コ)\'').order( Arel.sql('cast(reading AS CHAR) ASC') )
@@ -65,16 +68,16 @@ class ArtistsController < ApplicationController
           'url' => 'http://api.goosetune.tv/api/v2/artist/{{ artist.id }}'
         }
       }
-    else
-      api_path = "/api/v2/artists"
-      goosetune_api_get_data(params, api_path)
     end
   end
 
   def entry
     ids = params[:artist_id].to_s
 
-    if ENV['API_MODE'] == 'false'
+    if ENV['API_MODE'] == 'true'
+      api_path = "/api/v2/artists/#{ids}"
+      goosetune_api_get_paginate_data(params, api_path)
+    else
       artist_ids = ids.split(',')
       artist = Artist.find(artist_ids)
       youtubes = Kaminari.paginate_array(::Artist.get_youtubes(artist_ids)).page(params[:page])
@@ -88,9 +91,6 @@ class ArtistsController < ApplicationController
       if request.xhr? && params[:page].present?
         render partial: 'shared/entry_collection', locals: { entries: @data['youtubes'] }, layout: false
       end
-    else
-      api_path = "/api/v2/artists/#{ids}"
-      goosetune_api_get_paginate_data(params, api_path)
     end
   end
 

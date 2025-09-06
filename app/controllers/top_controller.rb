@@ -1,6 +1,12 @@
 class TopController < ApplicationController
   def index
-    if ENV['API_MODE'] == 'false'
+    if ENV['API_MODE'] == 'true'
+      params = URI.encode_www_form({ limit: 6 })
+      api_path = "/api/v2/youtubes?#{params}"
+      data = goosetune_api.get_data(params, api_path)
+      @data = data['contents']
+      @common = data['common']
+    else
       limit = 6
 
       # 新着
@@ -86,12 +92,6 @@ class TopController < ApplicationController
       contents.store( '古い順', asc)
       @data = contents
       @common = {}
-    else
-      params = URI.encode_www_form({ limit: 6 })
-      api_path = "/api/v2/youtubes?#{params}"
-      data = goosetune_api.get_data(params, api_path)
-      @data = data['contents']
-      @common = data['common']
     end
   end
 

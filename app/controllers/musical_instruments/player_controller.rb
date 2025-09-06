@@ -3,7 +3,11 @@ class MusicalInstruments::PlayerController < ApplicationController
 
   # 演奏者検索
   def index
-    if ENV['API_MODE'] == 'false'
+    if ENV['API_MODE'] == 'true'
+      api_path = "/api/v2/musical_instruments/player"
+      goosetune_api_get_data(params, api_path)
+      @musical_instrument_ids = @data.keys
+    else
       _musical_instruments_player = {}
       musical_instrument_ids_of_players = MusicalInstrumentPlayer.all.pluck('musical_instrument_id').uniq
 
@@ -26,16 +30,15 @@ class MusicalInstruments::PlayerController < ApplicationController
       @data = _musical_instruments_player
       @common = {}
       @musical_instrument_ids = @data.keys
-    else
-      api_path = "/api/v2/musical_instruments/player"
-      goosetune_api_get_data(params, api_path)
-      @musical_instrument_ids = @data.keys
     end
   end
 
   # 演奏者検索: musical_instruments_name
   def list
-    if ENV['API_MODE'] == 'false'
+    if ENV['API_MODE'] == 'true'
+      api_path = "/api/v2/musical_instruments/#{params[:musical_instruments_id]}/player"
+      goosetune_api_get_data(params, api_path)
+    else
       musical_instrument_id = params[:musical_instruments_id]
       member_ids_of_musical_instrument = MusicalInstrumentPlayer.where(
         :musical_instrument_id => musical_instrument_id
@@ -51,15 +54,15 @@ class MusicalInstruments::PlayerController < ApplicationController
         'players_info': players_info
       }
       @common = {}
-    else
-      api_path = "/api/v2/musical_instruments/#{params[:musical_instruments_id]}/player"
-      goosetune_api_get_data(params, api_path)
     end
   end
 
   # 演奏者検索: musical_instruments_name(member_name)
   def entry
-    if ENV['API_MODE'] == 'false'
+    if ENV['API_MODE'] == 'true'
+      api_path = "/api/v2/musical_instruments/#{params[:musical_instruments_id]}/player/#{params['member_id']}"
+      goosetune_api_get_paginate_data(params, api_path)
+    else
       musical_instrument_id = params['musical_instruments_id']
       player_id = params['member_id']
 
@@ -80,9 +83,6 @@ class MusicalInstruments::PlayerController < ApplicationController
       @headers = {
         'x-next-page': youtubes.respond_to?(:next_page) && youtubes.next_page ? youtubes.next_page.to_s : ''
       }
-    else
-      api_path = "/api/v2/musical_instruments/#{params[:musical_instruments_id]}/player/#{params['member_id']}"
-      goosetune_api_get_paginate_data(params, api_path)
     end
   end
 
