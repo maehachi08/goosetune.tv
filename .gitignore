@@ -58,3 +58,12 @@ public/*.png
 public/*.jpg
 public/*.jpeg
 public/*.gif
+
+# Terraform
+terraform/set_variables.sh
+terraform/**/.terraform/
+terraform/**/*.tfstate
+terraform/**/*.tfstate.*
+terraform/**/.terraform.lock.hcl
+terraform/**/terraform.tfplan
+terraform/**/terraform.tfplan.*

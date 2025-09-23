@@ -75,7 +75,7 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
 
   # for ecs
-  config.hosts << "goosetunetv-alb-1662435123.ap-northeast-1.elb.amazonaws.com"
+  config.hosts << "goosetunetv-alb-731353114.ap-northeast-1.elb.amazonaws.com"
   config.hosts << "goosetune.tv"
 
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker

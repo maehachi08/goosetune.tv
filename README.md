@@ -59,3 +59,12 @@ docker tag goosetunetv:latest ${AWS_ACCOUNT}.dkr.ecr.ap-northeast-1.amazonaws.co
 docker push 375144106126.dkr.ecr.ap-northeast-1.amazonaws.com/goosetunetv:latest
 ```
 
+### Update the ecs service
+
+```
+aws ecs update-service \
+  --cluster goosetunetv \
+  --service goosetunetv \
+  --force-new-deployment
+```
+
