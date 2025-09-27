@@ -45,6 +45,7 @@
 
 # not use assets pre-compile
 app/assets
+!app/assets/config
 
 public/bundle.js
 public/flat-ui/
