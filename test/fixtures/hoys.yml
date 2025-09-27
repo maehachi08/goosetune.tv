@@ -1,0 +1,39 @@
+hoy_1:
+  id: 1
+  year: 2014
+  ranking: 1
+  youtube_id: "ZbhW_GDuk0c"
+  created_at: "2014-12-23 08:12:31"
+  updated_at: "2014-12-23 08:12:31"
+
+hoy_2:
+  id: 2
+  year: 2014
+  ranking: 2
+  youtube_id: "9MkWWrlx8qM"
+  created_at: "2014-12-23 08:12:31"
+  updated_at: "2014-12-23 08:12:31"
+
+hoy_3:
+  id: 3
+  year: 2014
+  ranking: 3
+  youtube_id: "A-BwQe8T23I"
+  created_at: "2014-12-23 08:12:31"
+  updated_at: "2014-12-23 08:12:31"
+
+hoy_4:
+  id: 4
+  year: 2014
+  ranking: 4
+  youtube_id: "HoUM-XxOm6I"
+  created_at: "2014-12-23 08:12:31"
+  updated_at: "2014-12-23 08:12:31"
+
+hoy_5:
+  id: 5
+  year: 2014
+  ranking: 5
+  youtube_id: "ddgcjiFfrd4"
+  created_at: "2014-12-23 08:12:31"
+  updated_at: "2014-12-23 08:12:31"

@@ -1,0 +1,13 @@
+youtube_channel_1:
+  id: 1
+  youtube_channel_id: "UCFDL0NuxUBAvvu1PnIwW2ww"
+  name: "playyouhousejp"
+  created_at: "2019-07-14 10:20:18"
+  updated_at: "2019-07-14 10:20:18"
+
+youtube_channel_2:
+  id: 2
+  youtube_channel_id: "UCx66obAJ42B0XwHIm_iupkw"
+  name: "playgoose"
+  created_at: "2019-07-14 10:22:08"
+  updated_at: "2019-07-14 10:22:08"

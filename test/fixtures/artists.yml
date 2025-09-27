@@ -1,0 +1,41 @@
+artist_1:
+  id: 1
+  name: "Goose house"
+  reading: "グースハウス"
+  created_at: "2014-05-09 09:59:20"
+  updated_at: "2019-07-14 04:09:27"
+
+artist_2:
+  id: 2
+  name: "MUSH&CO."
+  reading: "ムッシュアンドコー"
+  created_at: "2014-05-09 09:59:20"
+  updated_at: "2015-11-17 16:29:16"
+
+artist_3:
+  id: 3
+  name: "back number"
+  reading: "バックナンバー"
+  created_at: "2014-05-09 09:59:20"
+  updated_at: "2015-11-17 16:29:26"
+
+artist_4:
+  id: 4
+  name: "miwa"
+  reading: "ミワ"
+  created_at: "2014-05-09 09:59:20"
+  updated_at: "2015-11-17 16:29:37"
+
+artist_5:
+  id: 5
+  name: "福山雅治"
+  reading: "フクヤママサハル"
+  created_at: "2014-05-09 09:59:20"
+  updated_at: "2015-11-17 16:29:52"
+
+artist_159:
+  id: 159
+  name: "Play You. House"
+  reading: "プレイユウハウス"
+  created_at: "2014-05-09 09:59:23"
+  updated_at: "2015-11-18 11:21:09"

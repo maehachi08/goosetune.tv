@@ -1,0 +1,34 @@
+musical_instrument_1:
+  id: 2
+  name: "アコースティックギター"
+  description: ""
+  created_at: "2015-03-06 09:27:34"
+  updated_at: "2015-03-06 09:27:34"
+
+musical_instrument_2:
+  id: 3
+  name: "KAOSS PAD"
+  description: "リアルタイムサンプラー、エフェクター"
+  created_at: "2015-03-10 13:26:22"
+  updated_at: "2015-03-10 13:26:22"
+
+musical_instrument_3:
+  id: 4
+  name: "Musical Washboard"
+  description: "洗濯板を楽器として使用"
+  created_at: "2015-03-10 14:12:56"
+  updated_at: "2015-03-10 14:12:56"
+
+musical_instrument_4:
+  id: 5
+  name: "ウクレレ"
+  description: "4弦のハワイアン楽器、ギター系統の小型弦楽器"
+  created_at: "2015-03-10 14:16:42"
+  updated_at: "2015-03-10 14:16:42"
+
+musical_instrument_5:
+  id: 6
+  name: "キーボード"
+  description: "電子キーボード、シンセサイザー機能を持つ鍵盤楽器"
+  created_at: "2015-03-10 14:18:38"
+  updated_at: "2015-03-10 14:18:38"

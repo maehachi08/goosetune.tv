@@ -1,0 +1,55 @@
+genre_1:
+  id: 1
+  name: "ポップス"
+  description: "ポップスミュージック"
+  created_at: "2015-05-10 08:19:34"
+  updated_at: "2015-05-10 08:19:34"
+
+genre_2:
+  id: 2
+  name: "ロック"
+  description: "ロック音楽"
+  created_at: "2015-05-10 08:19:49"
+  updated_at: "2015-05-10 08:19:49"
+
+genre_3:
+  id: 3
+  name: "バラード"
+  description: "バラードミュージック、スローテンポ"
+  created_at: "2015-05-10 08:31:38"
+  updated_at: "2015-05-10 08:31:38"
+
+genre_4:
+  id: 4
+  name: "フォーク"
+  description: ""
+  created_at: "2015-05-10 08:38:14"
+  updated_at: "2015-05-10 08:38:14"
+
+genre_5:
+  id: 5
+  name: "アニメソング"
+  description: ""
+  created_at: "2015-09-26 11:39:40"
+  updated_at: "2015-09-26 11:39:40"
+
+genre_7:
+  id: 7
+  name: "CM楽曲"
+  description: "CMソング関連"
+  created_at: "2017-03-06 10:54:08"
+  updated_at: "2017-03-06 10:54:08"
+
+genre_8:
+  id: 8
+  name: "ゲーム音楽"
+  description: ""
+  created_at: "2017-03-06 10:55:31"
+  updated_at: "2017-03-06 10:55:31"
+
+genre_9:
+  id: 9
+  name: "インストゥルメンタル"
+  description: ""
+  created_at: "2017-03-06 11:00:56"
+  updated_at: "2017-03-06 11:00:56"
