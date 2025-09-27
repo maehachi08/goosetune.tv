@@ -23,5 +23,8 @@ module Goosetunetv
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    
+    # Disable asset pipeline in test environment
+    config.assets.enabled = false if Rails.env.test?
   end
 end
