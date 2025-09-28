@@ -19,9 +19,8 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ROOT_PASSWORD: password
+          MYSQL_ROOT_HOST: '%'
           MYSQL_DATABASE: goosetunetv_test
-          MYSQL_USER: goosetunetv
-          MYSQL_PASSWORD: goosetunetv
         ports:
           - 3306:3306
         options: >-
@@ -39,19 +38,13 @@ jobs:
           ruby-version: '3.3.5'
           bundler-cache: true
 
-      - name: Wait for MySQL
-        run: |
-          while ! mysqladmin ping -h 127.0.0.1 -u goosetunetv -pgoosetunetv --silent; do
-            sleep 1
-          done
-
       - name: Setup Database
         run: |
           bin/rails db:create
           bin/rails db:schema:load
         env:
-          DATABASE_USERNAME: goosetunetv
-          DATABASE_PASSWORD: goosetunetv
+          DATABASE_USERNAME: root
+          DATABASE_PASSWORD: password
           DATABASE_NAME: goosetunetv_test
           DATABASE_HOST: 127.0.0.1
           RAILS_ENV: test
@@ -66,8 +59,8 @@ jobs:
       - name: Run tests
         run: bin/rails test
         env:
-          DATABASE_USERNAME: goosetunetv
-          DATABASE_PASSWORD: goosetunetv
+          DATABASE_USERNAME: root
+          DATABASE_PASSWORD: password
           DATABASE_NAME: goosetunetv_test
           DATABASE_HOST: 127.0.0.1
           RAILS_ENV: test
