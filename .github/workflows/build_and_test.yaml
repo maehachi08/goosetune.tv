@@ -13,6 +13,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
 
     services:
       mysql:
@@ -64,6 +67,92 @@ jobs:
           DATABASE_NAME: goosetunetv_test
           DATABASE_HOST: 127.0.0.1
           RAILS_ENV: test
+
+      - name: Parse coverage report
+        id: coverage
+        run: |
+          if [ -f coverage/coverage.xml ]; then
+            # Extract coverage percentage from Cobertura XML report
+            COVERAGE=$(grep -o 'line-rate="[^"]*"' coverage/coverage.xml | head -1 | sed 's/line-rate="//;s/"//' | awk '{printf "%.2f", $1 * 100}')
+            echo "coverage=${COVERAGE}" >> $GITHUB_OUTPUT
+          elif [ -f coverage/.resultset.json ]; then
+            # Fallback to JSON result if XML is not available
+            COVERAGE=$(ruby -r json -e "
+              data = JSON.parse(File.read('coverage/.resultset.json'))
+              test_key = data.keys.first
+              if data && data[test_key] && data[test_key]['coverage']
+                total_lines = 0
+                covered_lines = 0
+                data[test_key]['coverage'].each do |file, lines|
+                  lines.each do |line|
+                    if line.is_a?(Integer) && line >= 0
+                      total_lines += 1
+                      covered_lines += 1 if line > 0
+                    end
+                  end
+                end
+                coverage_percent = total_lines > 0 ? ((covered_lines.to_f / total_lines) * 100).round(2) : 0
+                puts coverage_percent
+              else
+                puts '0'
+              end
+            ")
+            echo "coverage=${COVERAGE}" >> $GITHUB_OUTPUT
+          else
+            echo "coverage=0" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Comment coverage report
+        #if: github.event_name == 'pull_request'
+        if: always()
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const coverage = '${{ steps.coverage.outputs.coverage }}';
+            const threshold = '80'; // Original threshold
+
+            const comment = `# SimpleCov Report
+
+            | Covered | Threshold|
+            |:---|:---|
+            | ${coverage}% | ${threshold}%|`;
+
+            if (context.eventName === 'pull_request') {
+              // For pull requests, comment on the PR
+              const comments = await github.rest.issues.listComments({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+              });
+
+              const existingComment = comments.data.find(comment => 
+                comment.body.includes('# SimpleCov Report')
+              );
+
+              if (existingComment) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: existingComment.id,
+                  body: comment
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: context.issue.number,
+                  body: comment
+                });
+              }
+            } else {
+              // For push events, comment on the commit
+              await github.rest.repos.createCommitComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: context.sha,
+                body: comment
+              });
+            }
 
       - name: Upload coverage reports
         uses: actions/upload-artifact@v4
