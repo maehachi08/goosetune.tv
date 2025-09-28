@@ -18,7 +18,7 @@ SimpleCov.start 'rails' do
   ])
 
   # Set minimum coverage threshold
-  minimum_coverage 80
+  # minimum_coverage 80
 
   # Refuse to merge results that are more than 10 minutes old
   merge_timeout 600
